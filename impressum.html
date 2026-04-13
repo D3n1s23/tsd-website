@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum – TSD Design GmbH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #111111; --bg-darker: #0a0a0a; --bg-section: #161616;
+  --bg-card: #1c1c1c; --text-white: #ffffff; --text-light: #e0ddd7;
+  --text-muted: #8c8880; --accent: #c5a46d; --accent-hover: #d4b87e;
+  --border-subtle: rgba(255,255,255,0.08); --border-light: rgba(255,255,255,0.12);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-sans); background: var(--bg-dark);
+  color: var(--text-white); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(17,17,17,0.92); backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border-subtle);
+}
+header .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.logo img { height: 36px; width: auto; }
+nav ul { display: flex; align-items: center; gap: 2rem; list-style: none; }
+nav a { font-size: 0.88rem; font-weight: 400; color: var(--text-muted); transition: color 0.3s; }
+nav a:hover { color: var(--text-white); }
+.nav-cta {
+  background: var(--text-white); color: var(--bg-dark) !important;
+  padding: 0.55rem 1.35rem; border-radius: 6px; font-weight: 600;
+  font-size: 0.85rem; transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--bg-dark) !important; }
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
+.menu-toggle span { width: 22px; height: 1.5px; background: var(--text-white); }
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  nav ul {
+    position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    flex-direction: column; justify-content: flex-start; padding: 3rem 2rem;
+    background: var(--bg-darker); gap: 1.5rem; transform: translateX(100%); transition: transform 0.4s ease;
+  }
+  nav ul.open { transform: translateX(0); }
+  nav a { font-size: 1.1rem; color: var(--text-light); }
+}
+
+.page-hero { padding: 10rem 0 3rem; }
+.page-hero .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.page-hero h1 {
+  font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400; line-height: 1.2;
+}
+
+.legal-content {
+  max-width: 720px; padding-bottom: 7rem;
+}
+.legal-content h2 {
+  font-size: 1.05rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.75rem;
+  letter-spacing: -0.01em; color: var(--text-white);
+}
+.legal-content p {
+  font-size: 0.9rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 0.75rem;
+}
+.legal-content a { color: var(--accent); transition: color 0.3s; }
+.legal-content a:hover { color: var(--accent-hover); }
+.legal-content .photo-credits {
+  margin-top: 1rem;
+}
+.legal-content .photo-credits p {
+  margin-bottom: 0.25rem;
+}
+
+footer { padding: 2.5rem 0; border-top: 1px solid var(--border-subtle); }
+footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-left { display: flex; align-items: center; gap: 1rem; }
+.footer-logo { height: 24px; width: auto; opacity: 0.6; }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text-white); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image.png" alt="TSD Design GmbH">
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="index.html#system">KI-Kreativsystem</a></li>
+        <li><a href="index.html#pakete">Leistungspakete</a></li>
+        <li><a href="index.html#prozess">Ablauf</a></li>
+        <li><a href="index.html#unternehmen">Für Ihr Unternehmen</a></li>
+        <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="overline">Rechtliches</span>
+    <h1>Impressum</h1>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="legal-content">
+
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>
+        TSD Design GmbH<br>
+        Geschäftsführer: Georgos Papadopulos<br>
+        Max-Liebermann-Str. 7<br>
+        50765 Köln
+      </p>
+      <p>
+        Telefon: <a href="tel:+4922134663906">+49 221 346 639 06</a><br>
+        E-Mail: <a href="mailto:mail@tsd-design.de">mail@tsd-design.de</a><br>
+        Website: <a href="https://www.tsd-design.de">www.tsd-design.de</a>
+      </p>
+
+      <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+      <p>
+        TSD Design GmbH<br>
+        Geschäftsführer: Georgos Papadopulos<br>
+        Max-Liebermann-Str. 7<br>
+        50765 Köln
+      </p>
+
+      <h2>Handelsregister & Umsatzsteuer</h2>
+      <p>
+        Umsatzsteuer-ID: DE452164649 – nach § 27a UStG<br>
+        Amtsgericht Köln, HRB 121928
+      </p>
+
+      <h2>Haftungsausschluss</h2>
+      <p>
+        Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+      </p>
+
+      <h2>Bildrechte</h2>
+      <div class="photo-credits">
+        <p>Fotos von:</p>
+        <p>Austin Distel – <a href="https://unsplash.com/@austindistel" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Ricardo Gomez – <a href="https://unsplash.com/@rgaleriacom" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Mohammad Rahmani – <a href="https://unsplash.com/@afgprogrammer" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Patrick Langwallner – <a href="https://unsplash.com/@patresinger" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Maximalfocus – <a href="https://unsplash.com/@maximalfocus" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Tim Stief – <a href="https://unsplash.com/@timstief" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Tom Chrostek – <a href="https://unsplash.com/@chrostek" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Frances Gunn – <a href="https://unsplash.com/@francesgunn" target="_blank" rel="noopener">Unsplash</a></p>
+        <p>Quelle: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image-256x256.png" alt="TSD Design" class="footer-logo">
+      <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navMenu').classList.toggle('open');
+});
+</script>
+</body>
+</html>

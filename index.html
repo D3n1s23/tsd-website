@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSD Design GmbH – Das KI-Kreativsystem für Ihr Unternehmen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #111111;
+  --bg-darker: #0a0a0a;
+  --bg-section: #161616;
+  --bg-card: #1c1c1c;
+  --bg-light: #f5f4f0;
+  --bg-cream: #eae8e3;
+  --text-white: #ffffff;
+  --text-light: #e0ddd7;
+  --text-muted: #8c8880;
+  --text-dark: #1a1a1a;
+  --accent: #c5a46d;
+  --accent-hover: #d4b87e;
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-light: rgba(255,255,255,0.12);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-dark);
+  color: var(--text-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ---- NAV ---- */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(17,17,17,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.logo img { height: 36px; width: auto; }
+nav ul {
+  display: flex; align-items: center; gap: 2rem;
+  list-style: none;
+}
+nav a {
+  font-size: 0.88rem; font-weight: 400;
+  color: var(--text-muted); transition: color 0.3s;
+  letter-spacing: 0.01em;
+}
+nav a:hover { color: var(--text-white); }
+.nav-cta {
+  background: var(--text-white); color: var(--bg-dark) !important;
+  padding: 0.55rem 1.35rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.85rem; transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--bg-dark) !important; }
+
+.menu-toggle {
+  display: none; background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px; padding: 8px;
+}
+.menu-toggle span {
+  width: 22px; height: 1.5px;
+  background: var(--text-white); transition: all 0.3s;
+}
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  nav ul {
+    position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    flex-direction: column; justify-content: flex-start;
+    padding: 3rem 2rem; background: var(--bg-darker);
+    gap: 1.5rem; transform: translateX(100%); transition: transform 0.4s ease;
+  }
+  nav ul.open { transform: translateX(0); }
+  nav a { font-size: 1.1rem; color: var(--text-light); }
+}
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 10rem 0 6rem; position: relative;
+}
+.hero .container {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.hero-overline {
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+  font-weight: 400; line-height: 1.15;
+  letter-spacing: -0.015em; margin-bottom: 1.5rem;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);
+  max-width: 520px; margin-bottom: 2.5rem; font-weight: 300;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 1.75rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.9rem;
+  border: none; cursor: pointer; transition: all 0.3s;
+  letter-spacing: 0.01em;
+}
+.btn-light { background: var(--text-white); color: var(--bg-dark); }
+.btn-light:hover { background: var(--accent); }
+.btn-outline {
+  background: transparent; color: var(--text-light);
+  border: 1px solid var(--border-light);
+}
+.btn-outline:hover { border-color: var(--text-white); color: var(--text-white); }
+.btn svg { width: 15px; height: 15px; }
+
+.hero-visual { display: flex; flex-direction: column; gap: 0.75rem; }
+a.hero-layer { text-decoration: none; color: inherit; }
+.hero-layer {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: default; position: relative; overflow: hidden;
+}
+.hero-layer::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.hero-layer:nth-child(1)::after { background: #7a9e7e; }
+.hero-layer:nth-child(2)::after { background: #6a8fb5; }
+.hero-layer:nth-child(3)::after { background: #9b7ab8; }
+.hero-layer:nth-child(4)::after { background: var(--accent); }
+.hero-layer:hover {
+  background: var(--bg-section); border-color: var(--border-light);
+  transform: translateX(6px);
+}
+.layer-num {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--text-muted); min-width: 18px;
+}
+.layer-content h4 {
+  font-size: 0.95rem; font-weight: 600;
+  margin-bottom: 0.15rem; letter-spacing: -0.01em;
+}
+.layer-content p { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
+
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-visual { margin-top: 2.5rem; }
+}
+
+/* ---- DIVIDER ---- */
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-subtle), transparent); }
+
+/* ---- PROBLEM ---- */
+.problem { padding: 7rem 0; background: var(--bg-darker); }
+.section-head { margin-bottom: 4rem; }
+.section-head .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.25rem; display: block;
+}
+.section-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400; line-height: 1.2;
+  letter-spacing: -0.01em; max-width: 650px; margin-bottom: 1rem;
+}
+.section-head p {
+  font-size: 1rem; line-height: 1.75; color: var(--text-muted);
+  max-width: 580px; font-weight: 300;
+}
+
+.pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.pain-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 2rem 1.75rem; transition: all 0.35s;
+}
+.pain-card:hover { border-color: var(--border-light); transform: translateY(-3px); }
+.pain-card .icon { font-size: 1.5rem; margin-bottom: 1.25rem; display: block; }
+.pain-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+.pain-card p { font-size: 0.88rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
+
+@media (max-width: 768px) { .pain-grid { grid-template-columns: 1fr; } }
+
+/* ---- SYSTEM ---- */
+.system { padding: 7rem 0; background: var(--bg-dark); }
+.system .section-head { max-width: 640px; margin-bottom: 4rem; }
+
+.layer-section {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-top: 1px solid var(--border-subtle);
+  padding: 3.5rem 0; align-items: center;
+}
+.layer-section:last-child { border-bottom: 1px solid var(--border-subtle); }
+.layer-section:nth-child(even) .layer-text { order: 2; }
+.layer-section:nth-child(even) .layer-vis { order: 1; }
+.layer-text { padding-right: 3rem; }
+.layer-section:nth-child(even) .layer-text { padding-right: 0; padding-left: 3rem; }
+
+.layer-tag {
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.3rem 0.7rem; border-radius: 4px; margin-bottom: 1.25rem;
+}
+.l1 .layer-tag { background: rgba(122,158,126,0.12); color: #7a9e7e; }
+.l2 .layer-tag { background: rgba(106,143,181,0.12); color: #6a8fb5; }
+.l3 .layer-tag { background: rgba(155,122,184,0.12); color: #9b7ab8; }
+.l4 .layer-tag { background: rgba(197,164,109,0.12); color: var(--accent); }
+
+.layer-text h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+  font-weight: 400; margin-bottom: 1rem; line-height: 1.25;
+}
+.layer-text > p {
+  font-size: 0.95rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 1.5rem;
+}
+.deliverables { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.deliverable {
+  font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem;
+  border-radius: 100px; border: 1px solid var(--border-subtle);
+  color: var(--text-muted); transition: all 0.3s;
+}
+.deliverable:hover { border-color: var(--border-light); color: var(--text-light); }
+
+.layer-vis { display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.layer-illustration {
+  width: 100%; max-width: 320px; aspect-ratio: 1; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.layer-illustration svg { width: 85%; height: 85%; }
+.l1 .layer-illustration { background: rgba(122,158,126,0.06); border: 1px solid rgba(122,158,126,0.1); }
+.l2 .layer-illustration { background: rgba(106,143,181,0.06); border: 1px solid rgba(106,143,181,0.1); }
+.l3 .layer-illustration { background: rgba(155,122,184,0.06); border: 1px solid rgba(155,122,184,0.1); }
+.l4 .layer-illustration { background: rgba(197,164,109,0.06); border: 1px solid rgba(197,164,109,0.1); }
+
+/* Motion design animations */
+@keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes radar-pulse { 0%, 100% { opacity: 0.15; transform: scale(0.3); } 50% { opacity: 0; transform: scale(1); } }
+@keyframes gear-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes gear-counter { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes grid-morph-1 { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(0.8) rotate(45deg); } }
+@keyframes grid-morph-2 { 0%, 100% { transform: scale(0.8) rotate(45deg); } 50% { transform: scale(1) rotate(0deg); } }
+@keyframes grid-shift { 0%, 100% { transform: translate(0,0); } 25% { transform: translate(3px,-3px); } 50% { transform: translate(-2px,4px); } 75% { transform: translate(4px,2px); } }
+@keyframes node-pulse { 0%, 100% { r: 3; opacity: 0.7; } 50% { r: 5; opacity: 1; } }
+@keyframes ring-expand { 0% { r: 8; opacity: 0.6; stroke-width: 1.5; } 100% { r: 55; opacity: 0; stroke-width: 0.3; } }
+@keyframes dash-flow { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes scan-line { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+  .layer-section { grid-template-columns: 1fr; }
+  .layer-text, .layer-section:nth-child(even) .layer-text { padding: 0; order: 1 !important; }
+  .layer-vis { order: 2 !important; padding: 1.5rem 0; }
+}
+
+/* ---- PAKETE ---- */
+.packages { padding: 7rem 0; background: var(--bg-section); }
+.packages .section-head { max-width: 640px; margin-bottom: 4rem; }
+.pkg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.pkg {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 2rem 1.5rem;
+  display: flex; flex-direction: column; transition: all 0.35s; position: relative;
+}
+.pkg:hover { border-color: var(--border-light); transform: translateY(-4px); }
+.pkg.featured { border-color: var(--accent); }
+.pkg-badge {
+  position: absolute; top: -1px; right: 1.5rem;
+  background: var(--accent); color: var(--bg-dark);
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 0.3rem 0.65rem 0.35rem;
+  border-radius: 0 0 5px 5px;
+}
+.pkg-overline {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;
+}
+.pkg h3 {
+  font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400;
+  margin-bottom: 0.6rem; line-height: 1.3;
+}
+.pkg .pkg-desc {
+  font-size: 0.82rem; line-height: 1.6; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 1.5rem;
+}
+.pkg-list { list-style: none; flex-grow: 1; margin-bottom: 1.75rem; }
+.pkg-list li {
+  font-size: 0.82rem; color: var(--text-light); padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: flex-start; gap: 0.5rem; font-weight: 300;
+}
+.pkg-list li:last-child { border-bottom: none; }
+.pkg-list .check { color: var(--accent); font-size: 0.7rem; margin-top: 3px; flex-shrink: 0; }
+.pkg-cta {
+  display: block; text-align: center; padding: 0.75rem;
+  border: 1px solid var(--border-light); border-radius: 6px;
+  font-size: 0.82rem; font-weight: 600; color: var(--text-light); transition: all 0.3s;
+}
+.pkg-cta:hover { background: var(--text-white); color: var(--bg-dark); border-color: var(--text-white); }
+.pkg.featured .pkg-cta { background: var(--accent); border-color: var(--accent); color: var(--bg-dark); }
+.pkg.featured .pkg-cta:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.pkg-footer {
+  margin-top: 2.5rem; padding: 1.75rem; border: 1px solid var(--border-subtle);
+  border-radius: 10px; text-align: center;
+}
+.pkg-footer p { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.65; }
+.pkg-footer strong { color: var(--text-light); font-weight: 600; }
+
+@media (max-width: 1024px) { .pkg-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .pkg-grid { grid-template-columns: 1fr; } }
+
+/* ---- PROCESS ---- */
+.process { padding: 7rem 0; background: var(--bg-dark); }
+.process .section-head { max-width: 600px; margin-bottom: 4rem; }
+.steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative;
+}
+.steps::before {
+  content: ''; position: absolute; top: 20px; left: 12.5%; right: 12.5%;
+  height: 1px; background: var(--border-subtle);
+}
+.step { text-align: center; position: relative; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--border-light); background: var(--bg-dark);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem; font-size: 0.75rem; font-weight: 600;
+  color: var(--accent); position: relative; z-index: 1;
+}
+.step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.step p { font-size: 0.82rem; line-height: 1.6; color: var(--text-muted); font-weight: 300; }
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr 1fr; }
+  .steps::before { display: none; }
+}
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---- PROOF ---- */
+.proof {
+  padding: 6rem 0; background: var(--bg-darker);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.proof .container { text-align: center; max-width: 800px; }
+.proof blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  font-weight: 400; font-style: italic; line-height: 1.45;
+  margin-bottom: 1.5rem; color: var(--text-light);
+}
+.proof cite { font-style: normal; font-size: 0.88rem; color: var(--text-muted); font-weight: 400; }
+.proof-stats {
+  display: flex; justify-content: center; gap: 4rem;
+  margin-top: 3rem; padding-top: 2.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.proof-stat h4 {
+  font-family: var(--font-serif); font-size: 2.2rem; font-weight: 400; color: var(--accent);
+}
+.proof-stat p { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; margin-top: 0.2rem; }
+@media (max-width: 600px) { .proof-stats { flex-direction: column; gap: 1.5rem; } }
+
+/* ---- UNTERNEHMEN ---- */
+.unternehmen { padding: 7rem 0; background: var(--bg-dark); }
+.ms-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.ms-text .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.25rem; display: block;
+}
+.ms-text h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+}
+.ms-text > p {
+  font-size: 1rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 2rem;
+}
+.ms-checks { list-style: none; }
+.ms-checks li {
+  display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.6rem 0;
+  font-size: 0.9rem; color: var(--text-light); font-weight: 300; line-height: 1.55;
+}
+.ms-checks .mark { color: var(--accent); font-size: 0.8rem; margin-top: 3px; flex-shrink: 0; }
+
+.ms-visual {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 14px; padding: 2.5rem;
+}
+.ms-visual .label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.75rem;
+}
+.ms-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ms-metric {
+  background: var(--bg-section); border-radius: 10px; padding: 1.5rem; text-align: center;
+}
+.ms-metric h4 {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 400;
+  color: var(--accent); margin-bottom: 0.15rem;
+}
+.ms-metric p { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; line-height: 1.4; }
+@media (max-width: 768px) { .ms-grid { grid-template-columns: 1fr; } }
+
+/* ---- CTA ---- */
+.cta-section {
+  padding: 7rem 0; background: var(--bg-darker);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(197,164,109,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-section .container { position: relative; z-index: 2; max-width: 620px; }
+.cta-section .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.25rem; display: block;
+}
+.cta-section h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+}
+.cta-section p {
+  font-size: 1rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 2.5rem;
+}
+.cta-section .btn { font-size: 0.95rem; padding: 1rem 2.25rem; }
+
+/* ---- FOOTER ---- */
+footer {
+  padding: 2.5rem 0; border-top: 1px solid var(--border-subtle);
+}
+footer .container {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-left { display: flex; align-items: center; gap: 1rem; }
+.footer-logo { height: 24px; width: auto; opacity: 0.6; }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a {
+  font-size: 0.78rem; color: var(--text-muted); font-weight: 400; transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--text-white); }
+
+/* ---- ANIMATION ---- */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image.png" alt="TSD Design GmbH">
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="#system">KI-Kreativsystem</a></li>
+        <li><a href="#pakete">Leistungspakete</a></li>
+        <li><a href="#prozess">Ablauf</a></li>
+        <li><a href="#unternehmen">Für Ihr Unternehmen</a></li>
+        <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-overline">KI-Kreativsystem für Ihr Unternehmen</div>
+      <h1>Kreativprozesse<br><em>systematisch</em> neu denken.</h1>
+      <p class="hero-sub">
+        Wir verbinden strategische Klarheit, KI-gestützte Prozesse und handwerkliches Design zu einem System, das Ihren Markenauftritt messbar stärkt – effizient, skalierbar und auf Ihre Unternehmensbedürfnisse zugeschnitten.
+      </p>
+      <div class="hero-actions">
+        <a href="kontakt.html" class="btn btn-light">
+          Erstgespräch vereinbaren
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#system" class="btn btn-outline">System kennenlernen</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <a href="#element-01" class="hero-layer">
+        <span class="layer-num">01</span>
+        <div class="layer-content">
+          <h4>Strategie & Substanz</h4>
+          <p>Positionierung, Zielgruppe, Markenkern</p>
+        </div>
+      </a>
+      <a href="#element-02" class="hero-layer">
+        <span class="layer-num">02</span>
+        <div class="layer-content">
+          <h4>KI-Content-Engine</h4>
+          <p>Workflows, Prompt-Systeme, Redaktionspläne</p>
+        </div>
+      </a>
+      <a href="#element-03" class="hero-layer">
+        <span class="layer-num">03</span>
+        <div class="layer-content">
+          <h4>Design & Markenbild</h4>
+          <p>CI, Designsystem, Templates, Bildsprache</p>
+        </div>
+      </a>
+      <a href="#element-04" class="hero-layer">
+        <span class="layer-num">04</span>
+        <div class="layer-content">
+          <h4>Distribution & Wirkung</h4>
+          <p>Kanäle, Kampagnen, Messung</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Die Ausgangslage</span>
+      <h2>Starke Produkte verdienen einen starken Auftritt.</h2>
+      <p>Gute Produkte, starke Teams, echte Substanz – aber der Markenauftritt hält nicht Schritt. Content-Chaos, fragmentierte Prozesse und steigende Ansprüche fressen Zeit und Budget.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card fade-in">
+        <span class="icon">⏱</span>
+        <h3>Zeitfresser Content</h3>
+        <p>Social Media, Website, Kampagnen – jeder Kanal braucht eigenen Content. Ohne System wird das zum Engpass für das gesamte Team.</p>
+      </div>
+      <div class="pain-card fade-in">
+        <span class="icon">⬡</span>
+        <h3>Fragmentierte Marke</h3>
+        <p>Unterschiedliche Dienstleister, keine einheitliche Linie. Der Auftritt wirkt zusammengewürfelt statt souverän.</p>
+      </div>
+      <div class="pain-card fade-in">
+        <span class="icon">◇</span>
+        <h3>Unsichtbar trotz Qualität</h3>
+        <p>Hervorragende Produkte und Leistungen – aber digital kaum wahrnehmbar. Die Konkurrenz mit schwächeren Angeboten überholt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section class="system" id="system">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Das KI-Kreativsystem</span>
+      <h2>Vier Elemente. Ein durchgängiges System.</h2>
+      <p>Jedes Element löst ein konkretes Problem. Zusammen bilden sie ein Kreativsystem, das strategische Tiefe mit operativer Effizienz verbindet.</p>
+    </div>
+
+    <div class="layer-section l1 fade-in" id="element-01">
+      <div class="layer-text">
+        <span class="layer-tag">Element 01</span>
+        <h3>Strategie & Substanz</h3>
+        <p>Bevor ein einziges Pixel gesetzt wird, schaffen wir Klarheit: Wofür steht Ihre Marke? Wer sind Ihre Idealkunden? Wie differenzieren Sie sich im Markt? Dieses Element ist das Fundament, auf dem alles andere aufbaut.</p>
+        <div class="deliverables">
+          <span class="deliverable">Positionierung</span>
+          <span class="deliverable">Markenkern</span>
+          <span class="deliverable">Zielgruppen-DNA</span>
+          <span class="deliverable">Wettbewerbsanalyse</span>
+          <span class="deliverable">Messaging</span>
+        </div>
+      </div>
+      <div class="layer-vis">
+        <div class="layer-illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Concentric radar rings -->
+            <circle cx="100" cy="100" r="70" fill="none" stroke="#7a9e7e" stroke-width="0.5" opacity="0.2"/>
+            <circle cx="100" cy="100" r="50" fill="none" stroke="#7a9e7e" stroke-width="0.5" opacity="0.25"/>
+            <circle cx="100" cy="100" r="30" fill="none" stroke="#7a9e7e" stroke-width="0.5" opacity="0.3"/>
+            <!-- Pulsing scan rings -->
+            <circle cx="100" cy="100" r="8" fill="none" stroke="#7a9e7e" stroke-width="1.5" opacity="0.5">
+              <animate attributeName="r" values="8;70;8" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="stroke-width" values="1.5;0.2;1.5" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="100" r="8" fill="none" stroke="#7a9e7e" stroke-width="1.5" opacity="0.5">
+              <animate attributeName="r" values="8;70;8" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+              <animate attributeName="stroke-width" values="1.5;0.2;1.5" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="100" r="8" fill="none" stroke="#7a9e7e" stroke-width="1.5" opacity="0.5">
+              <animate attributeName="r" values="8;70;8" dur="4s" begin="2.6s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" begin="2.6s" repeatCount="indefinite"/>
+              <animate attributeName="stroke-width" values="1.5;0.2;1.5" dur="4s" begin="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Rotating scan line -->
+            <g style="animation: scan-line 6s linear infinite; transform-origin: 100px 100px;">
+              <line x1="100" y1="100" x2="100" y2="30" stroke="#7a9e7e" stroke-width="1" opacity="0.5"/>
+              <line x1="100" y1="100" x2="170" y2="100" stroke="#7a9e7e" stroke-width="0.3" opacity="0.15"/>
+            </g>
+            <!-- Crosshair lines -->
+            <line x1="100" y1="25" x2="100" y2="175" stroke="#7a9e7e" stroke-width="0.3" opacity="0.12"/>
+            <line x1="25" y1="100" x2="175" y2="100" stroke="#7a9e7e" stroke-width="0.3" opacity="0.12"/>
+            <!-- Data points that pulse -->
+            <circle cx="100" cy="100" r="3" fill="#7a9e7e" opacity="0.8">
+              <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="125" cy="70" r="2" fill="#7a9e7e" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="72" cy="115" r="2" fill="#7a9e7e" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" begin="1.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="140" cy="120" r="1.5" fill="#7a9e7e" opacity="0.4">
+              <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="80" cy="65" r="1.5" fill="#7a9e7e" opacity="0.4">
+              <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" begin="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Connecting lines between data points -->
+            <line x1="100" y1="100" x2="125" y2="70" stroke="#7a9e7e" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 3">
+              <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="72" y2="115" stroke="#7a9e7e" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 3">
+              <animate attributeName="opacity" values="0.1;0.35;0.1" dur="3s" begin="1s" repeatCount="indefinite"/>
+            </line>
+            <line x1="125" y1="70" x2="140" y2="120" stroke="#7a9e7e" stroke-width="0.3" opacity="0.15" stroke-dasharray="2 4">
+              <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+            </line>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer-section l2 fade-in" id="element-02">
+      <div class="layer-text">
+        <span class="layer-tag">Element 02</span>
+        <h3>KI-Content-Engine</h3>
+        <p>Hier entsteht der operative Hebel: Wir bauen Ihnen eine Content-Architektur mit KI-gestützten Workflows, die aus einer strategischen Idee dutzende Formate generiert – redaktionell geprüft, markenkonform und in einem Bruchteil der bisherigen Zeit.</p>
+        <div class="deliverables">
+          <span class="deliverable">Prompt-Systeme</span>
+          <span class="deliverable">Redaktionspläne</span>
+          <span class="deliverable">Content-Templates</span>
+          <span class="deliverable">KI-Workflows</span>
+          <span class="deliverable">Qualitäts-Framework</span>
+        </div>
+      </div>
+      <div class="layer-vis">
+        <div class="layer-illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Large gear -->
+            <g style="animation: gear-spin 8s linear infinite; transform-origin: 85px 100px;">
+              <circle cx="85" cy="100" r="32" fill="none" stroke="#6a8fb5" stroke-width="0.8" opacity="0.3"/>
+              <circle cx="85" cy="100" r="24" fill="none" stroke="#6a8fb5" stroke-width="0.5" opacity="0.2"/>
+              <circle cx="85" cy="100" r="6" fill="#6a8fb5" opacity="0.25"/>
+              <!-- Gear teeth -->
+              <rect x="80" y="64" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="80" y="128" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="49" y="95" width="8" height="10" rx="1.5" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="113" y="95" width="8" height="10" rx="1.5" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="56" y="73" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35" transform="rotate(-45 61 77)"/>
+              <rect x="104" y="119" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35" transform="rotate(-45 109 123)"/>
+              <rect x="104" y="73" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35" transform="rotate(45 109 77)"/>
+              <rect x="56" y="119" width="10" height="8" rx="1.5" fill="#6a8fb5" opacity="0.35" transform="rotate(45 61 123)"/>
+            </g>
+            <!-- Small gear (counter-rotation) -->
+            <g style="animation: gear-counter 5s linear infinite; transform-origin: 135px 75px;">
+              <circle cx="135" cy="75" r="20" fill="none" stroke="#6a8fb5" stroke-width="0.8" opacity="0.3"/>
+              <circle cx="135" cy="75" r="14" fill="none" stroke="#6a8fb5" stroke-width="0.5" opacity="0.2"/>
+              <circle cx="135" cy="75" r="4" fill="#6a8fb5" opacity="0.25"/>
+              <rect x="131" y="52" width="8" height="6" rx="1" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="131" y="92" width="8" height="6" rx="1" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="112" y="71" width="6" height="8" rx="1" fill="#6a8fb5" opacity="0.35"/>
+              <rect x="152" y="71" width="6" height="8" rx="1" fill="#6a8fb5" opacity="0.35"/>
+            </g>
+            <!-- Tiny gear -->
+            <g style="animation: gear-spin 3.5s linear infinite; transform-origin: 140px 130px;">
+              <circle cx="140" cy="130" r="14" fill="none" stroke="#6a8fb5" stroke-width="0.6" opacity="0.25"/>
+              <circle cx="140" cy="130" r="3" fill="#6a8fb5" opacity="0.2"/>
+              <rect x="137" y="113" width="6" height="5" rx="1" fill="#6a8fb5" opacity="0.3"/>
+              <rect x="137" y="142" width="6" height="5" rx="1" fill="#6a8fb5" opacity="0.3"/>
+              <rect x="123" y="127" width="5" height="6" rx="1" fill="#6a8fb5" opacity="0.3"/>
+              <rect x="152" y="127" width="5" height="6" rx="1" fill="#6a8fb5" opacity="0.3"/>
+            </g>
+            <!-- Flowing data lines -->
+            <path d="M30 160 Q60 145 85 135" fill="none" stroke="#6a8fb5" stroke-width="0.6" opacity="0.2" stroke-dasharray="4 6">
+              <animate attributeName="stroke-dashoffset" values="40;0" dur="3s" repeatCount="indefinite"/>
+            </path>
+            <path d="M140 145 Q155 155 175 148" fill="none" stroke="#6a8fb5" stroke-width="0.6" opacity="0.2" stroke-dasharray="4 6">
+              <animate attributeName="stroke-dashoffset" values="30;0" dur="2.5s" repeatCount="indefinite"/>
+            </path>
+            <path d="M25 85 Q45 90 62 98" fill="none" stroke="#6a8fb5" stroke-width="0.6" opacity="0.15" stroke-dasharray="3 5">
+              <animate attributeName="stroke-dashoffset" values="30;0" dur="3.5s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer-section l3 fade-in" id="element-03">
+      <div class="layer-text">
+        <span class="layer-tag">Element 03</span>
+        <h3>Design & Markenbild</h3>
+        <p>Das visuelle System, das Ihre Marke unverwechselbar macht – und gleichzeitig so modular aufgebaut ist, dass Ihr Team selbstständig damit arbeiten kann. Von der Corporate Identity bis zu Social-Media-Templates.</p>
+        <div class="deliverables">
+          <span class="deliverable">Corporate Design</span>
+          <span class="deliverable">Designsystem</span>
+          <span class="deliverable">Template-Kit</span>
+          <span class="deliverable">Bildsprache</span>
+          <span class="deliverable">Styleguide</span>
+        </div>
+      </div>
+      <div class="layer-vis">
+        <div class="layer-illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Rotating outer frame -->
+            <g style="animation: grid-morph-1 12s ease-in-out infinite; transform-origin: 100px 100px;">
+              <rect x="45" y="45" width="110" height="110" rx="3" fill="none" stroke="#9b7ab8" stroke-width="0.5" opacity="0.15"/>
+            </g>
+            <g style="animation: grid-morph-2 12s ease-in-out infinite; transform-origin: 100px 100px;">
+              <rect x="55" y="55" width="90" height="90" rx="2" fill="none" stroke="#9b7ab8" stroke-width="0.5" opacity="0.2"/>
+            </g>
+            <!-- Grid cells that shift and breathe -->
+            <g style="animation: grid-shift 8s ease-in-out infinite;">
+              <rect x="60" y="60" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.12">
+                <animate attributeName="opacity" values="0.12;0.25;0.12" dur="4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="88" y="60" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.08">
+                <animate attributeName="opacity" values="0.08;0.2;0.08" dur="4s" begin="0.5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="116" y="60" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.15">
+                <animate attributeName="opacity" values="0.15;0.06;0.15" dur="4s" begin="1s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+            <g style="animation: grid-shift 8s ease-in-out 1s infinite;">
+              <rect x="60" y="88" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.06">
+                <animate attributeName="opacity" values="0.06;0.22;0.06" dur="5s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="88" y="88" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.2">
+                <animate attributeName="opacity" values="0.2;0.35;0.2" dur="3s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="116" y="88" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.1">
+                <animate attributeName="opacity" values="0.1;0.18;0.1" dur="4s" begin="1.5s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+            <g style="animation: grid-shift 8s ease-in-out 2s infinite;">
+              <rect x="60" y="116" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.18">
+                <animate attributeName="opacity" values="0.18;0.08;0.18" dur="4s" begin="2s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="88" y="116" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.07">
+                <animate attributeName="opacity" values="0.07;0.2;0.07" dur="5s" begin="0.8s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="116" y="116" width="22" height="22" rx="3" fill="#9b7ab8" opacity="0.14">
+                <animate attributeName="opacity" values="0.14;0.28;0.14" dur="3.5s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+            <!-- Alignment guides -->
+            <line x1="60" y1="48" x2="60" y2="152" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <line x1="100" y1="48" x2="100" y2="152" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <line x1="138" y1="48" x2="138" y2="152" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <line x1="48" y1="60" x2="152" y2="60" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <line x1="48" y1="100" x2="152" y2="100" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <line x1="48" y1="138" x2="152" y2="138" stroke="#9b7ab8" stroke-width="0.3" opacity="0.1"/>
+            <!-- Corner marks -->
+            <path d="M45 52 L45 45 L52 45" fill="none" stroke="#9b7ab8" stroke-width="0.8" opacity="0.25"/>
+            <path d="M155 148 L155 155 L148 155" fill="none" stroke="#9b7ab8" stroke-width="0.8" opacity="0.25"/>
+            <path d="M148 45 L155 45 L155 52" fill="none" stroke="#9b7ab8" stroke-width="0.8" opacity="0.25"/>
+            <path d="M45 148 L45 155 L52 155" fill="none" stroke="#9b7ab8" stroke-width="0.8" opacity="0.25"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer-section l4 fade-in" id="element-04">
+      <div class="layer-text">
+        <span class="layer-tag">Element 04</span>
+        <h3>Distribution & Wirkung</h3>
+        <p>Strategie und Design werden erst sichtbar, wenn sie die richtigen Menschen erreichen. Wir implementieren die Kanäle, optimieren die Ausspielung und messen die Wirkung – damit aus Markenauftritt echte Markenwirkung wird.</p>
+        <div class="deliverables">
+          <span class="deliverable">Kanalstrategie</span>
+          <span class="deliverable">Website & SEO</span>
+          <span class="deliverable">Social Media</span>
+          <span class="deliverable">Kampagnen</span>
+          <span class="deliverable">Performance</span>
+        </div>
+      </div>
+      <div class="layer-vis">
+        <div class="layer-illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Central node -->
+            <circle cx="100" cy="100" r="6" fill="#c5a46d" opacity="0.4">
+              <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0.6;0.4" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="100" r="14" fill="none" stroke="#c5a46d" stroke-width="0.5" opacity="0.15">
+              <animate attributeName="r" values="14;18;14" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Expanding signal rings from center -->
+            <circle cx="100" cy="100" fill="none" stroke="#c5a46d" stroke-width="0.8">
+              <animate attributeName="r" values="10;60" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="stroke-width" values="0.8;0.1" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="100" fill="none" stroke="#c5a46d" stroke-width="0.8">
+              <animate attributeName="r" values="10;60" dur="4s" begin="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0" dur="4s" begin="2s" repeatCount="indefinite"/>
+              <animate attributeName="stroke-width" values="0.8;0.1" dur="4s" begin="2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Outer nodes -->
+            <circle cx="55" cy="50" r="3" fill="#c5a46d" opacity="0.5">
+              <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="150" cy="55" r="3" fill="#c5a46d" opacity="0.4">
+              <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="160" cy="130" r="3" fill="#c5a46d" opacity="0.45">
+              <animate attributeName="opacity" values="0.3;0.65;0.3" dur="2.8s" begin="1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="140" r="3" fill="#c5a46d" opacity="0.35">
+              <animate attributeName="opacity" values="0.2;0.55;0.2" dur="3.2s" begin="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="38" r="2.5" fill="#c5a46d" opacity="0.4">
+              <animate attributeName="opacity" values="0.25;0.6;0.25" dur="2.6s" begin="0.3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="40" cy="95" r="2.5" fill="#c5a46d" opacity="0.35">
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" begin="0.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="165" cy="90" r="2" fill="#c5a46d" opacity="0.3">
+              <animate attributeName="opacity" values="0.15;0.45;0.15" dur="2.7s" begin="1.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="95" cy="165" r="2.5" fill="#c5a46d" opacity="0.35">
+              <animate attributeName="opacity" values="0.2;0.55;0.2" dur="3.1s" begin="0.6s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Connection lines with flowing dashes -->
+            <line x1="100" y1="100" x2="55" y2="50" stroke="#c5a46d" stroke-width="0.5" opacity="0.2" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="32;0" dur="2s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="150" y2="55" stroke="#c5a46d" stroke-width="0.5" opacity="0.2" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="32;0" dur="2.3s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="160" y2="130" stroke="#c5a46d" stroke-width="0.5" opacity="0.2" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="32;0" dur="2.6s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="50" y2="140" stroke="#c5a46d" stroke-width="0.5" opacity="0.2" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="32;0" dur="2.1s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="100" y2="38" stroke="#c5a46d" stroke-width="0.5" opacity="0.15" stroke-dasharray="3 5">
+              <animate attributeName="stroke-dashoffset" values="24;0" dur="2.4s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="40" y2="95" stroke="#c5a46d" stroke-width="0.5" opacity="0.15" stroke-dasharray="3 5">
+              <animate attributeName="stroke-dashoffset" values="24;0" dur="2.8s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="165" y2="90" stroke="#c5a46d" stroke-width="0.4" opacity="0.12" stroke-dasharray="3 5">
+              <animate attributeName="stroke-dashoffset" values="24;0" dur="2.5s" repeatCount="indefinite"/>
+            </line>
+            <line x1="100" y1="100" x2="95" y2="165" stroke="#c5a46d" stroke-width="0.5" opacity="0.15" stroke-dasharray="3 5">
+              <animate attributeName="stroke-dashoffset" values="24;0" dur="2.7s" repeatCount="indefinite"/>
+            </line>
+            <!-- Outer interconnections -->
+            <line x1="55" y1="50" x2="100" y2="38" stroke="#c5a46d" stroke-width="0.3" opacity="0.1" stroke-dasharray="2 4">
+              <animate attributeName="opacity" values="0.05;0.18;0.05" dur="4s" repeatCount="indefinite"/>
+            </line>
+            <line x1="150" y1="55" x2="165" y2="90" stroke="#c5a46d" stroke-width="0.3" opacity="0.1" stroke-dasharray="2 4">
+              <animate attributeName="opacity" values="0.05;0.18;0.05" dur="4s" begin="1s" repeatCount="indefinite"/>
+            </line>
+            <line x1="160" y1="130" x2="95" y2="165" stroke="#c5a46d" stroke-width="0.3" opacity="0.1" stroke-dasharray="2 4">
+              <animate attributeName="opacity" values="0.05;0.18;0.05" dur="4s" begin="2s" repeatCount="indefinite"/>
+            </line>
+            <line x1="50" y1="140" x2="40" y2="95" stroke="#c5a46d" stroke-width="0.3" opacity="0.1" stroke-dasharray="2 4">
+              <animate attributeName="opacity" values="0.05;0.18;0.05" dur="4s" begin="3s" repeatCount="indefinite"/>
+            </line>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAKETE -->
+<section class="packages" id="pakete">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Leistungspakete</span>
+      <h2>Einzeln stark. Zusammen unschlagbar.</h2>
+      <p>Jedes Element ist ein eigenständiges Modul – buchbar als Einzelleistung oder als aufeinander aufbauendes Gesamtsystem.</p>
+    </div>
+
+    <div class="pkg-grid">
+      <div class="pkg fade-in">
+        <div class="pkg-overline">Modul 01</div>
+        <h3>Strategie-Fundament</h3>
+        <p class="pkg-desc">Klarheit über Positionierung, Zielgruppen und Markenkern – die Basis für alles Weitere.</p>
+        <ul class="pkg-list">
+          <li><span class="check">✓</span>Strategie-Workshop (1 Tag)</li>
+          <li><span class="check">✓</span>Positionierungsanalyse</li>
+          <li><span class="check">✓</span>Zielgruppen-Personas</li>
+          <li><span class="check">✓</span>Wettbewerbs-Mapping</li>
+          <li><span class="check">✓</span>Messaging-Framework</li>
+          <li><span class="check">✓</span>Strategiedokument</li>
+        </ul>
+        <a href="kontakt.html" class="pkg-cta">Modul anfragen</a>
+      </div>
+
+      <div class="pkg fade-in">
+        <div class="pkg-overline">Modul 02</div>
+        <h3>KI-Content-Engine</h3>
+        <p class="pkg-desc">Ihr individuelles System für effiziente, markenkonforme Inhaltserstellung mit KI.</p>
+        <ul class="pkg-list">
+          <li><span class="check">✓</span>Content-Audit & Analyse</li>
+          <li><span class="check">✓</span>KI-Workflow-Architektur</li>
+          <li><span class="check">✓</span>Custom Prompt-Systeme</li>
+          <li><span class="check">✓</span>Redaktionsplan-Template</li>
+          <li><span class="check">✓</span>Qualitäts-Checklisten</li>
+          <li><span class="check">✓</span>Team-Schulung (½ Tag)</li>
+        </ul>
+        <a href="kontakt.html" class="pkg-cta">Modul anfragen</a>
+      </div>
+
+      <div class="pkg fade-in">
+        <div class="pkg-overline">Modul 03</div>
+        <h3>Design & Markensystem</h3>
+        <p class="pkg-desc">Ein visuelles System, das Ihre Marke unverwechselbar macht – und skalierbar bleibt.</p>
+        <ul class="pkg-list">
+          <li><span class="check">✓</span>Corporate Design / Refresh</li>
+          <li><span class="check">✓</span>Modulares Designsystem</li>
+          <li><span class="check">✓</span>Social-Media-Templates</li>
+          <li><span class="check">✓</span>Präsentations-Kit</li>
+          <li><span class="check">✓</span>Bildsprache & Fotoshooting</li>
+          <li><span class="check">✓</span>Brand Styleguide</li>
+        </ul>
+        <a href="kontakt.html" class="pkg-cta">Modul anfragen</a>
+      </div>
+
+      <div class="pkg featured fade-in">
+        <span class="pkg-badge">Gesamtsystem</span>
+        <div class="pkg-overline">Alle 4 Elemente</div>
+        <h3>KI-Kreativsystem komplett</h3>
+        <p class="pkg-desc">Alle vier Elemente als integriertes Gesamtpaket – maximale Wirkung, ein Ansprechpartner.</p>
+        <ul class="pkg-list">
+          <li><span class="check">✓</span>Alles aus Modul 01–03</li>
+          <li><span class="check">✓</span>Kanalstrategie & Setup</li>
+          <li><span class="check">✓</span>Website-Konzept & Design</li>
+          <li><span class="check">✓</span>Launch-Kampagne</li>
+          <li><span class="check">✓</span>Performance-Dashboard</li>
+          <li><span class="check">✓</span>3 Monate Begleitung</li>
+        </ul>
+        <a href="kontakt.html" class="pkg-cta">Gesamtpaket anfragen</a>
+      </div>
+    </div>
+
+    <div class="pkg-footer fade-in">
+      <p><strong>Modularer Aufbau:</strong> Jedes Modul ist eigenständig buchbar und liefert sofort Mehrwert. Die Module bauen aufeinander auf – Sie können jederzeit erweitern.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROZESS -->
+<section class="process" id="prozess">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Der Ablauf</span>
+      <h2>Von der Anfrage zum System – in vier klaren Phasen.</h2>
+      <p>Kein endloses Briefing-Ping-Pong. Unser Prozess ist straff, transparent und auf schnelle Ergebnisse ausgelegt.</p>
+    </div>
+    <div class="steps fade-in">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Analyse</h3>
+        <p>Kostenloses Erstgespräch. Wir verstehen Ihre Situation und identifizieren den größten Hebel.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Konzeption</h3>
+        <p>Workshop-Phase: Strategie, Zielgruppen, Differenzierung. Gemeinsam mit Ihrem Team.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Umsetzung</h3>
+        <p>Design, Content-Systeme und Workflows entstehen. Regelmäßige Abstimmungen, keine Überraschungen.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Wirkung</h3>
+        <p>Go-Live, Schulung, Übergabe. Ihr Team arbeitet eigenständig – wir begleiten auf Wunsch weiter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof">
+  <div class="container">
+    <blockquote class="fade-in">
+      „Wir wollten kein neues Logo – wir brauchten ein System, das unsere Marke in allen Kanälen konsistent macht. Genau das hat TSD Design geliefert."
+    </blockquote>
+    <cite class="fade-in">— Geschäftsführung, Industrieunternehmen</cite>
+    <div class="proof-stats fade-in">
+      <div class="proof-stat">
+        <h4>70 %</h4>
+        <p>weniger Zeitaufwand<br>für Content-Erstellung</p>
+      </div>
+      <div class="proof-stat">
+        <h4>3×</h4>
+        <p>mehr Konsistenz<br>über alle Touchpoints</p>
+      </div>
+      <div class="proof-stat">
+        <h4>100 %</h4>
+        <p>Eigenständigkeit<br>nach Übergabe</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNTERNEHMEN -->
+<section class="unternehmen" id="unternehmen">
+  <div class="container">
+    <div class="ms-grid">
+      <div class="ms-text fade-in">
+        <span class="overline">Für Ihr Unternehmen gebaut</span>
+        <h2>Kein Agentur-Overhead. Systeme, die Ihr Team befähigen.</h2>
+        <p>Wir kennen die Realität wachsender Unternehmen: kleine Marketing-Teams, große Ambitionen, begrenztes Zeitbudget. Unser KI-Kreativsystem multipliziert die Kraft Ihres vorhandenen Teams.</p>
+        <ul class="ms-checks">
+          <li><span class="mark">→</span>Für Teams von 1–15 Personen im Marketing optimiert</li>
+          <li><span class="mark">→</span>Keine Abhängigkeit von Agenturen oder Freelancern</li>
+          <li><span class="mark">→</span>KI als Werkzeug, nicht als Ersatz für Kreativität</li>
+          <li><span class="mark">→</span>Schrittweise Einführung statt Big-Bang-Projekte</li>
+          <li><span class="mark">→</span>Systeme bleiben bei Ihnen – volle Ownership</li>
+        </ul>
+      </div>
+      <div class="ms-visual fade-in">
+        <div class="label">Typisches Ergebnis</div>
+        <div class="ms-metrics">
+          <div class="ms-metric">
+            <h4>4–6</h4>
+            <p>Wochen bis zum<br>fertigen System</p>
+          </div>
+          <div class="ms-metric">
+            <h4>1</h4>
+            <p>Tag Workshop<br>reicht als Start</p>
+          </div>
+          <div class="ms-metric">
+            <h4>∞</h4>
+            <p>Nutzbar ohne<br>laufende Kosten</p>
+          </div>
+          <div class="ms-metric">
+            <h4>4</h4>
+            <p>Elemente – einzeln<br>oder komplett</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="kontakt">
+  <div class="container">
+    <div class="fade-in">
+      <span class="overline">Nächster Schritt</span>
+      <h2>Bereit, Ihre Kreativprozesse systematisch zu transformieren?</h2>
+      <p>In einem kostenlosen 30-Minuten-Gespräch analysieren wir Ihre aktuelle Situation und zeigen Ihnen, welches Element des KI-Kreativsystems den größten Hebel für Ihr Unternehmen bietet.</p>
+      <a href="kontakt.html" class="btn btn-light">
+        Kostenloses Erstgespräch buchen
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image-256x256.png" alt="TSD Design" class="footer-logo">
+      <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const targetId = link.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      e.preventDefault();
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const targetPos = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+      window.scrollTo({ top: targetPos, behavior: 'smooth' });
+    }
+    document.getElementById('navMenu').classList.remove('open');
+  });
+});
+
+// Mobile menu
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navMenu').classList.toggle('open');
+});
+
+// Scroll animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Hero layer stagger
+document.querySelectorAll('.hero-layer').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(16px)';
+  setTimeout(() => {
+    card.style.transition = 'all 0.5s cubic-bezier(0.23,1,0.32,1)';
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, 600 + i * 120);
+});
+</script>
+</body>
+</html>
