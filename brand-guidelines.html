@@ -138,10 +138,13 @@ html[data-theme="light"] .cover-logo { filter: brightness(0.55) saturate(1.3); }
   justify-content: center; border: 1px solid var(--border-subtle);
   min-height: 200px;
 }
-.logo-box svg { width: 80px; height: 80px; }
+.logo-box svg,
+.logo-box img { width: 100px; height: 100px; display: block; }
 .logo-box.dark { background: var(--bg-darker); }
 .logo-box.light { background: #f5f4f0; }
 .logo-box.accent { background: var(--accent); }
+.logo-on-light { filter: brightness(0.55) saturate(1.3); }
+.logo-on-accent { filter: brightness(1.15) saturate(0.2); }
 .logo-label {
   font-size: 0.75rem; color: var(--text-muted); font-weight: 400;
   text-align: center; margin-top: 8px;
@@ -578,33 +581,48 @@ document.getElementById('themeToggle').addEventListener('click', function() {
   <div class="logo-grid">
     <div>
       <div class="logo-box dark">
-        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#E5CA9C" stroke-width="1.5"/>
-          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#E5CA9C" letter-spacing="0.1em">TSD</text>
-          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#E5CA9C" letter-spacing="0.14em">DESIGN</text>
-        </svg>
+        <img src="images/logo/tsd_logo_animated.svg" alt="TSD Logo animiert">
       </div>
-      <div class="logo-label">Auf Dunkel (#111111)</div>
+      <div class="logo-label">Auf Dunkel (#111111) – Animiert</div>
     </div>
     <div>
       <div class="logo-box light">
-        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#1a1a1a" stroke-width="1.5"/>
-          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#1a1a1a" letter-spacing="0.1em">TSD</text>
-          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#1a1a1a" letter-spacing="0.14em">DESIGN</text>
-        </svg>
+        <img src="images/logo/tsd_logo_animated.svg" alt="TSD Logo auf Hell" class="logo-on-light">
       </div>
       <div class="logo-label">Auf Hell (#f5f4f0)</div>
     </div>
     <div>
       <div class="logo-box accent">
-        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#ffffff" stroke-width="1.5"/>
-          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#ffffff" letter-spacing="0.1em">TSD</text>
-          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#ffffff" letter-spacing="0.14em">DESIGN</text>
-        </svg>
+        <img src="images/logo/tsd_logo_animated.svg" alt="TSD Logo auf Akzent" class="logo-on-accent">
       </div>
       <div class="logo-label">Auf Akzent (#c5a46d)</div>
+    </div>
+  </div>
+
+  <div class="logo-grid" style="margin-top: 32px;">
+    <div>
+      <div class="logo-box" style="background: var(--bg-darker);">
+        <img src="images/logo/tsd_logo-0.svg" alt="TSD Logo Gold">
+      </div>
+      <div class="logo-label">Statisch – Gold (#E5CA9C)</div>
+    </div>
+    <div>
+      <div class="logo-box" style="background: var(--bg-darker);">
+        <img src="images/logo/tsd_logo-1.svg" alt="TSD Logo Mint">
+      </div>
+      <div class="logo-label">Statisch – Mint (#66F4C4)</div>
+    </div>
+    <div>
+      <div class="logo-box" style="background: var(--bg-darker);">
+        <img src="images/logo/tsd_logo-2.svg" alt="TSD Logo Ice Blue">
+      </div>
+      <div class="logo-label">Statisch – Ice Blue (#C6E5EC)</div>
+    </div>
+    <div>
+      <div class="logo-box" style="background: var(--bg-darker);">
+        <img src="images/logo/tsd_logo-3.svg" alt="TSD Logo Purple">
+      </div>
+      <div class="logo-label">Statisch – Purple (#A178BC)</div>
     </div>
   </div>
 
