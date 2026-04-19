@@ -91,6 +91,31 @@ footer .container { display: flex; justify-content: space-between; align-items: 
 .footer-links { display: flex; gap: 1.5rem; list-style: none; }
 .footer-links a { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; transition: color 0.3s; }
 .footer-links a:hover { color: var(--text-white); }
+/* ---- CHARACTER ENHANCEMENTS ---- */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+::selection { background: rgba(197,164,109,0.3); color: #fff; }
+::-moz-selection { background: rgba(197,164,109,0.3); color: #fff; }
+header::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C, #66F4C4, #C6E5EC, #A178BC);
+  background-size: 400% 100%;
+  animation: header-color-flow 12s linear infinite;
+  opacity: 0.6;
+}
+@keyframes header-color-flow {
+  0% { background-position: 0% 0; }
+  100% { background-position: 400% 0; }
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-darker); }
+::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.5); }
+.nav-cta:hover { box-shadow: 0 4px 16px rgba(197,164,109,0.2); }
 </style>
 </head>
 <body>
@@ -98,7 +123,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
 <header>
   <div class="container">
     <a href="index.html" class="logo">
-      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image.png" alt="TSD Design GmbH">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design GmbH">
     </a>
     <nav>
       <ul id="navMenu">
@@ -106,6 +131,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
         <li><a href="index.html#pakete">Leistungspakete</a></li>
         <li><a href="index.html#prozess">Ablauf</a></li>
         <li><a href="index.html#unternehmen">Für Ihr Unternehmen</a></li>
+        <li><a href="ueber-uns.html">Über Uns</a></li>
         <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
       </ul>
       <button class="menu-toggle" id="menuToggle" aria-label="Menü"><span></span><span></span><span></span></button>
@@ -177,7 +203,7 @@ footer .container { display: flex; justify-content: space-between; align-items: 
 <footer>
   <div class="container">
     <div class="footer-left">
-      <img src="https://www.tsd-design.de/wp-content/uploads/go-x/u/a571d71f-d7e6-4d27-a0ac-365274ce174d/image-256x256.png" alt="TSD Design" class="footer-logo">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="footer-logo">
       <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
     </div>
     <ul class="footer-links">

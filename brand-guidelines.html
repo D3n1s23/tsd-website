@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>TSD Design GmbH – Brand Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #111111;
+  --bg-darker: #0a0a0a;
+  --bg-section: #161616;
+  --bg-card: #1c1c1c;
+  --text-white: #ffffff;
+  --text-light: #e0ddd7;
+  --text-muted: #8c8880;
+  --accent: #c5a46d;
+  --accent-hover: #d4b87e;
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-light: rgba(255,255,255,0.12);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); background: var(--bg-dark); color: var(--text-white); -webkit-font-smoothing: antialiased; }
+
+/* LAYOUT */
+.page { max-width: 1440px; margin: 0 auto; }
+.section { padding: 80px 80px; border-bottom: 1px solid var(--border-subtle); }
+.section:last-child { border-bottom: none; }
+
+/* COVER */
+.cover {
+  min-height: 600px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 80px; position: relative; overflow: hidden;
+}
+.cover::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(197,164,109,0.08) 0%, transparent 60%);
+}
+.cover * { position: relative; z-index: 1; }
+.cover-logo { width: 80px; height: 80px; margin-bottom: 40px; }
+.cover h1 {
+  font-family: var(--font-serif); font-size: 3.2rem; font-weight: 400;
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.cover h1 em { font-style: italic; color: var(--accent); }
+.cover p { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; max-width: 500px; }
+.cover .version {
+  margin-top: 48px; font-size: 0.75rem; color: var(--text-muted);
+  letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
+}
+
+/* SECTION HEADERS */
+.section-title {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+}
+.section h2 {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 400;
+  margin-bottom: 12px; line-height: 1.2;
+}
+.section .desc {
+  font-size: 0.95rem; color: var(--text-muted); font-weight: 300;
+  line-height: 1.7; max-width: 600px; margin-bottom: 48px;
+}
+
+/* COLOR PALETTE */
+.color-group { margin-bottom: 48px; }
+.color-group-title {
+  font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.color-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.color-swatch {
+  width: 160px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+.color-swatch .preview { height: 100px; }
+.color-swatch .info { padding: 12px 14px; background: var(--bg-card); }
+.color-swatch .info .name { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.color-swatch .info .hex { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; font-family: monospace; }
+.color-swatch .info .css-var { font-size: 0.68rem; color: var(--text-muted); font-weight: 300; font-family: monospace; margin-top: 2px; }
+
+/* TYPOGRAPHY */
+.type-specimen { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border-subtle); }
+.type-specimen:last-child { border-bottom: none; }
+.type-meta {
+  display: flex; gap: 24px; margin-bottom: 16px; align-items: center;
+}
+.type-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent);
+  padding: 4px 10px; background: rgba(197,164,109,0.1); border-radius: 4px;
+}
+.type-specs { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; font-family: monospace; }
+.type-sample-serif {
+  font-family: var(--font-serif); color: var(--text-white); line-height: 1.2;
+}
+.type-sample-sans {
+  font-family: var(--font-sans); color: var(--text-light); line-height: 1.6;
+}
+
+/* LOGO */
+.logo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+.logo-box {
+  border-radius: 14px; padding: 48px; display: flex; align-items: center;
+  justify-content: center; border: 1px solid var(--border-subtle);
+  min-height: 200px;
+}
+.logo-box svg { width: 80px; height: 80px; }
+.logo-box.dark { background: var(--bg-darker); }
+.logo-box.light { background: #f5f4f0; }
+.logo-box.accent { background: var(--accent); }
+.logo-label {
+  font-size: 0.75rem; color: var(--text-muted); font-weight: 400;
+  text-align: center; margin-top: 8px;
+}
+
+/* ANIMATED COLORS */
+.brand-colors-strip {
+  height: 6px; border-radius: 3px; margin: 32px 0;
+  background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C);
+  background-size: 200% 100%;
+}
+
+/* SPACING */
+.spacing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.spacing-item {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 20px; text-align: center;
+}
+.spacing-visual {
+  background: rgba(197,164,109,0.1); border-radius: 4px;
+  margin: 0 auto 12px; border: 1px dashed rgba(197,164,109,0.3);
+}
+.spacing-item .label { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.spacing-item .value { font-size: 0.72rem; color: var(--text-muted); font-family: monospace; }
+
+/* COMPONENTS */
+.component-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 32px; }
+.component-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); min-width: 120px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 1.75rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.9rem; font-family: var(--font-sans);
+  border: none; cursor: pointer; transition: all 0.3s;
+}
+.btn-light { background: var(--text-white); color: var(--bg-dark); }
+.btn-accent { background: var(--accent); color: var(--bg-dark); }
+.btn-outline { background: transparent; color: var(--text-light); border: 1px solid var(--border-light); }
+.btn-dark { background: var(--bg-dark); color: var(--text-white); border: 1px solid var(--border-light); }
+
+.card-demo {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 2rem 1.75rem; max-width: 320px;
+}
+.card-demo h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+.card-demo p { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+
+.card-accent {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 2rem 1.75rem; max-width: 320px;
+  position: relative; overflow: hidden;
+}
+.card-accent::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: #7a9e7e;
+}
+.card-accent h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+.card-accent p { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+
+.tag { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 4px; }
+.tag-green { background: rgba(122,158,126,0.12); color: #7a9e7e; }
+.tag-blue { background: rgba(106,143,181,0.12); color: #6a8fb5; }
+.tag-purple { background: rgba(155,122,184,0.12); color: #9b7ab8; }
+.tag-gold { background: rgba(197,164,109,0.12); color: var(--accent); }
+
+.pill {
+  display: inline-block; font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem;
+  border-radius: 100px; border: 1px solid var(--border-subtle); color: var(--text-muted);
+}
+
+.input-demo {
+  width: 280px; padding: 0.85rem 1rem; background: var(--bg-section);
+  border: 1px solid var(--border-subtle); border-radius: 6px;
+  color: var(--text-white); font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300;
+}
+.input-focus {
+  width: 280px; padding: 0.85rem 1rem; background: var(--bg-section);
+  border: 1px solid var(--accent); border-radius: 6px;
+  color: var(--text-white); font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300;
+  box-shadow: 0 0 0 3px rgba(197,164,109,0.08);
+}
+
+/* EFFECTS */
+.effect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.effect-box {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 32px; min-height: 160px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.effect-box .effect-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 8px; }
+.effect-box .effect-desc { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+.effect-box .effect-value { font-size: 0.72rem; font-family: monospace; color: var(--accent); margin-top: 12px; }
+
+.glass-demo {
+  background: rgba(17,17,17,0.92); backdrop-filter: blur(24px);
+  border: 1px solid var(--border-subtle); border-radius: 10px;
+  padding: 20px 24px; display: inline-block;
+}
+.glass-demo span { font-size: 0.82rem; color: var(--text-light); }
+
+.noise-demo {
+  width: 100%; height: 80px; border-radius: 8px; position: relative; overflow: hidden;
+  background: var(--bg-darker);
+}
+.noise-demo::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+
+/* GRID SYSTEM */
+.grid-demo {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 24px; margin-bottom: 24px;
+}
+.grid-demo-inner {
+  max-width: 1200px; margin: 0 auto; display: flex; gap: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(197,164,109,0.06) 0px,
+    rgba(197,164,109,0.06) calc(100% / 12 - 8px),
+    transparent calc(100% / 12 - 8px),
+    transparent calc(100% / 12)
+  );
+  height: 60px; border-radius: 4px;
+}
+.grid-info { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; margin-top: 12px; }
+.grid-info strong { color: var(--text-light); font-weight: 600; }
+
+/* ICON STYLE */
+.icon-row { display: flex; gap: 32px; align-items: center; }
+.icon-item { text-align: center; }
+.icon-item .icon-preview {
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; margin: 0 auto 8px; font-size: 1.2rem;
+}
+.icon-item .icon-name { font-size: 0.68rem; color: var(--text-muted); }
+
+/* BORDER RADIUS */
+.radius-row { display: flex; gap: 24px; align-items: end; }
+.radius-item { text-align: center; }
+.radius-box {
+  background: rgba(197,164,109,0.1); border: 1px solid rgba(197,164,109,0.2);
+  margin-bottom: 8px;
+}
+.radius-item .label { font-size: 0.72rem; font-weight: 600; }
+.radius-item .value { font-size: 0.68rem; color: var(--text-muted); font-family: monospace; }
+</style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ==================== COVER ==================== -->
+<section class="cover">
+  <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="cover-logo">
+  <h1>Brand <em>Guidelines</em></h1>
+  <p>Design System und visuelle Identitat der TSD Design GmbH — Technik, Software & Design.</p>
+  <div class="brand-colors-strip" style="width: 300px;"></div>
+  <span class="version">Version 1.0 — April 2026</span>
+</section>
+
+<!-- ==================== COLORS ==================== -->
+<section class="section" id="colors">
+  <span class="section-title">01 — Farbpalette</span>
+  <h2>Farben</h2>
+  <p class="desc">Das dunkle Farbschema mit goldenen Akzenten vermittelt Eleganz, Professionalitat und Vertrauen. Die animierten Markenfarben verleihen der Marke Lebendigkeit.</p>
+
+  <div class="color-group">
+    <div class="color-group-title">Hintergrunde</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: #111111;"></div>
+        <div class="info"><div class="name">Dark</div><div class="hex">#111111</div><div class="css-var">--bg-dark</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #0a0a0a;"></div>
+        <div class="info"><div class="name">Darker</div><div class="hex">#0a0a0a</div><div class="css-var">--bg-darker</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #161616;"></div>
+        <div class="info"><div class="name">Section</div><div class="hex">#161616</div><div class="css-var">--bg-section</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #1c1c1c;"></div>
+        <div class="info"><div class="name">Card</div><div class="hex">#1c1c1c</div><div class="css-var">--bg-card</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #f5f4f0;"></div>
+        <div class="info"><div class="name">Light</div><div class="hex">#f5f4f0</div><div class="css-var">--bg-light</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #eae8e3;"></div>
+        <div class="info"><div class="name">Cream</div><div class="hex">#eae8e3</div><div class="css-var">--bg-cream</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Text</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: #ffffff;"></div>
+        <div class="info"><div class="name">White</div><div class="hex">#ffffff</div><div class="css-var">--text-white</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #e0ddd7;"></div>
+        <div class="info"><div class="name">Light</div><div class="hex">#e0ddd7</div><div class="css-var">--text-light</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #8c8880;"></div>
+        <div class="info"><div class="name">Muted</div><div class="hex">#8c8880</div><div class="css-var">--text-muted</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #1a1a1a; border: 1px solid rgba(255,255,255,0.12);"></div>
+        <div class="info"><div class="name">Dark</div><div class="hex">#1a1a1a</div><div class="css-var">--text-dark</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Akzent</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: #c5a46d;"></div>
+        <div class="info"><div class="name">Gold (Primary)</div><div class="hex">#c5a46d</div><div class="css-var">--accent</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #d4b87e;"></div>
+        <div class="info"><div class="name">Gold Hover</div><div class="hex">#d4b87e</div><div class="css-var">--accent-hover</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Animierte Markenfarben (Logo & Header)</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: #E5CA9C;"></div>
+        <div class="info"><div class="name">Warm Gold</div><div class="hex">#E5CA9C</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #66F4C4;"></div>
+        <div class="info"><div class="name">Mint</div><div class="hex">#66F4C4</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #C6E5EC;"></div>
+        <div class="info"><div class="name">Ice Blue</div><div class="hex">#C6E5EC</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #A178BC;"></div>
+        <div class="info"><div class="name">Purple</div><div class="hex">#A178BC</div></div>
+      </div>
+    </div>
+    <div class="brand-colors-strip" style="margin-top: 20px;"></div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Disziplin-Farben (Layer)</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: #7a9e7e;"></div>
+        <div class="info"><div class="name">Technik</div><div class="hex">#7a9e7e</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #6a8fb5;"></div>
+        <div class="info"><div class="name">Software</div><div class="hex">#6a8fb5</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #9b7ab8;"></div>
+        <div class="info"><div class="name">Design</div><div class="hex">#9b7ab8</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: #c5a46d;"></div>
+        <div class="info"><div class="name">Strategie</div><div class="hex">#c5a46d</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Borders</div>
+    <div class="color-row">
+      <div class="color-swatch">
+        <div class="preview" style="background: var(--bg-darker); border: 2px solid rgba(255,255,255,0.08);"></div>
+        <div class="info"><div class="name">Subtle</div><div class="hex">rgba(255,255,255,0.08)</div><div class="css-var">--border-subtle</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="preview" style="background: var(--bg-darker); border: 2px solid rgba(255,255,255,0.12);"></div>
+        <div class="info"><div class="name">Light</div><div class="hex">rgba(255,255,255,0.12)</div><div class="css-var">--border-light</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TYPOGRAPHY ==================== -->
+<section class="section" id="typography">
+  <span class="section-title">02 — Typografie</span>
+  <h2>Schriften</h2>
+  <p class="desc">Playfair Display als elegante Displayschrift fur Uberschriften, Inter als moderne Sans-Serif fur Fliesstext und UI-Elemente.</p>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Hero H1</span>
+      <span class="type-specs">Playfair Display / 400 / 3.6rem / 1.15 / -0.015em</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 3.6rem; font-weight: 400; letter-spacing: -0.015em;">
+      Das KI-Kreativsystem<br>fur Ihr <em style="color: #c5a46d;">Unternehmen</em>
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Section H2</span>
+      <span class="type-specs">Playfair Display / 400 / 2.5rem / 1.2 / -0.01em</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 2.5rem; font-weight: 400; letter-spacing: -0.01em;">
+      Drei Saulen. Ein System.
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Sub H2</span>
+      <span class="type-specs">Playfair Display / 400 / 2rem / 1.25</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 2rem; font-weight: 400;">
+      Wofur wir stehen.
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Layer H3</span>
+      <span class="type-specs">Playfair Display / 400 / 1.7rem / 1.25</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 1.7rem; font-weight: 400;">
+      Strategische Designsysteme
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Card H3</span>
+      <span class="type-specs">Inter / 600 / 1.05rem / -0.01em</span>
+    </div>
+    <div class="type-sample-sans" style="font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; color: #fff;">
+      Technische Dokumentation
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Body</span>
+      <span class="type-specs">Inter / 300 / 0.95rem / 1.75</span>
+    </div>
+    <div class="type-sample-sans" style="font-size: 0.95rem; font-weight: 300; line-height: 1.75; color: #8c8880; max-width: 600px;">
+      Wir verbinden technisches Know-how, intelligentes Softwaredenken und strategisches Design. Fur Unternehmen, die sichtbar, verstandlich und zukunftsfahig sein wollen.
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Overline</span>
+      <span class="type-specs">Inter / 500 / 0.75rem / 0.14em / uppercase</span>
+    </div>
+    <div class="type-sample-sans" style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #c5a46d;">
+      Unsere Disziplinen
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Tag</span>
+      <span class="type-specs">Inter / 600 / 0.68rem / 0.12em / uppercase</span>
+    </div>
+    <div class="type-sample-sans" style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7a9e7e;">
+      Technik
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Nav Link</span>
+      <span class="type-specs">Inter / 400 / 0.88rem / 0.01em</span>
+    </div>
+    <div class="type-sample-sans" style="font-size: 0.88rem; font-weight: 400; letter-spacing: 0.01em; color: #8c8880;">
+      KI-Kreativsystem &nbsp;&nbsp; Leistungspakete &nbsp;&nbsp; Ablauf &nbsp;&nbsp; <span style="color: #e0ddd7;">Uber Uns</span>
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Blockquote</span>
+      <span class="type-specs">Playfair Display / 400 italic / 1.8rem / 1.45</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 1.8rem; font-weight: 400; font-style: italic; line-height: 1.45; color: #e0ddd7;">
+      &bdquo;Das Ergebnis hat unsere Erwartungen ubertroffen.&ldquo;
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">
+      <span class="type-label">Stat Number</span>
+      <span class="type-specs">Playfair Display / 400 / 2.2rem</span>
+    </div>
+    <div class="type-sample-serif" style="font-size: 2.2rem; font-weight: 400; color: #c5a46d;">
+      97% &nbsp;&nbsp; 4x &nbsp;&nbsp; 48h
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOGO ==================== -->
+<section class="section" id="logo">
+  <span class="section-title">03 — Logo</span>
+  <h2>Logomark</h2>
+  <p class="desc">Das TSD-Logo ist ein quadratisches Monogramm mit animiertem Farbverlauf. Die Animation durchlauft vier Markenfarben in 12 Sekunden.</p>
+
+  <div class="logo-grid">
+    <div>
+      <div class="logo-box dark">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#E5CA9C" stroke-width="1.5"/>
+          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#E5CA9C" letter-spacing="0.1em">TSD</text>
+          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#E5CA9C" letter-spacing="0.14em">DESIGN</text>
+        </svg>
+      </div>
+      <div class="logo-label">Auf Dunkel (#111111)</div>
+    </div>
+    <div>
+      <div class="logo-box light">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#1a1a1a" stroke-width="1.5"/>
+          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#1a1a1a" letter-spacing="0.1em">TSD</text>
+          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#1a1a1a" letter-spacing="0.14em">DESIGN</text>
+        </svg>
+      </div>
+      <div class="logo-label">Auf Hell (#f5f4f0)</div>
+    </div>
+    <div>
+      <div class="logo-box accent">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7.73" y="7.73" width="84.55" height="84.55" rx="6.41" stroke="#ffffff" stroke-width="1.5"/>
+          <text x="50" y="42" text-anchor="middle" font-family="Inter" font-size="11" font-weight="600" fill="#ffffff" letter-spacing="0.1em">TSD</text>
+          <text x="50" y="62" text-anchor="middle" font-family="Inter" font-size="7" font-weight="400" fill="#ffffff" letter-spacing="0.14em">DESIGN</text>
+        </svg>
+      </div>
+      <div class="logo-label">Auf Akzent (#c5a46d)</div>
+    </div>
+  </div>
+
+  <div class="color-group">
+    <div class="color-group-title">Logo-Animationsfarben (12s Cycle)</div>
+    <div class="color-row" style="gap: 0;">
+      <div style="width: 25%; height: 48px; background: #E5CA9C; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: #1a1a1a; border-radius: 8px 0 0 8px;">#E5CA9C</div>
+      <div style="width: 25%; height: 48px; background: #66F4C4; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: #1a1a1a;">#66F4C4</div>
+      <div style="width: 25%; height: 48px; background: #C6E5EC; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: #1a1a1a;">#C6E5EC</div>
+      <div style="width: 25%; height: 48px; background: #A178BC; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: #fff; border-radius: 0 8px 8px 0;">#A178BC</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <div class="color-group-title">Logo Schutzzone</div>
+    <p style="font-size: 0.88rem; color: var(--text-muted); font-weight: 300; line-height: 1.7; max-width: 500px;">Mindestabstand: Hohe des Logo-Rahmens (1x). Keine Elemente durfen in die Schutzzone eindringen. Mindestgrosse: 24px Hohe (digital), 8mm (Print).</p>
+  </div>
+</section>
+
+<!-- ==================== SPACING ==================== -->
+<section class="section" id="spacing">
+  <span class="section-title">04 — Abstande & Raster</span>
+  <h2>Spacing System</h2>
+  <p class="desc">Konsistente Abstande basierend auf einem 8px-Grundraster. Container-Breite: max 1200px mit responsivem Padding.</p>
+
+  <div class="spacing-grid" style="margin-bottom: 40px;">
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 8px; height: 8px;"></div>
+      <div class="label">XS</div>
+      <div class="value">8px / 0.5rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 16px; height: 16px;"></div>
+      <div class="label">SM</div>
+      <div class="value">16px / 1rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 24px; height: 24px;"></div>
+      <div class="label">MD</div>
+      <div class="value">24px / 1.5rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 32px; height: 32px;"></div>
+      <div class="label">LG</div>
+      <div class="value">32px / 2rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 48px; height: 48px;"></div>
+      <div class="label">XL</div>
+      <div class="value">48px / 3rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 64px; height: 48px;"></div>
+      <div class="label">2XL</div>
+      <div class="value">64px / 4rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 80px; height: 48px;"></div>
+      <div class="label">Section</div>
+      <div class="value">112px / 7rem</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-visual" style="width: 80px; height: 48px;"></div>
+      <div class="label">Hero</div>
+      <div class="value">160px / 10rem</div>
+    </div>
+  </div>
+
+  <div class="color-group-title">Border Radius</div>
+  <div class="radius-row" style="margin-top: 16px;">
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 64px; border-radius: 4px;"></div>
+      <div class="label">Tags</div>
+      <div class="value">4px</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 64px; border-radius: 6px;"></div>
+      <div class="label">Buttons/Inputs</div>
+      <div class="value">6px</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 64px; border-radius: 10px;"></div>
+      <div class="label">Cards (sm)</div>
+      <div class="value">10px</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 64px; border-radius: 12px;"></div>
+      <div class="label">Cards (md)</div>
+      <div class="value">12px</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 64px; border-radius: 14px;"></div>
+      <div class="label">Cards (lg)</div>
+      <div class="value">14px</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="width: 64px; height: 40px; border-radius: 100px;"></div>
+      <div class="label">Pills</div>
+      <div class="value">100px</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="color-group-title">Container & Grid</div>
+    <div class="grid-demo" style="margin-top: 16px;">
+      <div class="grid-demo-inner"></div>
+      <div class="grid-info">
+        <strong>Max-Width:</strong> 1200px &nbsp;|&nbsp;
+        <strong>Padding:</strong> clamp(1.25rem, 4vw, 3rem) &nbsp;|&nbsp;
+        <strong>Breakpoints:</strong> 480px / 600px / 768px / 900px / 1024px
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== COMPONENTS ==================== -->
+<section class="section" id="components">
+  <span class="section-title">05 — Komponenten</span>
+  <h2>UI-Komponenten</h2>
+  <p class="desc">Wiederverwendbare Bausteine des TSD Design Systems.</p>
+
+  <!-- Buttons -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 20px;">Buttons</div>
+    <div class="component-row">
+      <span class="component-label">Primary</span>
+      <button class="btn btn-light">Erstgesprach vereinbaren</button>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Accent</span>
+      <button class="btn btn-accent">Nachricht senden</button>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Outline</span>
+      <button class="btn btn-outline">Mehr erfahren</button>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Nav CTA</span>
+      <span style="background: #fff; color: #111; padding: 0.55rem 1.35rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; display: inline-block;">Kontakt</span>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 20px;">Tags & Labels</div>
+    <div class="component-row">
+      <span class="component-label">Layer Tags</span>
+      <span class="tag tag-green">Technik</span>
+      <span class="tag tag-blue">Software</span>
+      <span class="tag tag-purple">Design</span>
+      <span class="tag tag-gold">Strategie</span>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Pills</span>
+      <span class="pill">Corporate Design</span>
+      <span class="pill">Logo-System</span>
+      <span class="pill">Typografie</span>
+      <span class="pill">Farbkonzept</span>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Badge</span>
+      <span style="background: #c5a46d; color: #111; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 0 0 5px 5px; display: inline-block;">Empfohlen</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 20px;">Cards</div>
+    <div class="component-row" style="align-items: start;">
+      <div class="card-demo">
+        <h3>Standard Card</h3>
+        <p>Background: #1c1c1c, Border: rgba(255,255,255,0.08), Radius: 12px, Padding: 2rem.</p>
+      </div>
+      <div class="card-accent">
+        <span class="tag tag-green" style="margin-bottom: 16px;">Technik</span>
+        <h3>Card mit Akzentlinie</h3>
+        <p>3px farbige Linie links, passend zur jeweiligen Disziplin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 20px;">Form Inputs</div>
+    <div class="component-row">
+      <span class="component-label">Default</span>
+      <input type="text" class="input-demo" value="Eingabefeld" readonly>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Focus</span>
+      <input type="text" class="input-focus" value="Fokussiert" readonly>
+    </div>
+    <div class="component-row">
+      <span class="component-label">Label</span>
+      <span style="font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; color: #8c8880; text-transform: uppercase;">E-Mail <span style="color: #c5a46d;">*</span></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div>
+    <div class="color-group-title" style="margin-bottom: 20px;">Navigation</div>
+    <div style="background: rgba(17,17,17,0.92); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px;">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD" style="height: 36px;">
+      <div style="display: flex; align-items: center; gap: 2rem;">
+        <span style="font-size: 0.88rem; color: #8c8880;">KI-Kreativsystem</span>
+        <span style="font-size: 0.88rem; color: #8c8880;">Leistungspakete</span>
+        <span style="font-size: 0.88rem; color: #8c8880;">Ablauf</span>
+        <span style="font-size: 0.88rem; color: #e0ddd7;">Uber Uns</span>
+        <span style="background: #fff; color: #111; padding: 0.55rem 1.35rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem;">Kontakt</span>
+      </div>
+    </div>
+    <div style="height: 2px; background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C); border-radius: 1px; margin-top: 0;"></div>
+    <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; font-weight: 300;">Fixed Header: 72px Hohe, Frosted Glass (rgba(17,17,17,0.92) + blur(24px)), animierter Gradient-Stripe darunter.</p>
+  </div>
+</section>
+
+<!-- ==================== EFFECTS ==================== -->
+<section class="section" id="effects">
+  <span class="section-title">06 — Effekte & Texturen</span>
+  <h2>Visuelle Effekte</h2>
+  <p class="desc">Subtile Texturen und Effekte, die dem Design Tiefe und Charakter verleihen.</p>
+
+  <div class="effect-grid">
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Noise Overlay</div>
+        <div class="effect-desc">Subtiles Rauschen uber dem gesamten Viewport fur eine organische, haptische Qualitat.</div>
+        <div class="effect-value">fractalNoise / opacity: 0.035 / z-index: 9999 / pointer-events: none</div>
+      </div>
+      <div class="noise-demo" style="margin-top: 16px;"></div>
+    </div>
+
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Frosted Glass (Header)</div>
+        <div class="effect-desc">Glasmorphismus-Effekt fur die fixierte Navigation.</div>
+        <div class="effect-value">background: rgba(17,17,17,0.92) / backdrop-filter: blur(24px)</div>
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="glass-demo"><span>Frosted Glass Preview</span></div>
+      </div>
+    </div>
+
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Card Hover Glow</div>
+        <div class="effect-desc">Dezenter goldener Schein beim Hovern uber Karten.</div>
+        <div class="effect-value">box-shadow: 0 8px 32px rgba(197,164,109,0.06), 0 0 0 1px rgba(197,164,109,0.08)</div>
+      </div>
+    </div>
+
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Button Hover Shadow</div>
+        <div class="effect-desc">Goldener Schatten + leichte Elevation beim Hovern.</div>
+        <div class="effect-value">box-shadow: 0 4px 20px rgba(197,164,109,0.25) / transform: translateY(-1px)</div>
+      </div>
+    </div>
+
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Selection Color</div>
+        <div class="effect-desc">Goldene Text-Selektion passend zur Markenfarbe.</div>
+        <div class="effect-value">background: rgba(197,164,109,0.3) / color: #fff</div>
+      </div>
+      <div style="margin-top: 16px; padding: 12px 16px; background: rgba(197,164,109,0.3); border-radius: 6px; display: inline-block;">
+        <span style="font-size: 0.88rem;">Selektierter Text</span>
+      </div>
+    </div>
+
+    <div class="effect-box">
+      <div>
+        <div class="effect-name">Fade-In Animation</div>
+        <div class="effect-desc">Scroll-basierte Einblendung fur Sektionen und Karten.</div>
+        <div class="effect-value">opacity: 0 &rarr; 1 / translateY(24px &rarr; 0) / 0.7s cubic-bezier(0.23, 1, 0.32, 1)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VOICE ==================== -->
+<section class="section" id="voice">
+  <span class="section-title">07 — Tonalitat</span>
+  <h2>Brand Voice</h2>
+  <p class="desc">Die Kommunikation der TSD Design GmbH ist professionell, klar und selbstbewusst — ohne uberheblich zu wirken.</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+    <div class="effect-box">
+      <div class="effect-name" style="color: #7a9e7e;">Wir sind</div>
+      <div style="margin-top: 12px;">
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 2;">
+          Professionell & kompetent<br>
+          Klar & prazise<br>
+          Strategisch & losungsorientiert<br>
+          Selbstbewusst & einladend<br>
+          Hochwertig & sorgfaltig
+        </p>
+      </div>
+    </div>
+    <div class="effect-box">
+      <div class="effect-name" style="color: #9b7ab8;">Wir sind nicht</div>
+      <div style="margin-top: 12px;">
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 2;">
+          Uberheblich oder elitar<br>
+          Technisch unverstandlich<br>
+          Verspielt oder unserioes<br>
+          Aggressiv verkaufend<br>
+          Generisch oder austauschbar
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="color-group-title" style="margin-bottom: 16px;">Sprachbeispiele</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: rgba(122,158,126,0.06); border: 1px solid rgba(122,158,126,0.15); border-radius: 10px; padding: 20px;">
+        <div style="font-size: 0.68rem; font-weight: 600; color: #7a9e7e; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Richtig</div>
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 1.6;">&bdquo;Lassen Sie uns sprechen.&ldquo;</p>
+      </div>
+      <div style="background: rgba(155,122,184,0.06); border: 1px solid rgba(155,122,184,0.15); border-radius: 10px; padding: 20px;">
+        <div style="font-size: 0.68rem; font-weight: 600; color: #9b7ab8; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Falsch</div>
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 1.6;">&bdquo;Jetzt schnell Angebot sichern!!!&ldquo;</p>
+      </div>
+      <div style="background: rgba(122,158,126,0.06); border: 1px solid rgba(122,158,126,0.15); border-radius: 10px; padding: 20px;">
+        <div style="font-size: 0.68rem; font-weight: 600; color: #7a9e7e; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Richtig</div>
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 1.6;">&bdquo;Wir entwickeln eine Losung, die zu Ihrem Unternehmen passt.&ldquo;</p>
+      </div>
+      <div style="background: rgba(155,122,184,0.06); border: 1px solid rgba(155,122,184,0.15); border-radius: 10px; padding: 20px;">
+        <div style="font-size: 0.68rem; font-weight: 600; color: #9b7ab8; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Falsch</div>
+        <p style="font-size: 0.88rem; color: var(--text-light); font-weight: 300; line-height: 1.6;">&bdquo;Wir machen alles moglich!&ldquo;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>
