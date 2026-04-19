@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=4800">
+<title>TSD Design – Social Media Ad Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+:root {
+  --bg-dark: #111111;
+  --bg-darker: #0a0a0a;
+  --bg-section: #161616;
+  --bg-card: #1c1c1c;
+  --text-white: #ffffff;
+  --text-light: #e0ddd7;
+  --text-muted: #8c8880;
+  --accent: #c5a46d;
+  --accent-hover: #d4b87e;
+  --border-subtle: rgba(255,255,255,0.08);
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); background: #0a0a0a; color: #fff; padding: 60px; }
+
+.page-title {
+  font-family: var(--font-serif); font-size: 2.4rem; font-weight: 400;
+  margin-bottom: 8px;
+}
+.page-subtitle { font-size: 1rem; color: var(--text-muted); font-weight: 300; margin-bottom: 60px; }
+
+.format-section { margin-bottom: 80px; }
+.format-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.format-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
+.format-size { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; margin-bottom: 28px; }
+
+.template-row { display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
+
+/* ============================================ */
+/* TEMPLATE BASE STYLES                         */
+/* ============================================ */
+.tpl {
+  position: relative; overflow: hidden; flex-shrink: 0;
+  font-family: var(--font-sans);
+}
+.tpl * { font-family: inherit; }
+
+/* Noise overlay for all templates */
+.tpl::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 10;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+
+/* Gradient line accent */
+.gradient-line {
+  height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC);
+}
+
+/* Logo simplified */
+.tpl-logo {
+  width: 40px; height: 40px; border: 1px solid currentColor;
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+}
+
+.overline {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+}
+.tpl-headline {
+  font-family: var(--font-serif); font-weight: 400; line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.tpl-headline em { font-style: italic; color: var(--accent); }
+.tpl-body { font-weight: 300; color: var(--text-muted); line-height: 1.65; }
+.tpl-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: #111; padding: 12px 24px;
+  border-radius: 6px; font-weight: 600; font-size: 13px;
+}
+.tpl-cta-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #fff; padding: 12px 24px;
+  border-radius: 6px; font-weight: 600; font-size: 13px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.tpl-cta-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #111; padding: 12px 24px;
+  border-radius: 6px; font-weight: 600; font-size: 13px;
+}
+.tag-sm {
+  display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 4px 8px; border-radius: 3px;
+}
+.tag-green { background: rgba(122,158,126,0.15); color: #7a9e7e; }
+.tag-blue { background: rgba(106,143,181,0.15); color: #6a8fb5; }
+.tag-purple { background: rgba(155,122,184,0.15); color: #9b7ab8; }
+.tag-gold { background: rgba(197,164,109,0.15); color: var(--accent); }
+
+.tpl-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tpl-footer-left { display: flex; align-items: center; gap: 10px; }
+.tpl-footer-logo {
+  width: 28px; height: 28px; border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 3px; display: flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 700; letter-spacing: 0.06em;
+}
+.tpl-footer-name { font-size: 11px; font-weight: 500; }
+.tpl-footer-url { font-size: 10px; color: var(--text-muted); font-weight: 300; }
+
+/* Scale down for display */
+.scale-half { transform: scale(0.5); transform-origin: top left; }
+
+/* Variant label */
+.variant-label {
+  font-size: 0.68rem; color: var(--text-muted); font-weight: 400;
+  margin-top: 8px; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="page-title">Social Media <em style="font-family: 'Playfair Display'; font-style: italic; color: #c5a46d;">Templates</em></div>
+<p class="page-subtitle">TSD Design GmbH — Ad Templates fur alle gangigen Formate</p>
+
+<!-- ========================================================= -->
+<!-- INSTAGRAM POST 1080x1080                                   -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">Instagram</div>
+  <div class="format-title">Feed Post</div>
+  <div class="format-size">1080 x 1080 px</div>
+  <div class="template-row">
+
+    <!-- Variant 1: Hero/Service -->
+    <div>
+      <div class="tpl" style="width:540px; height:540px; background: var(--bg-dark); padding: 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 60px; margin-bottom: 32px;"></div>
+          <div class="overline" style="margin-bottom: 14px;">KI-Kreativsystem</div>
+          <div class="tpl-headline" style="font-size: 32px; margin-bottom: 16px;">Design, das<br><em>Wirkung</em> zeigt.</div>
+          <div class="tpl-body" style="font-size: 14px; max-width: 360px;">Technik, Software & Design aus einer Hand. Massgeschneiderte Losungen fur Ihr Unternehmen.</div>
+        </div>
+        <div>
+          <div style="display: flex; gap: 8px; margin-bottom: 28px;">
+            <span class="tag-sm tag-green">Technik</span>
+            <span class="tag-sm tag-blue">Software</span>
+            <span class="tag-sm tag-purple">Design</span>
+          </div>
+          <div class="tpl-footer">
+            <div class="tpl-footer-left">
+              <div class="tpl-footer-logo">TSD</div>
+              <div>
+                <div class="tpl-footer-name">TSD Design GmbH</div>
+                <div class="tpl-footer-url">tsd-design.de</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Hero / Service</div>
+    </div>
+
+    <!-- Variant 2: Quote/Testimonial -->
+    <div>
+      <div class="tpl" style="width:540px; height:540px; background: var(--bg-darker); padding: 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 60px; margin-bottom: 40px;"></div>
+          <div style="font-family: var(--font-serif); font-size: 26px; font-style: italic; line-height: 1.4; color: var(--text-light); margin-bottom: 24px;">
+            &bdquo;Das Ergebnis hat unsere Erwartungen bei weitem ubertroffen — strategisch und visuell.&ldquo;
+          </div>
+          <div style="font-size: 13px; color: var(--text-muted); font-weight: 400;">— M. Weber, Geschaftsfuhrer</div>
+        </div>
+        <div>
+          <div style="display: flex; gap: 32px; margin-bottom: 28px; padding-top: 20px; border-top: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-family: var(--font-serif); font-size: 28px; color: var(--accent);">97%</div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Kundenzufriedenheit</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-serif); font-size: 28px; color: var(--accent);">4x</div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">schnellere Umsetzung</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-serif); font-size: 28px; color: var(--accent);">48h</div>
+              <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Erstkonzept</div>
+            </div>
+          </div>
+          <div class="tpl-footer">
+            <div class="tpl-footer-left">
+              <div class="tpl-footer-logo">TSD</div>
+              <div>
+                <div class="tpl-footer-name">TSD Design GmbH</div>
+                <div class="tpl-footer-url">tsd-design.de</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Testimonial / Stats</div>
+    </div>
+
+    <!-- Variant 3: CTA -->
+    <div>
+      <div class="tpl" style="width:540px; height:540px; background: var(--bg-dark); display: flex; flex-direction: column; justify-content: space-between; text-align: center; padding: 48px;">
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div class="overline" style="margin-bottom: 16px;">Bereit fur den nachsten Schritt?</div>
+          <div class="tpl-headline" style="font-size: 34px; margin-bottom: 16px;">Lassen Sie uns<br><em>sprechen.</em></div>
+          <div class="tpl-body" style="font-size: 14px; max-width: 340px; margin-bottom: 28px;">Erzahlen Sie uns von Ihrem Vorhaben — wir entwickeln eine Losung, die passt.</div>
+          <div class="tpl-cta">Erstgesprach vereinbaren &rarr;</div>
+        </div>
+        <div>
+          <div class="gradient-line" style="margin-bottom: 20px;"></div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <div class="tpl-footer-logo">TSD</div>
+            <div style="text-align: left;">
+              <div class="tpl-footer-name">TSD Design GmbH</div>
+              <div class="tpl-footer-url">tsd-design.de</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">CTA / Kontakt</div>
+    </div>
+
+    <!-- Variant 4: Services Grid -->
+    <div>
+      <div class="tpl" style="width:540px; height:540px; background: var(--bg-dark); padding: 44px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="overline" style="margin-bottom: 14px;">Unsere Leistungen</div>
+          <div class="tpl-headline" style="font-size: 28px; margin-bottom: 28px;">Drei Saulen.<br>Ein <em>System.</em></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; position: relative; overflow: hidden;">
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #7a9e7e;"></div>
+            <div style="padding-left: 8px;">
+              <div style="font-size: 13px; font-weight: 600;">Technische Dokumentation</div>
+              <div style="font-size: 11px; color: var(--text-muted); font-weight: 300; margin-top: 2px;">Komplexes verstandlich machen</div>
+            </div>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; position: relative; overflow: hidden;">
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #6a8fb5;"></div>
+            <div style="padding-left: 8px;">
+              <div style="font-size: 13px; font-weight: 600;">Individuelle Software</div>
+              <div style="font-size: 11px; color: var(--text-muted); font-weight: 300; margin-top: 2px;">KI-gestutzte Losungen</div>
+            </div>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; position: relative; overflow: hidden;">
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #9b7ab8;"></div>
+            <div style="padding-left: 8px;">
+              <div style="font-size: 13px; font-weight: 600;">Strategisches Design</div>
+              <div style="font-size: 11px; color: var(--text-muted); font-weight: 300; margin-top: 2px;">Visuelle Identitat mit Wirkung</div>
+            </div>
+          </div>
+        </div>
+        <div class="tpl-footer">
+          <div class="tpl-footer-left">
+            <div class="tpl-footer-logo">TSD</div>
+            <div>
+              <div class="tpl-footer-name">TSD Design GmbH</div>
+              <div class="tpl-footer-url">tsd-design.de</div>
+            </div>
+          </div>
+          <div class="tpl-cta-gold" style="font-size: 11px; padding: 8px 16px;">Mehr erfahren</div>
+        </div>
+      </div>
+      <div class="variant-label">Services / Leistungen</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- INSTAGRAM STORY 1080x1920                                  -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">Instagram / Facebook / TikTok</div>
+  <div class="format-title">Story / Reels</div>
+  <div class="format-size">1080 x 1920 px (dargestellt 540 x 960)</div>
+  <div class="template-row">
+
+    <!-- Story 1: Hero -->
+    <div>
+      <div class="tpl" style="width:540px; height:960px; background: var(--bg-dark); padding: 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 48px; margin-bottom: 40px;"></div>
+          <div class="tpl-footer-logo" style="margin-bottom: 32px;">TSD</div>
+        </div>
+        <div>
+          <div class="overline" style="margin-bottom: 16px;">KI-Kreativsystem</div>
+          <div class="tpl-headline" style="font-size: 40px; margin-bottom: 20px;">Das Design-<br>System fur Ihr<br><em>Unternehmen.</em></div>
+          <div class="tpl-body" style="font-size: 15px; margin-bottom: 32px; max-width: 380px;">Technik, Software & Design — strategisch verbunden fur messbare Ergebnisse.</div>
+          <div style="display: flex; gap: 8px; margin-bottom: 36px;">
+            <span class="tag-sm tag-green">Technik</span>
+            <span class="tag-sm tag-blue">Software</span>
+            <span class="tag-sm tag-purple">Design</span>
+          </div>
+          <div class="tpl-cta">Jetzt entdecken &rarr;</div>
+        </div>
+      </div>
+      <div class="variant-label">Hero / Brand</div>
+    </div>
+
+    <!-- Story 2: Stats -->
+    <div>
+      <div class="tpl" style="width:540px; height:960px; background: var(--bg-darker); padding: 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 48px; margin-bottom: 40px;"></div>
+          <div class="overline" style="margin-bottom: 16px;">Ergebnisse</div>
+          <div class="tpl-headline" style="font-size: 36px; margin-bottom: 32px;">Zahlen, die<br>fur sich <em>sprechen.</em></div>
+        </div>
+        <div>
+          <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px;">
+            <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px;">
+              <div style="font-family: var(--font-serif); font-size: 48px; color: var(--accent); margin-bottom: 4px;">97%</div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 300;">Kundenzufriedenheit</div>
+            </div>
+            <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px;">
+              <div style="font-family: var(--font-serif); font-size: 48px; color: var(--accent); margin-bottom: 4px;">4x</div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 300;">Schnellere Umsetzung durch KI</div>
+            </div>
+            <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px;">
+              <div style="font-family: var(--font-serif); font-size: 48px; color: var(--accent); margin-bottom: 4px;">48h</div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 300;">Bis zum Erstkonzept</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="tpl-footer-logo">TSD</div>
+            <div>
+              <div class="tpl-footer-name">TSD Design GmbH</div>
+              <div class="tpl-footer-url">tsd-design.de</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Stats / Zahlen</div>
+    </div>
+
+    <!-- Story 3: Quote -->
+    <div>
+      <div class="tpl" style="width:540px; height:960px; background: var(--bg-dark); padding: 48px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 48px; margin-bottom: 40px;"></div>
+          <div class="tpl-footer-logo" style="margin-bottom: 20px;">TSD</div>
+        </div>
+        <div>
+          <div style="width: 40px; height: 2px; background: var(--accent); margin-bottom: 24px;"></div>
+          <div style="font-family: var(--font-serif); font-size: 28px; font-style: italic; line-height: 1.4; color: var(--text-light); margin-bottom: 28px;">
+            &bdquo;TSD Design hat unsere Marke auf ein vollig neues Level gehoben. Professionell, strategisch und immer einen Schritt voraus.&ldquo;
+          </div>
+          <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Maria Weber</div>
+          <div style="font-size: 12px; color: var(--text-muted); font-weight: 300; margin-bottom: 40px;">Geschaftsfuhrerin, Weber & Partner</div>
+          <div class="tpl-cta-outline" style="font-size: 12px;">Auch uberzeugen lassen &rarr;</div>
+        </div>
+      </div>
+      <div class="variant-label">Testimonial</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- FACEBOOK / LINKEDIN POST 1200x628                          -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">Facebook / LinkedIn</div>
+  <div class="format-title">Feed Post (Landscape)</div>
+  <div class="format-size">1200 x 628 px (dargestellt 600 x 314)</div>
+  <div class="template-row">
+
+    <!-- FB/LI 1: Hero -->
+    <div>
+      <div class="tpl" style="width:600px; height:314px; background: var(--bg-dark); padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div class="overline" style="font-size: 9px; margin-bottom: 12px;">KI-Kreativsystem</div>
+            <div class="tpl-headline" style="font-size: 26px;">Design, das Ihr<br>Unternehmen <em>voranbringt.</em></div>
+          </div>
+          <div class="tpl-footer-logo">TSD</div>
+        </div>
+        <div>
+          <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+            <span class="tag-sm tag-green" style="font-size: 8px;">Technik</span>
+            <span class="tag-sm tag-blue" style="font-size: 8px;">Software</span>
+            <span class="tag-sm tag-purple" style="font-size: 8px;">Design</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="tpl-body" style="font-size: 12px; max-width: 340px;">Massgeschneiderte Losungen fur Unternehmen, die sichtbar und zukunftsfahig sein wollen.</div>
+            <div class="tpl-cta" style="font-size: 11px; padding: 8px 18px;">Mehr erfahren &rarr;</div>
+          </div>
+        </div>
+        <div class="gradient-line" style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0;"></div>
+      </div>
+      <div class="variant-label">Hero / Service</div>
+    </div>
+
+    <!-- FB/LI 2: Split Stats -->
+    <div>
+      <div class="tpl" style="width:600px; height:314px; background: var(--bg-darker); display: flex;">
+        <div style="flex: 1; padding: 36px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="overline" style="font-size: 9px; margin-bottom: 12px;">Ergebnisse</div>
+            <div class="tpl-headline" style="font-size: 22px;">Zahlen, die<br>fur sich <em>sprechen.</em></div>
+          </div>
+          <div class="tpl-footer-left">
+            <div class="tpl-footer-logo" style="width: 24px; height: 24px; font-size: 6px;">TSD</div>
+            <div class="tpl-footer-url">tsd-design.de</div>
+          </div>
+        </div>
+        <div style="flex: 1; background: var(--bg-card); padding: 28px; display: flex; flex-direction: column; justify-content: center; gap: 16px; border-left: 1px solid var(--border-subtle);">
+          <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle);">
+            <div style="font-family: var(--font-serif); font-size: 32px; color: var(--accent);">97%</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 300;">Kundenzufriedenheit</div>
+          </div>
+          <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle);">
+            <div style="font-family: var(--font-serif); font-size: 32px; color: var(--accent);">4x</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 300;">Schnellere Umsetzung</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 32px; color: var(--accent);">48h</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 300;">Erstkonzept</div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Stats / Split</div>
+    </div>
+
+    <!-- FB/LI 3: Testimonial -->
+    <div>
+      <div class="tpl" style="width:600px; height:314px; background: var(--bg-dark); padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div class="gradient-line" style="width: 40px;"></div>
+          <div class="tpl-footer-logo">TSD</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 20px; font-style: italic; line-height: 1.45; color: var(--text-light); margin-bottom: 16px; max-width: 480px;">
+            &bdquo;TSD Design hat unsere Marke auf ein vollig neues Level gehoben. Professionell, strategisch und immer einen Schritt voraus.&ldquo;
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 12px; font-weight: 500;">Maria Weber</div>
+              <div style="font-size: 10px; color: var(--text-muted); font-weight: 300;">Geschaftsfuhrerin, Weber & Partner</div>
+            </div>
+            <div class="tpl-cta-outline" style="font-size: 10px; padding: 7px 14px;">Kontakt aufnehmen &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Testimonial</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- LINKEDIN BANNER 1584x396                                   -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">LinkedIn</div>
+  <div class="format-title">Company Banner</div>
+  <div class="format-size">1584 x 396 px (dargestellt 792 x 198)</div>
+  <div class="template-row">
+
+    <div>
+      <div class="tpl" style="width:792px; height:198px; background: var(--bg-dark); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 24px;">
+          <div class="tpl-footer-logo" style="width: 48px; height: 48px; font-size: 12px;">TSD</div>
+          <div>
+            <div class="tpl-headline" style="font-size: 24px; margin-bottom: 6px;">Technik, Software & <em>Design</em></div>
+            <div class="tpl-body" style="font-size: 12px;">Das KI-Kreativsystem fur Ihr Unternehmen — aus einer Hand.</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 24px; align-items: center;">
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-serif); font-size: 22px; color: var(--accent);">97%</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Zufriedenheit</div>
+          </div>
+          <div style="width: 1px; height: 36px; background: var(--border-subtle);"></div>
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-serif); font-size: 22px; color: var(--accent);">4x</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Schneller</div>
+          </div>
+          <div style="width: 1px; height: 36px; background: var(--border-subtle);"></div>
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-serif); font-size: 22px; color: var(--accent);">48h</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Erstkonzept</div>
+          </div>
+        </div>
+        <div class="gradient-line" style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0;"></div>
+      </div>
+      <div class="variant-label">Brand Banner</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- X/TWITTER POST 1600x900                                    -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">X (Twitter)</div>
+  <div class="format-title">Post Image</div>
+  <div class="format-size">1600 x 900 px (dargestellt 640 x 360)</div>
+  <div class="template-row">
+
+    <!-- X 1: Hero -->
+    <div>
+      <div class="tpl" style="width:640px; height:360px; background: var(--bg-dark); padding: 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div class="overline" style="font-size: 9px; margin-bottom: 12px;">TSD Design GmbH</div>
+            <div class="tpl-headline" style="font-size: 28px;">Das KI-Kreativsystem<br>fur Ihr <em>Unternehmen.</em></div>
+          </div>
+          <div class="tpl-footer-logo">TSD</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+          <div style="display: flex; gap: 8px;">
+            <span class="tag-sm tag-green" style="font-size: 8px;">Technik</span>
+            <span class="tag-sm tag-blue" style="font-size: 8px;">Software</span>
+            <span class="tag-sm tag-purple" style="font-size: 8px;">Design</span>
+          </div>
+          <div class="tpl-cta" style="font-size: 11px; padding: 8px 18px;">tsd-design.de &rarr;</div>
+        </div>
+        <div class="gradient-line" style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0;"></div>
+      </div>
+      <div class="variant-label">Hero / Brand</div>
+    </div>
+
+    <!-- X 2: Quote -->
+    <div>
+      <div class="tpl" style="width:640px; height:360px; background: var(--bg-darker); padding: 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div class="gradient-line" style="width: 40px;"></div>
+          <div class="tpl-footer-logo">TSD</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 22px; font-style: italic; line-height: 1.4; color: var(--text-light); margin-bottom: 16px; max-width: 500px;">
+            &bdquo;Strategisch, visuell und technisch auf hochstem Niveau. TSD Design versteht, was Unternehmen brauchen.&ldquo;
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 12px; color: var(--text-muted);">— M. Weber, Geschaftsfuhrerin</div>
+            <div class="tpl-footer-url">tsd-design.de</div>
+          </div>
+        </div>
+      </div>
+      <div class="variant-label">Testimonial</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- YOUTUBE THUMBNAIL 1280x720                                 -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">YouTube</div>
+  <div class="format-title">Thumbnail</div>
+  <div class="format-size">1280 x 720 px (dargestellt 640 x 360)</div>
+  <div class="template-row">
+
+    <div>
+      <div class="tpl" style="width:640px; height:360px; background: var(--bg-dark); padding: 40px; display: flex; align-items: center; position: relative;">
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(197,164,109,0.08) 0%, transparent 60%);"></div>
+        <div style="position: relative; z-index: 1;">
+          <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+            <span class="tag-sm tag-green" style="font-size: 8px;">Technik</span>
+            <span class="tag-sm tag-blue" style="font-size: 8px;">Software</span>
+            <span class="tag-sm tag-purple" style="font-size: 8px;">Design</span>
+          </div>
+          <div class="tpl-headline" style="font-size: 32px; margin-bottom: 12px;">KI-Kreativsystem<br><em>erklart.</em></div>
+          <div class="tpl-body" style="font-size: 13px; max-width: 340px;">Wie wir Technik, Software & Design zu einem System verbinden.</div>
+        </div>
+        <div style="position: absolute; right: 40px; bottom: 24px; display: flex; align-items: center; gap: 8px; z-index: 1;">
+          <div class="tpl-footer-logo" style="width: 24px; height: 24px; font-size: 6px;">TSD</div>
+          <div class="tpl-footer-name" style="font-size: 10px;">TSD Design</div>
+        </div>
+        <div class="gradient-line" style="position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 0;"></div>
+      </div>
+      <div class="variant-label">Video Thumbnail</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- FACEBOOK COVER 1640x856                                    -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">Facebook</div>
+  <div class="format-title">Cover Photo</div>
+  <div class="format-size">1640 x 856 px (dargestellt 656 x 342)</div>
+  <div class="template-row">
+
+    <div>
+      <div class="tpl" style="width:656px; height:342px; background: var(--bg-dark); padding: 40px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div class="overline" style="font-size: 9px; margin-bottom: 12px;">TSD Design GmbH — Koln</div>
+          <div class="tpl-headline" style="font-size: 28px; margin-bottom: 12px;">Technik, Software &<br><em>Design</em> aus einer Hand.</div>
+          <div class="tpl-body" style="font-size: 12px; max-width: 320px;">Das KI-Kreativsystem fur Unternehmen, die sichtbar und zukunftsfahig sein wollen.</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-end;">
+          <div class="tpl-footer-logo" style="width: 48px; height: 48px; font-size: 12px; margin-bottom: 12px;">TSD</div>
+          <div style="text-align: right; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px;">
+            <div style="font-family: var(--font-serif); font-size: 24px; color: var(--accent);">97%</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Kundenzufriedenheit</div>
+          </div>
+          <div style="text-align: right; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px;">
+            <div style="font-family: var(--font-serif); font-size: 24px; color: var(--accent);">4x</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Schnellere Umsetzung</div>
+          </div>
+        </div>
+        <div class="gradient-line" style="position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0;"></div>
+      </div>
+      <div class="variant-label">Brand Cover</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- PINTEREST 1000x1500                                        -->
+<!-- ========================================================= -->
+<div class="format-section">
+  <div class="format-label">Pinterest</div>
+  <div class="format-title">Pin</div>
+  <div class="format-size">1000 x 1500 px (dargestellt 400 x 600)</div>
+  <div class="template-row">
+
+    <div>
+      <div class="tpl" style="width:400px; height:600px; background: var(--bg-dark); padding: 36px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="gradient-line" style="width: 40px; margin-bottom: 28px;"></div>
+          <div class="tpl-footer-logo" style="margin-bottom: 28px;">TSD</div>
+          <div class="overline" style="font-size: 9px; margin-bottom: 12px;">KI-Kreativsystem</div>
+          <div class="tpl-headline" style="font-size: 28px; margin-bottom: 14px;">Design, das<br>Ihr Unternehmen<br><em>voranbringt.</em></div>
+          <div class="tpl-body" style="font-size: 12px; max-width: 280px;">Technik, Software & Design — strategisch verbunden fur massgeschneiderte Ergebnisse.</div>
+        </div>
+        <div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden;">
+              <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #7a9e7e;"></div>
+              <div style="font-size: 11px; font-weight: 500; padding-left: 6px;">Technische Dokumentation</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden;">
+              <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #6a8fb5;"></div>
+              <div style="font-size: 11px; font-weight: 500; padding-left: 6px;">Individuelle Software</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; position: relative; overflow: hidden;">
+              <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #9b7ab8;"></div>
+              <div style="font-size: 11px; font-weight: 500; padding-left: 6px;">Strategisches Design</div>
+            </div>
+          </div>
+          <div style="font-size: 10px; color: var(--text-muted); text-align: center;">tsd-design.de</div>
+        </div>
+      </div>
+      <div class="variant-label">Service Pin</div>
+    </div>
+
+    <div>
+      <div class="tpl" style="width:400px; height:600px; background: var(--bg-darker); padding: 36px; display: flex; flex-direction: column; justify-content: center; text-align: center; align-items: center;">
+        <div class="gradient-line" style="width: 40px; margin-bottom: 32px;"></div>
+        <div style="font-family: var(--font-serif); font-size: 24px; font-style: italic; line-height: 1.4; color: var(--text-light); margin-bottom: 20px; max-width: 280px;">
+          &bdquo;Das Ergebnis hat unsere Erwartungen bei weitem ubertroffen.&ldquo;
+        </div>
+        <div style="font-size: 12px; font-weight: 500; margin-bottom: 4px;">Maria Weber</div>
+        <div style="font-size: 10px; color: var(--text-muted); font-weight: 300; margin-bottom: 32px;">Geschaftsfuhrerin</div>
+        <div style="display: flex; gap: 20px; margin-bottom: 32px;">
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 24px; color: var(--accent);">97%</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Zufriedenheit</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 24px; color: var(--accent);">4x</div>
+            <div style="font-size: 9px; color: var(--text-muted);">Schneller</div>
+          </div>
+        </div>
+        <div class="tpl-footer-logo" style="margin-bottom: 8px;">TSD</div>
+        <div style="font-size: 10px; color: var(--text-muted);">tsd-design.de</div>
+      </div>
+      <div class="variant-label">Quote Pin</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

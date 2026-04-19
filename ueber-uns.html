@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über Uns – TSD Design GmbH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #111111; --bg-darker: #0a0a0a; --bg-section: #161616;
+  --bg-card: #1c1c1c; --text-white: #ffffff; --text-light: #e0ddd7;
+  --text-muted: #8c8880; --accent: #c5a46d; --accent-hover: #d4b87e;
+  --border-subtle: rgba(255,255,255,0.08); --border-light: rgba(255,255,255,0.12);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-sans); background: var(--bg-dark);
+  color: var(--text-white); -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+/* NAV */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(17,17,17,0.92); backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border-subtle);
+}
+header .container {
+  display: flex; align-items: center; justify-content: space-between; height: 72px;
+}
+.logo img { height: 36px; width: auto; }
+nav ul { display: flex; align-items: center; gap: 2rem; list-style: none; }
+nav a { font-size: 0.88rem; font-weight: 400; color: var(--text-muted); transition: color 0.3s; }
+nav a:hover { color: var(--text-white); }
+nav a.active { color: var(--text-white); }
+.nav-cta {
+  background: var(--text-white); color: var(--bg-dark) !important;
+  padding: 0.55rem 1.35rem; border-radius: 6px; font-weight: 600;
+  font-size: 0.85rem; transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--bg-dark) !important; }
+.menu-toggle {
+  display: none; background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px; padding: 8px;
+}
+.menu-toggle span { width: 22px; height: 1.5px; background: var(--text-white); }
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  nav ul {
+    position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    flex-direction: column; justify-content: flex-start;
+    padding: 3rem 2rem; background: var(--bg-darker);
+    gap: 1.5rem; transform: translateX(100%); transition: transform 0.4s ease;
+  }
+  nav ul.open { transform: translateX(0); }
+  nav a { font-size: 1.1rem; color: var(--text-light); }
+}
+
+/* PAGE HERO */
+.page-hero { padding: 10rem 0 4rem; }
+.page-hero .container {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.page-hero .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.page-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1rem;
+}
+.page-hero p {
+  font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; max-width: 620px;
+}
+.hero-img-wrap {
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-img-wrap img { width: 100%; max-width: 400px; height: auto; border-radius: 14px; }
+@media (max-width: 900px) {
+  .page-hero .container { grid-template-columns: 1fr; }
+  .hero-img-wrap { margin-top: 2rem; }
+}
+
+/* PHILOSOPHY */
+.philosophy { padding: 0 0 6rem; }
+.philosophy-text h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-weight: 400; line-height: 1.25; margin-bottom: 1.25rem;
+}
+.philosophy-text p {
+  font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 1.25rem; max-width: 780px;
+}
+
+/* DISCIPLINES */
+.disciplines { padding: 6rem 0; background: var(--bg-darker); }
+.disciplines .section-head { margin-bottom: 3.5rem; }
+.disciplines .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.disciplines h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1rem;
+}
+.disciplines .section-head > p {
+  font-size: 1rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; max-width: 600px;
+}
+.disc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.disc-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 2.25rem 1.75rem; transition: all 0.35s;
+  position: relative; overflow: hidden;
+}
+.disc-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.disc-card:nth-child(1)::before { background: #7a9e7e; }
+.disc-card:nth-child(2)::before { background: #6a8fb5; }
+.disc-card:nth-child(3)::before { background: #9b7ab8; }
+.disc-card:hover { border-color: var(--border-light); transform: translateY(-3px); }
+.disc-card h3 {
+  font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; letter-spacing: -0.01em;
+}
+.disc-card p {
+  font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); font-weight: 300;
+}
+.disc-card .disc-tag {
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.3rem 0.7rem; border-radius: 4px; margin-bottom: 1.25rem;
+}
+.disc-card:nth-child(1) .disc-tag { background: rgba(122,158,126,0.12); color: #7a9e7e; }
+.disc-card:nth-child(2) .disc-tag { background: rgba(106,143,181,0.12); color: #6a8fb5; }
+.disc-card:nth-child(3) .disc-tag { background: rgba(155,122,184,0.12); color: #9b7ab8; }
+@media (max-width: 768px) { .disc-grid { grid-template-columns: 1fr; } }
+
+/* VALUES */
+.values { padding: 6rem 0; background: var(--bg-dark); }
+.values .section-head { margin-bottom: 3.5rem; }
+.values .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.values h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1rem;
+}
+.values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.value-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 2rem 1.5rem; text-align: center;
+  transition: all 0.35s;
+}
+.value-card:hover { border-color: var(--border-light); transform: translateY(-3px); }
+.value-icon {
+  font-size: 1.6rem; margin-bottom: 1rem; display: block;
+}
+.value-card h3 {
+  font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.value-card p {
+  font-size: 0.82rem; line-height: 1.6; color: var(--text-muted); font-weight: 300;
+}
+@media (max-width: 1024px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .values-grid { grid-template-columns: 1fr; } }
+
+/* FOUNDER */
+.founder { padding: 6rem 0; background: var(--bg-darker); }
+.founder-grid {
+  display: grid; grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.founder-img-wrap {
+  display: flex; align-items: center; justify-content: center;
+}
+.founder-img-wrap img { width: 100%; max-width: 360px; height: auto; border-radius: 14px; }
+.founder-text .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.founder-text h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-weight: 400; line-height: 1.25; margin-bottom: 1.25rem;
+}
+.founder-text p {
+  font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+  .founder-grid { grid-template-columns: 1fr; }
+  .founder-img-wrap { order: -1; }
+}
+
+/* CTA */
+.cta-section {
+  padding: 6rem 0; background: var(--bg-dark);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(197,164,109,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-section .container { position: relative; z-index: 2; max-width: 620px; }
+.cta-section .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: block;
+}
+.cta-section h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+}
+.cta-section p {
+  font-size: 1rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; margin-bottom: 2.5rem;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 1.75rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.9rem;
+  border: none; cursor: pointer; transition: all 0.3s;
+}
+.btn-light { background: var(--text-white); color: var(--bg-dark); }
+.btn-light:hover { background: var(--accent); }
+.btn svg { width: 15px; height: 15px; }
+
+/* FOOTER */
+footer { padding: 2.5rem 0; border-top: 1px solid var(--border-subtle); }
+footer .container {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-left { display: flex; align-items: center; gap: 1rem; }
+.footer-logo { height: 24px; width: auto; opacity: 0.6; }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; transition: color 0.3s; }
+.footer-links a:hover { color: var(--text-white); }
+
+/* ---- CHARACTER ENHANCEMENTS ---- */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+::selection { background: rgba(197,164,109,0.3); color: #fff; }
+::-moz-selection { background: rgba(197,164,109,0.3); color: #fff; }
+header::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C, #66F4C4, #C6E5EC, #A178BC);
+  background-size: 400% 100%;
+  animation: header-color-flow 12s linear infinite;
+  opacity: 0.6;
+}
+@keyframes header-color-flow {
+  0% { background-position: 0% 0; }
+  100% { background-position: 400% 0; }
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-darker); }
+::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.5); }
+
+/* Card glow hover */
+.disc-card:hover, .value-card:hover {
+  box-shadow: 0 8px 32px rgba(197,164,109,0.06), 0 0 0 1px rgba(197,164,109,0.08);
+}
+.btn-light:hover {
+  box-shadow: 0 4px 20px rgba(197,164,109,0.25); transform: translateY(-1px);
+}
+.nav-cta:hover { box-shadow: 0 4px 16px rgba(197,164,109,0.2); }
+
+/* Dot grid on disciplines section */
+.disciplines::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(197,164,109,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.disciplines { position: relative; overflow: hidden; }
+
+
+/* Hero background image */
+.page-hero {
+  position: relative; overflow: hidden;
+  background-image: url('images/background.png');
+  background-size: cover; background-position: center;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, var(--bg-dark) 100%);
+  pointer-events: none; z-index: 1;
+}
+.page-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--bg-dark); opacity: 0.85; pointer-events: none;
+}
+.page-hero .container { position: relative; z-index: 2; }
+
+/* Founder section accent */
+.founder-grid::before {
+  content: ''; position: absolute; left: -2rem; top: 50%;
+  width: 3px; height: 80px; transform: translateY(-50%);
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent); opacity: 0.3;
+}
+.founder-grid { position: relative; }
+
+
+/* Fade-in animations */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design GmbH">
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="index.html#system">KI-Kreativsystem</a></li>
+        <li><a href="index.html#pakete">Leistungspakete</a></li>
+        <li><a href="index.html#prozess">Ablauf</a></li>
+        <li><a href="index.html#unternehmen">Für Ihr Unternehmen</a></li>
+        <li><a href="ueber-uns.html" class="active">Über Uns</a></li>
+        <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-text">
+      <span class="overline">Über Uns</span>
+      <h1>Technik, Software & Design –<br>aus einer Hand.</h1>
+      <p>Wir verbinden technisches Know-how, intelligentes Softwaredenken und strategisches Design. Für Unternehmen, die sichtbar, verständlich und zukunftsfähig sein wollen.</p>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="images/hero-placeholder.svg" alt="TSD Design – Technik, Software & Design">
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-text fade-in">
+      <h2>Wir denken ganzheitlich – von der strukturellen Funktion bis zur visuellen Wirkung.</h2>
+      <p>TSD Design steht für die Verbindung dreier Disziplinen, die in der Praxis oft getrennt gedacht werden: Technik, Software und Design. Wir sind überzeugt, dass nachhaltige Lösungen nur dort entstehen, wo diese Bereiche ineinandergreifen.</p>
+      <p>Unser Ansatz ist geprägt von strategischer Klarheit und dem Anspruch, für jedes Unternehmen maßgeschneiderte Lösungen zu entwickeln – keine Vorlagen, keine Kompromisse.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DISCIPLINES -->
+<section class="disciplines">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Unsere Disziplinen</span>
+      <h2>Drei Säulen. Ein System.</h2>
+      <p>Jede Disziplin ist für sich stark – zusammen bilden sie ein KI-gestütztes Kreativsystem, das Unternehmen ganzheitlich nach vorne bringt.</p>
+    </div>
+    <div class="disc-grid">
+      <div class="disc-card fade-in">
+        <span class="disc-tag">Technik</span>
+        <h3>Technische Dokumentation</h3>
+        <p>Wir bereiten komplexe technische Inhalte so auf, dass sie für Anwender klar, nachvollziehbar und sicher nutzbar sind. Verständliche Dokumentation ist die Grundlage für reibungslose Prozesse und sichere Anwendungen.</p>
+      </div>
+      <div class="disc-card fade-in">
+        <span class="disc-tag">Software</span>
+        <h3>Individuelle Softwarelösungen</h3>
+        <p>Wir entwickeln intelligente, KI-gestützte Lösungen, die Ihre Prozesse effizienter machen und Ihre Kommunikation auf ein neues Level heben. Keine Standardlösungen – sondern Werkzeuge, die zu Ihrem Unternehmen passen.</p>
+      </div>
+      <div class="disc-card fade-in">
+        <span class="disc-tag">Design</span>
+        <h3>Strategische Gestaltung</h3>
+        <p>Design ist für uns keine Dekoration, sondern strategische Gestaltung mit Wirkung. Wir schaffen visuelle Identitäten, die Ihre Marke positionieren und Vertrauen aufbauen – konsistent und wiedererkennbar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="overline">Unsere Werte</span>
+      <h2>Wofür wir stehen.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-in">
+        <span class="value-icon">&#9670;</span>
+        <h3>Klarheit</h3>
+        <p>Komplexes einfach machen – in Strategie, Kommunikation und Gestaltung.</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">&#9881;</span>
+        <h3>Systematik</h3>
+        <p>KI-gestützte Prozesse, die skalierbar, effizient und reproduzierbar sind.</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">&#10022;</span>
+        <h3>Qualität</h3>
+        <p>Handwerkliche Exzellenz in jedem Detail – von der Dokumentation bis zum Pixel.</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">&#10132;</span>
+        <h3>Wirkung</h3>
+        <p>Lösungen, die nicht nur gut aussehen, sondern messbare Ergebnisse liefern.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder">
+  <div class="container">
+    <div class="founder-grid fade-in">
+      <div class="founder-img-wrap">
+        <img src="images/gruender-placeholder.svg" alt="Georgos und Denis Papadopulos – Gründer TSD Design">
+      </div>
+      <div class="founder-text">
+        <span class="overline">Gründer</span>
+        <h2>Die Vision hinter TSD Design.</h2>
+        <p>Georgos und Denis Papadopulos gründeten TSD Design mit der Überzeugung, dass die besten Ergebnisse dort entstehen, wo technisches Verständnis, digitale Intelligenz und gestalterisches Denken zusammenkommen.</p>
+        <p>Mit einem Hintergrund, der alle drei Disziplinen verbindet, führen sie ein Team, das für Unternehmen arbeitet, die mehr wollen als Standard – maßgeschneiderte Lösungen, die heute funktionieren und morgen skalieren.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <span class="overline fade-in">Bereit für den nächsten Schritt?</span>
+    <h2 class="fade-in">Lassen Sie uns gemeinsam Ihre Marke stärken.</h2>
+    <p class="fade-in">Erzählen Sie uns von Ihrem Vorhaben – wir entwickeln eine Lösung, die zu Ihrem Unternehmen passt.</p>
+    <a href="kontakt.html" class="btn btn-light fade-in">
+      Erstgespräch vereinbaren
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="footer-logo">
+      <span class="footer-copy">&copy; 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navMenu').classList.toggle('open');
+});
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
