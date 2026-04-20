@@ -43,6 +43,12 @@ html[data-theme="light"] header {
 html[data-theme="light"] .logo img {
   filter: brightness(0.55) saturate(1.3);
 }
+html[data-theme="light"] .hero::after {
+  opacity: 0.88;
+}
+html[data-theme="light"] .hero {
+  background-color: var(--bg-dark);
+}
 html[data-theme="light"] .btn-outline:hover {
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
@@ -183,7 +189,8 @@ nav a:hover { color: var(--text-white); }
 .hero-visual { display: flex; flex-direction: column; gap: 0.75rem; }
 a.hero-layer { text-decoration: none; color: inherit; }
 .hero-layer {
-  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--bg-card) 70%, transparent);
+  border: 1px solid var(--border-subtle);
   border-radius: 10px; padding: 1.25rem 1.5rem;
   display: flex; align-items: center; gap: 1rem;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -252,6 +259,16 @@ a.hero-layer { text-decoration: none; color: inherit; }
 /* ---- SYSTEM ---- */
 .system { padding: 7rem 0; background: var(--bg-dark); }
 .system .section-head { max-width: 640px; margin-bottom: 4rem; }
+.system-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+  margin-bottom: 4rem;
+}
+.system-intro .section-head { max-width: none; margin-bottom: 0; order: 1; }
+.system-intro .system-overview { order: 2; }
+@media (max-width: 900px) {
+  .system-intro { grid-template-columns: 1fr; }
+}
 
 .layer-section {
   display: grid; grid-template-columns: 1fr 1fr; gap: 0;
@@ -293,11 +310,18 @@ a.hero-layer { text-decoration: none; color: inherit; }
 
 .layer-vis { display: flex; align-items: center; justify-content: center; padding: 2rem; }
 .layer-illustration {
-  width: 100%; max-width: 320px; aspect-ratio: 1; border-radius: 14px;
+  width: 100%; max-width: 400px; aspect-ratio: 4 / 3; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; position: relative;
 }
-.layer-illustration svg { width: 85%; height: 85%; }
+.layer-illustration svg { width: 92%; height: 92%; }
+.system-overview {
+  width: 100%; max-width: 480px; aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  overflow: visible; position: relative;
+  margin-left: auto;
+}
+.system-overview svg { width: 100%; height: 100%; }
 .l1 .layer-illustration { background: rgba(122,158,126,0.06); border: 1px solid rgba(122,158,126,0.1); }
 .l2 .layer-illustration { background: rgba(106,143,181,0.06); border: 1px solid rgba(106,143,181,0.1); }
 .l3 .layer-illustration { background: rgba(155,122,184,0.06); border: 1px solid rgba(155,122,184,0.1); }
@@ -601,9 +625,17 @@ header::after {
 .hero::after {
   content: ''; position: absolute; inset: 0;
   background: var(--bg-dark);
-  opacity: 0.85;
+  opacity: 0.55;
   pointer-events: none;
 }
+.hero-bg-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 1;
+  opacity: 0.55;
+  filter: blur(0.8px);
+  mix-blend-mode: screen;
+}
+.hero-bg-svg svg { width: 100%; height: 100%; }
 .hero .container { position: relative; z-index: 2; }
 
 /* Proof section quote decorative marks */
@@ -672,6 +704,139 @@ header::after {
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg-svg" aria-hidden="true">
+    <svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="heroBgGlowA" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#c5a46d" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#c5a46d" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="heroBgGlowB" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#7a9e7e" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#7a9e7e" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="heroBgGlowC" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#6a8fb5" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#6a8fb5" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="heroBgGlowD" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#9b7ab8" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#9b7ab8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Diffuse color glows in 4 corners (disciplines) -->
+      <circle cx="280" cy="220" r="280" fill="url(#heroBgGlowB)"/>
+      <circle cx="1320" cy="220" r="280" fill="url(#heroBgGlowC)"/>
+      <circle cx="280" cy="680" r="280" fill="url(#heroBgGlowD)"/>
+      <circle cx="1320" cy="680" r="280" fill="url(#heroBgGlowA)"/>
+      <circle cx="800" cy="450" r="340" fill="url(#heroBgGlowA)"/>
+
+      <!-- Fine dense node scatter with subtle pulses -->
+      <g>
+        <circle cx="180" cy="140" r="1.6" fill="#7a9e7e" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="260" cy="210" r="1.2" fill="#7a9e7e" opacity="0.5"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" begin="0.6s" repeatCount="indefinite"/></circle>
+        <circle cx="340" cy="160" r="1" fill="#7a9e7e" opacity="0.4"/>
+        <circle cx="420" cy="240" r="1.4" fill="#7a9e7e" opacity="0.55"><animate attributeName="opacity" values="0.25;0.8;0.25" dur="4.5s" begin="1.2s" repeatCount="indefinite"/></circle>
+        <circle cx="150" cy="300" r="1.2" fill="#7a9e7e" opacity="0.5"/>
+        <circle cx="500" cy="120" r="1.1" fill="#7a9e7e" opacity="0.45"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5.5s" begin="0.3s" repeatCount="indefinite"/></circle>
+        <circle cx="220" cy="400" r="1" fill="#7a9e7e" opacity="0.4"/>
+        <circle cx="380" cy="340" r="1.3" fill="#7a9e7e" opacity="0.5"><animate attributeName="opacity" values="0.25;0.75;0.25" dur="4.2s" begin="1.8s" repeatCount="indefinite"/></circle>
+
+        <circle cx="1140" cy="160" r="1.6" fill="#6a8fb5" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4.3s" begin="0.4s" repeatCount="indefinite"/></circle>
+        <circle cx="1240" cy="230" r="1.2" fill="#6a8fb5" opacity="0.5"/>
+        <circle cx="1340" cy="170" r="1.4" fill="#6a8fb5" opacity="0.6"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="5s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle cx="1420" cy="290" r="1.1" fill="#6a8fb5" opacity="0.45"/>
+        <circle cx="1200" cy="340" r="1" fill="#6a8fb5" opacity="0.4"><animate attributeName="opacity" values="0.2;0.65;0.2" dur="4.8s" begin="2s" repeatCount="indefinite"/></circle>
+        <circle cx="1480" cy="200" r="1.3" fill="#6a8fb5" opacity="0.5"/>
+        <circle cx="1100" cy="280" r="1.2" fill="#6a8fb5" opacity="0.5"><animate attributeName="opacity" values="0.25;0.75;0.25" dur="4.6s" begin="0.8s" repeatCount="indefinite"/></circle>
+
+        <circle cx="200" cy="620" r="1.4" fill="#9b7ab8" opacity="0.6"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="4.4s" repeatCount="indefinite"/></circle>
+        <circle cx="300" cy="720" r="1.2" fill="#9b7ab8" opacity="0.5"/>
+        <circle cx="400" cy="660" r="1" fill="#9b7ab8" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5.2s" begin="1.4s" repeatCount="indefinite"/></circle>
+        <circle cx="480" cy="780" r="1.3" fill="#9b7ab8" opacity="0.5"/>
+        <circle cx="120" cy="760" r="1.1" fill="#9b7ab8" opacity="0.45"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="4.9s" begin="0.5s" repeatCount="indefinite"/></circle>
+        <circle cx="360" cy="560" r="1.2" fill="#9b7ab8" opacity="0.5"/>
+
+        <circle cx="1180" cy="620" r="1.6" fill="#c5a46d" opacity="0.75"><animate attributeName="opacity" values="0.35;0.95;0.35" dur="4s" begin="0.2s" repeatCount="indefinite"/></circle>
+        <circle cx="1280" cy="720" r="1.3" fill="#c5a46d" opacity="0.6"/>
+        <circle cx="1380" cy="660" r="1.1" fill="#c5a46d" opacity="0.5"><animate attributeName="opacity" values="0.25;0.8;0.25" dur="5.3s" begin="1.6s" repeatCount="indefinite"/></circle>
+        <circle cx="1460" cy="780" r="1.4" fill="#c5a46d" opacity="0.6"/>
+        <circle cx="1100" cy="760" r="1.2" fill="#c5a46d" opacity="0.55"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="4.7s" begin="2.2s" repeatCount="indefinite"/></circle>
+        <circle cx="1340" cy="560" r="1" fill="#c5a46d" opacity="0.45"/>
+
+        <!-- Central sprinkle -->
+        <circle cx="720" cy="380" r="1.1" fill="#c5a46d" opacity="0.5"/>
+        <circle cx="820" cy="420" r="1.3" fill="#c5a46d" opacity="0.6"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="900" cy="360" r="1" fill="#c5a46d" opacity="0.45"/>
+        <circle cx="680" cy="460" r="1.2" fill="#c5a46d" opacity="0.55"/>
+        <circle cx="860" cy="520" r="1.4" fill="#c5a46d" opacity="0.6"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="4.4s" begin="1s" repeatCount="indefinite"/></circle>
+      </g>
+
+      <!-- Delicate connecting threads (abstract constellation) -->
+      <g opacity="0.4">
+        <line x1="180" y1="140" x2="260" y2="210" stroke="#7a9e7e" stroke-width="0.4" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="8s" repeatCount="indefinite"/>
+        </line>
+        <line x1="260" y1="210" x2="380" y2="340" stroke="#7a9e7e" stroke-width="0.3" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="9s" repeatCount="indefinite"/>
+        </line>
+        <line x1="340" y1="160" x2="420" y2="240" stroke="#7a9e7e" stroke-width="0.3" stroke-dasharray="2 6"/>
+
+        <line x1="1140" y1="160" x2="1240" y2="230" stroke="#6a8fb5" stroke-width="0.4" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="8.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="1240" y1="230" x2="1340" y2="170" stroke="#6a8fb5" stroke-width="0.3" stroke-dasharray="2 6"/>
+        <line x1="1100" y1="280" x2="1200" y2="340" stroke="#6a8fb5" stroke-width="0.3" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="9.5s" repeatCount="indefinite"/>
+        </line>
+
+        <line x1="200" y1="620" x2="300" y2="720" stroke="#9b7ab8" stroke-width="0.4" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="8.2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="300" y1="720" x2="400" y2="660" stroke="#9b7ab8" stroke-width="0.3" stroke-dasharray="2 6"/>
+        <line x1="360" y1="560" x2="480" y2="780" stroke="#9b7ab8" stroke-width="0.3" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="9.2s" repeatCount="indefinite"/>
+        </line>
+
+        <line x1="1180" y1="620" x2="1280" y2="720" stroke="#c5a46d" stroke-width="0.4" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="7.8s" repeatCount="indefinite"/>
+        </line>
+        <line x1="1280" y1="720" x2="1380" y2="660" stroke="#c5a46d" stroke-width="0.3" stroke-dasharray="2 6"/>
+        <line x1="1100" y1="760" x2="1340" y2="560" stroke="#c5a46d" stroke-width="0.3" stroke-dasharray="2 6">
+          <animate attributeName="stroke-dashoffset" values="0;-24" dur="10s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Diagonal cross-threads from corners toward center (echo of system overview) -->
+        <line x1="260" y1="210" x2="720" y2="380" stroke="#7a9e7e" stroke-width="0.3" stroke-dasharray="1 10" opacity="0.5">
+          <animate attributeName="stroke-dashoffset" values="0;-22" dur="12s" repeatCount="indefinite"/>
+        </line>
+        <line x1="1240" y1="230" x2="820" y2="420" stroke="#6a8fb5" stroke-width="0.3" stroke-dasharray="1 10" opacity="0.5">
+          <animate attributeName="stroke-dashoffset" values="0;-22" dur="12s" begin="1.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="300" y1="720" x2="720" y2="460" stroke="#9b7ab8" stroke-width="0.3" stroke-dasharray="1 10" opacity="0.5">
+          <animate attributeName="stroke-dashoffset" values="0;-22" dur="12s" begin="3s" repeatCount="indefinite"/>
+        </line>
+        <line x1="1280" y1="720" x2="860" y2="520" stroke="#c5a46d" stroke-width="0.4" stroke-dasharray="1 10" opacity="0.6">
+          <animate attributeName="stroke-dashoffset" values="0;-22" dur="12s" begin="4.5s" repeatCount="indefinite"/>
+        </line>
+      </g>
+
+      <!-- Soft expanding rings in corners (echo of system signal) -->
+      <circle cx="1320" cy="680" fill="none" stroke="#c5a46d" stroke-width="0.5" opacity="0.4">
+        <animate attributeName="r" values="40;240" dur="9s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.45;0" dur="9s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="280" cy="220" fill="none" stroke="#7a9e7e" stroke-width="0.5" opacity="0.35">
+        <animate attributeName="r" values="40;240" dur="10s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0" dur="10s" begin="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="800" cy="450" fill="none" stroke="#c5a46d" stroke-width="0.5" opacity="0.35">
+        <animate attributeName="r" values="60;320" dur="14s" begin="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0" dur="14s" begin="4s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
   <div class="container">
     <div class="hero-text">
       <div class="hero-overline">KI-Kreativsystem für Ihr Unternehmen</div>
@@ -753,10 +918,162 @@ header::after {
 <!-- SYSTEM -->
 <section class="system" id="system">
   <div class="container">
-    <div class="section-head fade-in">
-      <span class="overline">Das KI-Kreativsystem</span>
-      <h2>Vier Elemente. Ein durchgängiges System.</h2>
-      <p>Jedes Element löst ein konkretes Problem. Zusammen bilden sie ein Kreativsystem, das strategische Tiefe mit operativer Effizienz verbindet.</p>
+    <div class="system-intro fade-in">
+      <div class="system-overview">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="coreGlowIntro" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#c5a46d" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#c5a46d" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="200" r="120" fill="url(#coreGlowIntro)"/>
+          <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.4"/>
+          <circle cx="200" cy="200" r="100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.4"/>
+
+          <circle cx="200" cy="200" fill="none" stroke="#c5a46d" stroke-width="0.8">
+            <animate attributeName="r" values="30;160" dur="5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.45;0" dur="5s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-width" values="1;0.1" dur="5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="200" cy="200" fill="none" stroke="#c5a46d" stroke-width="0.8">
+            <animate attributeName="r" values="30;160" dur="5s" begin="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.45;0" dur="5s" begin="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-width" values="1;0.1" dur="5s" begin="2.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- TOP LEFT: L1 Strategie (Radar) -->
+          <g transform="translate(90, 90)">
+            <circle cx="0" cy="0" r="32" fill="rgba(122,158,126,0.08)" stroke="rgba(122,158,126,0.25)" stroke-width="0.6"/>
+            <circle cx="0" cy="0" r="20" fill="none" stroke="#7a9e7e" stroke-width="0.4" opacity="0.3"/>
+            <circle cx="0" cy="0" r="10" fill="none" stroke="#7a9e7e" stroke-width="0.4" opacity="0.4"/>
+            <circle cx="0" cy="0" r="3.5" fill="#7a9e7e" opacity="0.9">
+              <animate attributeName="r" values="3.5;5;3.5" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="0" fill="none" stroke="#7a9e7e" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="4;30;4" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <g style="animation: scan-line 5s linear infinite; transform-origin: 0px 0px;">
+              <line x1="0" y1="0" x2="0" y2="-30" stroke="#7a9e7e" stroke-width="0.6" opacity="0.45"/>
+            </g>
+          </g>
+          <text x="90" y="142" text-anchor="middle" fill="#7a9e7e" font-family="Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.14em" opacity="0.85">01 STRATEGIE</text>
+
+          <!-- TOP RIGHT: L2 Content-Engine (Gears) -->
+          <g transform="translate(310, 90)">
+            <circle cx="0" cy="0" r="32" fill="rgba(106,143,181,0.08)" stroke="rgba(106,143,181,0.25)" stroke-width="0.6"/>
+            <g style="animation: gear-spin 7s linear infinite; transform-origin: -5px 0px;">
+              <circle cx="-5" cy="0" r="13" fill="none" stroke="#6a8fb5" stroke-width="0.7" opacity="0.55"/>
+              <circle cx="-5" cy="0" r="4" fill="#6a8fb5" opacity="0.6"/>
+              <rect x="-7.5" y="-20" width="5" height="5" rx="0.7" fill="#6a8fb5" opacity="0.55"/>
+              <rect x="-7.5" y="15" width="5" height="5" rx="0.7" fill="#6a8fb5" opacity="0.55"/>
+              <rect x="-22.5" y="-2.5" width="5" height="5" rx="0.7" fill="#6a8fb5" opacity="0.55"/>
+              <rect x="7.5" y="-2.5" width="5" height="5" rx="0.7" fill="#6a8fb5" opacity="0.55"/>
+            </g>
+            <g style="animation: gear-counter 4.5s linear infinite; transform-origin: 11px -10px;">
+              <circle cx="11" cy="-10" r="8.5" fill="none" stroke="#6a8fb5" stroke-width="0.6" opacity="0.5"/>
+              <circle cx="11" cy="-10" r="2.5" fill="#6a8fb5" opacity="0.5"/>
+              <rect x="9.5" y="-22" width="3.5" height="3.5" rx="0.5" fill="#6a8fb5" opacity="0.5"/>
+              <rect x="9.5" y="-2" width="3.5" height="3.5" rx="0.5" fill="#6a8fb5" opacity="0.5"/>
+              <rect x="-1.5" y="-11.5" width="3.5" height="3.5" rx="0.5" fill="#6a8fb5" opacity="0.5"/>
+              <rect x="20" y="-11.5" width="3.5" height="3.5" rx="0.5" fill="#6a8fb5" opacity="0.5"/>
+            </g>
+          </g>
+          <text x="310" y="142" text-anchor="middle" fill="#6a8fb5" font-family="Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.14em" opacity="0.85">02 CONTENT</text>
+
+          <!-- BOTTOM LEFT: L3 Design (Grid) -->
+          <g transform="translate(90, 310)">
+            <circle cx="0" cy="0" r="32" fill="rgba(155,122,184,0.08)" stroke="rgba(155,122,184,0.25)" stroke-width="0.6"/>
+            <g style="animation: grid-morph-1 10s ease-in-out infinite; transform-origin: 0px 0px;">
+              <rect x="-17" y="-17" width="34" height="34" rx="2" fill="none" stroke="#9b7ab8" stroke-width="0.5" opacity="0.3"/>
+            </g>
+            <rect x="-12" y="-12" width="10" height="10" rx="1" fill="#9b7ab8" opacity="0.4">
+              <animate attributeName="opacity" values="0.4;0.75;0.4" dur="3s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="2" y="-12" width="10" height="10" rx="1" fill="#9b7ab8" opacity="0.25">
+              <animate attributeName="opacity" values="0.25;0.6;0.25" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="-12" y="2" width="10" height="10" rx="1" fill="#9b7ab8" opacity="0.3">
+              <animate attributeName="opacity" values="0.3;0.65;0.3" dur="3s" begin="1s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="2" y="2" width="10" height="10" rx="1" fill="#9b7ab8" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;0.85;0.5" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            </rect>
+          </g>
+          <text x="90" y="266" text-anchor="middle" fill="#9b7ab8" font-family="Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.14em" opacity="0.85">03 DESIGN</text>
+
+          <!-- BOTTOM RIGHT: L4 Distribution (Signal) -->
+          <g transform="translate(310, 310)">
+            <circle cx="0" cy="0" r="32" fill="rgba(197,164,109,0.08)" stroke="rgba(197,164,109,0.3)" stroke-width="0.6"/>
+            <circle cx="0" cy="0" r="3.5" fill="#c5a46d" opacity="0.8">
+              <animate attributeName="r" values="3.5;5;3.5" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="0" fill="none" stroke="#c5a46d" stroke-width="0.7">
+              <animate attributeName="r" values="5;28;5" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.55;0;0.55" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="0" fill="none" stroke="#c5a46d" stroke-width="0.7">
+              <animate attributeName="r" values="5;28;5" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.55;0;0.55" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="18" cy="-18" r="1.5" fill="#c5a46d" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="-18" cy="18" r="1.5" fill="#c5a46d" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+          <text x="310" y="266" text-anchor="middle" fill="#c5a46d" font-family="Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.14em" opacity="0.9">04 WIRKUNG</text>
+
+          <!-- CENTRAL SYNTHESIS NODE -->
+          <circle cx="200" cy="200" r="28" fill="rgba(197,164,109,0.1)" stroke="rgba(197,164,109,0.4)" stroke-width="0.8"/>
+          <circle cx="200" cy="200" r="18" fill="none" stroke="#c5a46d" stroke-width="0.5" opacity="0.5"/>
+          <circle cx="200" cy="200" r="6" fill="#c5a46d" opacity="0.95">
+            <animate attributeName="r" values="6;8.5;6" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.85;1;0.85" dur="3s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- CONNECTING LINES -->
+          <line x1="112" y1="112" x2="180" y2="180" stroke="#7a9e7e" stroke-width="0.7" opacity="0.35" stroke-dasharray="3 4">
+            <animate attributeName="stroke-dashoffset" values="28;0" dur="3s" repeatCount="indefinite"/>
+          </line>
+          <line x1="288" y1="112" x2="220" y2="180" stroke="#6a8fb5" stroke-width="0.7" opacity="0.35" stroke-dasharray="3 4">
+            <animate attributeName="stroke-dashoffset" values="28;0" dur="3s" begin="0.8s" repeatCount="indefinite"/>
+          </line>
+          <line x1="112" y1="288" x2="180" y2="220" stroke="#9b7ab8" stroke-width="0.7" opacity="0.35" stroke-dasharray="3 4">
+            <animate attributeName="stroke-dashoffset" values="28;0" dur="3s" begin="1.6s" repeatCount="indefinite"/>
+          </line>
+          <line x1="288" y1="288" x2="220" y2="220" stroke="#c5a46d" stroke-width="0.7" opacity="0.4" stroke-dasharray="3 4">
+            <animate attributeName="stroke-dashoffset" values="28;0" dur="3s" begin="2.4s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- FLOWING PARTICLES -->
+          <circle r="2" fill="#7a9e7e" opacity="0.9">
+            <animateMotion dur="3s" repeatCount="indefinite" path="M112,112 L180,180"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="2" fill="#6a8fb5" opacity="0.9">
+            <animateMotion dur="3s" begin="0.8s" repeatCount="indefinite" path="M288,112 L220,180"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="0.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="2" fill="#9b7ab8" opacity="0.9">
+            <animateMotion dur="3s" begin="1.6s" repeatCount="indefinite" path="M112,288 L180,220"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="1.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="2" fill="#c5a46d" opacity="0.9">
+            <animateMotion dur="3s" begin="2.4s" repeatCount="indefinite" path="M288,288 L220,220"/>
+            <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="2.4s" repeatCount="indefinite"/>
+          </circle>
+
+          <text x="200" y="204" text-anchor="middle" fill="#c5a46d" font-family="Inter, sans-serif" font-size="7" font-weight="700" letter-spacing="0.2em" opacity="0.55">SYSTEM</text>
+        </svg>
+      </div>
+      <div class="section-head">
+        <span class="overline">Das KI-Kreativsystem</span>
+        <h2>Vier Elemente im Zusammenspiel. Ein durchgängiges System.</h2>
+        <p>Jedes Element löst ein konkretes Problem. Zusammen bilden sie ein Kreativsystem, das strategische Tiefe mit operativer Effizienz verbindet.</p>
+      </div>
     </div>
 
     <div class="layer-section l1 fade-in" id="element-01">
@@ -1085,7 +1402,7 @@ header::after {
     <div class="section-head fade-in">
       <span class="overline">Leistungspakete</span>
       <h2>Einzeln stark. Zusammen unschlagbar.</h2>
-      <p>Jedes Element ist ein eigenständiges Modul – buchbar als Einzelleistung oder als aufeinander aufbauendes Gesamtsystem.</p>
+      <p>Jedes Element ist ein eigenständiges Modul – buchbar als Einzelleistung, ideal als aufeinander aufbauendes Gesamtsystem.</p>
     </div>
 
     <div class="pkg-grid">
@@ -1162,7 +1479,7 @@ header::after {
   <div class="container">
     <div class="section-head fade-in">
       <span class="overline">Der Ablauf</span>
-      <h2>Von der Anfrage zum System – in vier klaren Phasen.</h2>
+      <h2>Zum System – in vier Phasen.</h2>
       <p>Kein endloses Briefing-Ping-Pong. Unser Prozess ist straff, transparent und auf schnelle Ergebnisse ausgelegt.</p>
     </div>
     <div class="steps fade-in">
