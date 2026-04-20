@@ -33,10 +33,6 @@ html[data-theme="light"] header {
 html[data-theme="light"] .logo img {
   filter: brightness(0.55) saturate(1.3);
 }
-html[data-theme="light"] .hero-img-wrap img,
-html[data-theme="light"] .founder-img-wrap img {
-  filter: invert(0.93) hue-rotate(180deg);
-}
 html[data-theme="light"] ::-webkit-scrollbar-thumb {
   background: rgba(197,164,109,0.5);
 }
@@ -123,16 +119,29 @@ nav a.active { color: var(--text-white); }
   font-weight: 300; max-width: 620px;
 }
 .hero-img-wrap {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: flex-end;
 }
-.hero-img-wrap img { width: 100%; max-width: 400px; height: auto; border-radius: 14px; }
+.hero-img-wrap svg { width: 100%; max-width: 440px; height: auto; aspect-ratio: 1 / 1; }
+html[data-theme="light"] .hero-img-wrap svg { filter: brightness(0.6) saturate(1.4) contrast(1.1); }
+.hero-img-wrap img { width: 100%; max-width: 400px; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 14px; }
 @media (max-width: 900px) {
   .page-hero .container { grid-template-columns: 1fr; }
-  .hero-img-wrap { margin-top: 2rem; }
+  .hero-img-wrap { margin-top: 2rem; justify-content: center; }
+  .philosophy-img { justify-content: center; }
 }
 
 /* PHILOSOPHY */
-.philosophy { padding: 0 0 6rem; }
+.philosophy { padding: 4rem 0 6rem; position: relative; }
+.philosophy::before {
+  content: ''; position: absolute; top: 0; left: clamp(1.25rem, 4vw, 3rem); right: clamp(1.25rem, 4vw, 3rem);
+  height: 1px; background: var(--border-subtle);
+}
+.philosophy-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.philosophy-grid .philosophy-img { order: 1; }
+.philosophy-grid .philosophy-text { order: 2; }
 .philosophy-text h2 {
   font-family: var(--font-serif);
   font-size: clamp(1.6rem, 2.5vw, 2rem);
@@ -140,7 +149,15 @@ nav a.active { color: var(--text-white); }
 }
 .philosophy-text p {
   font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);
-  font-weight: 300; margin-bottom: 1.25rem; max-width: 780px;
+  font-weight: 300; margin-bottom: 1.25rem;
+}
+.philosophy-img { display: flex; align-items: center; justify-content: flex-start; }
+.philosophy-img img {
+  width: 100%; max-width: 400px; aspect-ratio: 4 / 3;
+  object-fit: cover; border-radius: 14px;
+}
+@media (max-width: 900px) {
+  .philosophy-grid { grid-template-columns: 1fr; }
 }
 
 /* DISCIPLINES */
@@ -403,11 +420,148 @@ header::after {
   <div class="container">
     <div class="hero-text">
       <span class="overline">Über Uns</span>
-      <h1>Technik, Software & Design –<br>aus einer Hand.</h1>
+      <h1>Wir denken in Systemen – nicht in Einzelleistungen.</h1>
       <p>Wir verbinden technisches Know-how, intelligentes Softwaredenken und strategisches Design. Für Unternehmen, die sichtbar, verständlich und zukunftsfähig sein wollen.</p>
     </div>
     <div class="hero-img-wrap">
-      <img src="images/hero-placeholder.svg" alt="TSD Design – Technik, Software & Design">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          @keyframes heroLogoFill {
+            0%, 100% { fill: #E5CA9C; }
+            25%      { fill: #66F4C4; }
+            50%      { fill: #C6E5EC; }
+            75%      { fill: #A178BC; }
+          }
+          @keyframes heroLogoStroke {
+            0%, 100% { stroke: #E5CA9C; }
+            25%      { stroke: #66F4C4; }
+            50%      { stroke: #C6E5EC; }
+            75%      { stroke: #A178BC; }
+          }
+          .hero-logo-stroke { animation: heroLogoStroke 12s ease-in-out infinite; }
+          .hero-logo-fill { animation: heroLogoFill 12s ease-in-out infinite; }
+        </style>
+        <defs>
+          <radialGradient id="heroLogoGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#c5a46d" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#c5a46d" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Background glow -->
+        <circle cx="200" cy="200" r="150" fill="url(#heroLogoGlow)"/>
+
+        <!-- Orbit rings -->
+        <circle cx="200" cy="200" r="178" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="125" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+
+        <!-- Expanding signal rings from center -->
+        <circle cx="200" cy="200" fill="none" stroke="#c5a46d" stroke-width="0.8">
+          <animate attributeName="r" values="100;180" dur="6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.45;0" dur="6s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-width" values="1;0.1" dur="6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="200" cy="200" fill="none" stroke="#c5a46d" stroke-width="0.8">
+          <animate attributeName="r" values="100;180" dur="6s" begin="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.45;0" dur="6s" begin="3s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-width" values="1;0.1" dur="6s" begin="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- TOP LEFT: Gold corner -->
+        <g transform="translate(65, 65)">
+          <circle cx="0" cy="0" r="22" fill="rgba(229,202,156,0.08)" stroke="rgba(229,202,156,0.3)" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3" fill="#E5CA9C" opacity="0.9">
+            <animate attributeName="r" values="3;4.5;3" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" fill="none" stroke="#E5CA9C" stroke-width="0.7">
+            <animate attributeName="r" values="3;20;3" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- TOP RIGHT: Mint corner -->
+        <g transform="translate(335, 65)">
+          <circle cx="0" cy="0" r="22" fill="rgba(102,244,196,0.08)" stroke="rgba(102,244,196,0.3)" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3" fill="#66F4C4" opacity="0.9">
+            <animate attributeName="r" values="3;4.5;3" dur="3s" begin="0.75s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" fill="none" stroke="#66F4C4" stroke-width="0.7">
+            <animate attributeName="r" values="3;20;3" dur="3s" begin="0.75s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" begin="0.75s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- BOTTOM LEFT: Ice Blue corner -->
+        <g transform="translate(65, 335)">
+          <circle cx="0" cy="0" r="22" fill="rgba(198,229,236,0.08)" stroke="rgba(198,229,236,0.3)" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3" fill="#C6E5EC" opacity="0.9">
+            <animate attributeName="r" values="3;4.5;3" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" fill="none" stroke="#C6E5EC" stroke-width="0.7">
+            <animate attributeName="r" values="3;20;3" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- BOTTOM RIGHT: Purple corner -->
+        <g transform="translate(335, 335)">
+          <circle cx="0" cy="0" r="22" fill="rgba(161,120,188,0.08)" stroke="rgba(161,120,188,0.3)" stroke-width="0.5"/>
+          <circle cx="0" cy="0" r="3" fill="#A178BC" opacity="0.9">
+            <animate attributeName="r" values="3;4.5;3" dur="3s" begin="2.25s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" fill="none" stroke="#A178BC" stroke-width="0.7">
+            <animate attributeName="r" values="3;20;3" dur="3s" begin="2.25s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" begin="2.25s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- Connecting dashed lines from corners toward logo -->
+        <line x1="87" y1="87" x2="130" y2="130" stroke="#E5CA9C" stroke-width="0.6" opacity="0.4" stroke-dasharray="3 4">
+          <animate attributeName="stroke-dashoffset" values="21;0" dur="3s" repeatCount="indefinite"/>
+        </line>
+        <line x1="313" y1="87" x2="270" y2="130" stroke="#66F4C4" stroke-width="0.6" opacity="0.4" stroke-dasharray="3 4">
+          <animate attributeName="stroke-dashoffset" values="21;0" dur="3s" begin="0.75s" repeatCount="indefinite"/>
+        </line>
+        <line x1="87" y1="313" x2="130" y2="270" stroke="#C6E5EC" stroke-width="0.6" opacity="0.4" stroke-dasharray="3 4">
+          <animate attributeName="stroke-dashoffset" values="21;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="313" y1="313" x2="270" y2="270" stroke="#A178BC" stroke-width="0.6" opacity="0.4" stroke-dasharray="3 4">
+          <animate attributeName="stroke-dashoffset" values="21;0" dur="3s" begin="2.25s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Flowing particles along the connections -->
+        <circle r="1.8" fill="#E5CA9C" opacity="0.9">
+          <animateMotion dur="3s" repeatCount="indefinite" path="M87,87 L130,130"/>
+          <animate attributeName="opacity" values="0;0.9;0" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="1.8" fill="#66F4C4" opacity="0.9">
+          <animateMotion dur="3s" begin="0.75s" repeatCount="indefinite" path="M313,87 L270,130"/>
+          <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="0.75s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="1.8" fill="#C6E5EC" opacity="0.9">
+          <animateMotion dur="3s" begin="1.5s" repeatCount="indefinite" path="M87,313 L130,270"/>
+          <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="1.8" fill="#A178BC" opacity="0.9">
+          <animateMotion dur="3s" begin="2.25s" repeatCount="indefinite" path="M313,313 L270,270"/>
+          <animate attributeName="opacity" values="0;0.9;0" dur="3s" begin="2.25s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- TSD LOGO centered, scaled 1.36x (80% of previous 1.7x) -->
+        <g transform="translate(132, 132) scale(1.36)">
+          <rect class="hero-logo-stroke" x="7.73023" y="7.7273" width="84.5455" height="84.5455" rx="6.41414" stroke="#E5CA9C" stroke-width="1.51515"/>
+          <path class="hero-logo-fill" d="M26.7006 22.6933H23.5552V20.7531H32.1535V22.6933H29.0082V31.2476H26.7006V22.6933Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M23.881 43.9292H27.3203C28.261 43.9292 29.04 44.0761 29.6573 44.3701C30.2845 44.6641 30.7842 45.056 31.1565 45.5459C31.5289 46.0359 31.7886 46.5944 31.9355 47.2215C32.0923 47.8486 32.1707 48.4954 32.1707 49.1617C32.1707 49.9064 32.0727 50.6021 31.8768 51.2488C31.6906 51.8857 31.3966 52.4393 30.9949 52.9097C30.5931 53.38 30.0836 53.7524 29.4663 54.0267C28.8587 54.2913 28.1336 54.4236 27.291 54.4236H23.881V43.9292ZM27.3497 53.8651C27.8397 53.8651 28.3296 53.7916 28.8196 53.6446C29.3193 53.4878 29.77 53.233 30.1718 52.8803C30.5735 52.5177 30.8969 52.0376 31.1418 51.4399C31.3966 50.8324 31.524 50.073 31.524 49.1617C31.524 48.4464 31.4505 47.8339 31.3035 47.3244C31.1663 46.8149 30.9802 46.3886 30.745 46.0457C30.5196 45.6929 30.2551 45.4186 29.9513 45.2226C29.6573 45.0168 29.3487 44.86 29.0253 44.7523C28.7118 44.6445 28.3933 44.5759 28.07 44.5465C27.7564 44.5073 27.4722 44.4877 27.2175 44.4877H24.5277V53.8651H27.3497Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M23.8401 68.2582V67.6997H31.88V68.2582H28.1761V78.1941H27.5293V68.2582H23.8401Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M23.8401 78.494V79.0525H31.88V78.494H28.1761V68.5581H27.5293V78.494H23.8401Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M46.3611 43.9292H53.4162V44.4877H47.0078V48.6913H53.0341V49.2499H47.0078V53.8651H53.4897V54.4236H46.3611V43.9292Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M47.3617 27.7641C47.3617 28.1169 47.4254 28.4157 47.5528 28.6607C47.6802 28.9057 47.8468 29.1065 48.0526 29.2633C48.2681 29.4103 48.518 29.523 48.8022 29.6014C49.0863 29.67 49.3803 29.7043 49.684 29.7043C49.8898 29.7043 50.1103 29.6896 50.3455 29.6602C50.5806 29.621 50.8011 29.5524 51.0069 29.4544C51.2126 29.3564 51.3841 29.2241 51.5213 29.0575C51.6585 28.8812 51.7271 28.6607 51.7271 28.3961C51.7271 28.112 51.634 27.8817 51.4478 27.7053C51.2714 27.5289 51.0363 27.382 50.7423 27.2644C50.4483 27.1468 50.1152 27.0439 49.7428 26.9557C49.3705 26.8675 48.9932 26.7695 48.6111 26.6618C48.2191 26.5638 47.837 26.4462 47.4646 26.309C47.0923 26.162 46.7591 25.9759 46.4652 25.7505C46.1712 25.5251 45.9311 25.2458 45.745 24.9127C45.5686 24.5697 45.4804 24.1582 45.4804 23.6781C45.4804 23.1391 45.5931 22.6737 45.8184 22.2817C46.0536 21.88 46.3574 21.5468 46.7297 21.2823C47.1021 21.0177 47.5234 20.8217 47.9938 20.6943C48.4641 20.567 48.9344 20.5033 49.4048 20.5033C49.9535 20.5033 50.4777 20.567 50.9775 20.6943C51.487 20.8119 51.9377 21.0079 52.3297 21.2823C52.7216 21.5566 53.0303 21.9094 53.2557 22.3405C53.4908 22.7619 53.6084 23.2763 53.6084 23.8838H51.3743C51.3547 23.5703 51.2861 23.3106 51.1685 23.1048C51.0608 22.8991 50.9138 22.7374 50.7276 22.6198C50.5414 22.5022 50.3259 22.4189 50.0809 22.3699C49.8457 22.3209 49.5861 22.2964 49.3019 22.2964C49.1157 22.2964 48.9295 22.316 48.7434 22.3552C48.5572 22.3944 48.3857 22.463 48.2289 22.561C48.082 22.659 47.9595 22.7815 47.8615 22.9284C47.7635 23.0754 47.7145 23.2616 47.7145 23.487C47.7145 23.6927 47.7537 23.8593 47.8321 23.9867C47.9105 24.1141 48.0624 24.2317 48.2877 24.3395C48.5229 24.4473 48.8414 24.555 49.2431 24.6628C49.6546 24.7706 50.1887 24.9078 50.8452 25.0744C51.0412 25.1136 51.3106 25.1871 51.6536 25.2948C52.0063 25.3928 52.3542 25.5545 52.6971 25.7799C53.0401 26.0052 53.3341 26.309 53.579 26.6912C53.8338 27.0635 53.9612 27.5436 53.9612 28.1316C53.9612 28.6117 53.8681 29.0575 53.6819 29.4691C53.4957 29.8806 53.2165 30.2383 52.8441 30.5421C52.4816 30.836 52.0259 31.0663 51.4772 31.2329C50.9383 31.3994 50.3112 31.4827 49.5959 31.4827C49.0177 31.4827 48.4543 31.4092 47.9056 31.2623C47.3666 31.1251 46.8865 30.9046 46.4652 30.6008C46.0536 30.2971 45.7254 29.91 45.4804 29.4397C45.2354 28.9694 45.1178 28.4108 45.1276 27.7641H47.3617Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M74.3839 46.9276C74.3643 46.4768 74.2663 46.0849 74.0899 45.7517C73.9233 45.4186 73.6931 45.1393 73.3991 44.9139C73.1051 44.6886 72.7524 44.522 72.3408 44.4142C71.9391 44.2966 71.4982 44.2378 71.018 44.2378C70.7241 44.2378 70.4056 44.2721 70.0626 44.3407C69.7295 44.4093 69.4159 44.5318 69.122 44.7082C68.8378 44.8747 68.6026 45.105 68.4165 45.399C68.2303 45.6831 68.1372 46.0408 68.1372 46.4719C68.1372 46.8933 68.2401 47.2362 68.4459 47.5008C68.6516 47.7654 68.9211 47.9809 69.2543 48.1475C69.5874 48.3043 69.9696 48.4317 70.4007 48.5297C70.8318 48.6276 71.2679 48.7207 71.7088 48.8089C72.1596 48.8971 72.5956 49.0049 73.017 49.1323C73.4481 49.2499 73.8303 49.4164 74.1634 49.632C74.5064 49.8378 74.7807 50.1121 74.9865 50.4551C75.1923 50.7883 75.2952 51.2096 75.2952 51.7191C75.2952 52.2679 75.1776 52.7284 74.9424 53.1008C74.7072 53.4731 74.4084 53.7769 74.0458 54.012C73.6931 54.2472 73.2962 54.4138 72.8553 54.5118C72.4241 54.6196 72.0077 54.6735 71.6059 54.6735C70.9886 54.6735 70.4105 54.6049 69.8716 54.4677C69.3326 54.3403 68.8623 54.1296 68.4606 53.8357C68.0588 53.5319 67.7404 53.1449 67.5052 52.6745C67.2798 52.2042 67.172 51.631 67.1818 50.9548H67.8285C67.7991 51.533 67.8824 52.0229 68.0784 52.4246C68.2744 52.8166 68.5438 53.14 68.8868 53.3947C69.2396 53.6495 69.6511 53.8357 70.1214 53.9532C70.5918 54.061 71.0866 54.1149 71.6059 54.1149C71.9195 54.1149 72.2527 54.0757 72.6054 53.9973C72.968 53.919 73.2962 53.7867 73.5902 53.6005C73.8939 53.4143 74.1438 53.1693 74.3398 52.8656C74.5456 52.5618 74.6484 52.1797 74.6484 51.7191C74.6484 51.2782 74.5456 50.9205 74.3398 50.6462C74.134 50.362 73.8596 50.1366 73.5167 49.9701C73.1835 49.7937 72.8014 49.6565 72.3702 49.5585C71.9489 49.4507 71.5129 49.3527 71.0621 49.2646C70.6212 49.1764 70.1851 49.0735 69.754 48.9559C69.3228 48.8383 68.9407 48.6815 68.6075 48.4856C68.2744 48.2798 68.0049 48.0201 67.7991 47.7066C67.5934 47.3832 67.4905 46.9717 67.4905 46.4719C67.4905 45.9722 67.5934 45.5459 67.7991 45.1932C68.0147 44.8306 68.2891 44.5416 68.6222 44.326C68.9652 44.1006 69.3473 43.939 69.7687 43.841C70.19 43.7332 70.6065 43.6793 71.018 43.6793C71.5667 43.6793 72.0763 43.743 72.5466 43.8704C73.0268 43.988 73.4432 44.179 73.796 44.4436C74.1585 44.6984 74.4476 45.0315 74.6631 45.4431C74.8787 45.8546 75.0012 46.3494 75.0306 46.9276H74.3839Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M44.6441 73.0057C44.6441 72.261 44.7519 71.5555 44.9675 70.8892C45.1928 70.213 45.5162 69.6202 45.9375 69.1107C46.3589 68.6012 46.8733 68.1994 47.4808 67.9054C48.0981 67.6017 48.8037 67.4498 49.5973 67.4498C50.1363 67.4498 50.6507 67.5282 51.1406 67.685C51.6306 67.8417 52.0666 68.072 52.4488 68.3758C52.8407 68.6795 53.169 69.047 53.4335 69.4781C53.6981 69.9093 53.8745 70.3992 53.9627 70.9479H53.3454C53.1004 70.0269 52.6594 69.3067 52.0225 68.7873C51.3856 68.268 50.5821 68.0083 49.612 68.0083C48.9065 68.0083 48.2843 68.1455 47.7454 68.4199C47.2065 68.6942 46.7557 69.0617 46.3932 69.5222C46.0306 69.9828 45.7563 70.5168 45.5701 71.1243C45.3839 71.722 45.2908 72.3492 45.2908 73.0057C45.2908 73.672 45.379 74.304 45.5554 74.9017C45.7416 75.4896 46.011 76.0041 46.3638 76.445C46.7263 76.886 47.1771 77.2387 47.716 77.5033C48.2549 77.758 48.8869 77.8854 49.612 77.8854C50.2392 77.8854 50.8026 77.7825 51.3023 77.5768C51.8021 77.371 52.2234 77.0819 52.5664 76.7096C52.9191 76.3372 53.1837 75.8914 53.3601 75.3721C53.5364 74.8429 53.6099 74.255 53.5805 73.6083H49.7149V73.0498H54.1391V78.1941H53.5805V75.96H53.5511C53.4237 76.3421 53.2327 76.69 52.9779 77.0035C52.7231 77.3073 52.4194 77.567 52.0666 77.7825C51.7237 77.9883 51.3366 78.15 50.9055 78.2676C50.4841 78.3852 50.0432 78.444 49.5826 78.444C48.789 78.444 48.0834 78.3019 47.4661 78.0177C46.8586 77.7336 46.3442 77.3465 45.9228 76.8566C45.5015 76.3666 45.183 75.7934 44.9675 75.1369C44.7519 74.4706 44.6441 73.7602 44.6441 73.0057Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M69.1122 29.3074H71.1699C71.5031 29.3074 71.8265 29.2535 72.14 29.1457C72.4536 29.0379 72.7328 28.8616 72.9778 28.6166C73.2228 28.3618 73.4187 28.0336 73.5657 27.6318C73.7127 27.2301 73.7862 26.7401 73.7862 26.162C73.7862 25.6329 73.7323 25.1577 73.6245 24.7363C73.5265 24.3052 73.36 23.9377 73.1248 23.634C72.8896 23.3302 72.5761 23.0999 72.1841 22.9431C71.802 22.7766 71.3267 22.6933 70.7584 22.6933H69.1122V29.3074ZM66.8046 20.7531H71.3316C72.0077 20.7531 72.6348 20.8609 73.213 21.0765C73.8009 21.2921 74.3055 21.6154 74.7269 22.0466C75.158 22.4777 75.4912 23.0166 75.7263 23.6634C75.9713 24.3101 76.0938 25.0695 76.0938 25.9416C76.0938 26.7059 75.9958 27.4114 75.7998 28.0581C75.6039 28.7048 75.305 29.2633 74.9032 29.7337C74.5113 30.204 74.0165 30.5763 73.4187 30.8507C72.8308 31.1153 72.1351 31.2476 71.3316 31.2476H66.8046V20.7531Z" fill="#E5CA9C"/>
+          <path class="hero-logo-fill" d="M67.1829 67.6997H67.9913L74.6201 77.3269H74.6495V67.6997H75.2962V78.1941H74.532L67.859 68.4934H67.8296V78.1941H67.1829V67.6997Z" fill="#E5CA9C"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
@@ -415,10 +569,15 @@ header::after {
 <!-- PHILOSOPHY -->
 <section class="philosophy">
   <div class="container">
-    <div class="philosophy-text fade-in">
-      <h2>Wir denken ganzheitlich – von der strukturellen Funktion bis zur visuellen Wirkung.</h2>
-      <p>TSD Design steht für die Verbindung dreier Disziplinen, die in der Praxis oft getrennt gedacht werden: Technik, Software und Design. Wir sind überzeugt, dass nachhaltige Lösungen nur dort entstehen, wo diese Bereiche ineinandergreifen.</p>
-      <p>Unser Ansatz ist geprägt von strategischer Klarheit und dem Anspruch, für jedes Unternehmen maßgeschneiderte Lösungen zu entwickeln – keine Vorlagen, keine Kompromisse.</p>
+    <div class="philosophy-grid fade-in">
+      <div class="philosophy-text">
+        <h2>Von der strukturellen Funktion bis zur visuellen Wirkung.</h2>
+        <p>TSD Design steht für die Verbindung dreier Disziplinen, die in der Praxis oft getrennt gedacht werden: Technik, Software und Design. Wir sind überzeugt, dass nachhaltige Lösungen nur dort entstehen, wo diese Bereiche ineinandergreifen.</p>
+        <p>Unser Ansatz ist geprägt von strategischer Klarheit und dem Anspruch, für jedes Unternehmen maßgeschneiderte Lösungen zu entwickeln – keine Vorlagen, keine Kompromisse.</p>
+      </div>
+      <div class="philosophy-img">
+        <img src="images/Georgos-Papadopulos.png" alt="Georgos Papadopulos – Mitgründer TSD Design">
+      </div>
     </div>
   </div>
 </section>
@@ -488,7 +647,7 @@ header::after {
   <div class="container">
     <div class="founder-grid fade-in">
       <div class="founder-img-wrap">
-        <img src="images/gruender-placeholder.svg" alt="Georgos und Denis Papadopulos – Gründer TSD Design">
+        <img src="images/Denis-Papadopulos.png" alt="Denis Papadopulos – Mitgründer TSD Design">
       </div>
       <div class="founder-text">
         <span class="overline">Gründer</span>
