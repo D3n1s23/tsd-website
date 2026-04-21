@@ -40,12 +40,35 @@ function build({ templatePath, contentPath, outputPath, password }) {
 
 module.exports = { encrypt, build };
 
+const OFFERS = [
+  { slug: 'rewe-wein-online', password: 'rewewein' },
+  { slug: 'sieg-reha',        password: 'siegreha' },
+];
+
+function pathsFor(root, slug) {
+  return {
+    templatePath: path.join(root, 'tools/offer-template.html'),
+    contentPath:  path.join(root, `tools/offer-content-${slug}.html`),
+    outputPath:   path.join(root, `angebote/${slug}.html`),
+  };
+}
+
 if (require.main === module) {
   const root = path.resolve(__dirname, '..');
-  build({
-    templatePath: path.join(root, 'tools/offer-template.html'),
-    contentPath: path.join(root, 'tools/offer-content.html'),
-    outputPath: path.join(root, 'angebote/rewe-wein-online.html'),
-    password: 'rewewein',
-  });
+  const filter = process.argv[2]; // optional slug
+  const selected = filter ? OFFERS.filter(o => o.slug === filter) : OFFERS;
+
+  if (filter && selected.length === 0) {
+    console.error(`Unknown slug "${filter}". Available: ${OFFERS.map(o => o.slug).join(', ')}`);
+    process.exit(1);
+  }
+
+  for (const offer of selected) {
+    const paths = pathsFor(root, offer.slug);
+    if (!fs.existsSync(paths.contentPath)) {
+      console.warn(`Skipping ${offer.slug}: ${paths.contentPath} not found (expected if content is gitignored and not yet created locally)`);
+      continue;
+    }
+    build({ ...paths, password: offer.password });
+  }
 }
