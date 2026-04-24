@@ -134,7 +134,53 @@ img { display: block; max-width: 100%; }
 <div id="cases-root"></div>
 
 <script>
-// JS kommt in Task 4
+(function() {
+  const PASSWORD_HASH = '877400dccdd18db5b4abc0ac761b4d647259d8e06bace1cc908c80eaa9d4969d';
+
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const overlay = document.getElementById('loginOverlay');
+  const root = document.getElementById('cases-root');
+  const form = document.getElementById('loginForm');
+  const input = document.getElementById('passwordInput');
+  const errorEl = document.getElementById('loginError');
+  const button = document.getElementById('loginButton');
+
+  function revealGallery() {
+    overlay.style.display = 'none';
+    root.classList.add('revealed');
+  }
+
+  if (sessionStorage.getItem('cases-auth') === '1') {
+    revealGallery();
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.textContent = '';
+    button.disabled = true;
+    button.textContent = 'Prüfen …';
+    try {
+      const hash = await sha256(input.value);
+      if (hash === PASSWORD_HASH) {
+        sessionStorage.setItem('cases-auth', '1');
+        revealGallery();
+      } else {
+        errorEl.textContent = 'Passwort nicht korrekt.';
+        input.select();
+      }
+    } catch (err) {
+      errorEl.textContent = 'Fehler beim Prüfen. Bitte erneut versuchen.';
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Öffnen';
+    }
+  });
+})();
 </script>
 
 </body>
