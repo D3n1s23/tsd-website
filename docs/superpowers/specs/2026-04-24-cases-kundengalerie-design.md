@@ -89,12 +89,12 @@ Jahre vor 2007 werden aktuell nicht angezeigt. Wenn 2027 kommt: Tier-Grenzen in 
 
 ```html
 <section class="year-section tier-1" data-year="2026" data-open="true">
-  <div class="year-header" role="button" tabindex="0" aria-expanded="true" aria-controls="year-2026-body">
+  <div class="year-header" role="button" tabindex="0" aria-expanded="true" aria-controls="year-body-2026">
     <span class="y">2026</span>
     <span class="chev" aria-hidden="true">+</span>
   </div>
   <div class="year-counter">3 Projekte</div>
-  <div class="year-body" id="year-2026-body">
+  <div class="year-body" id="year-body-2026">
     <!-- Cases -->
   </div>
 </section>
