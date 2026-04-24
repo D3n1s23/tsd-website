@@ -119,6 +119,81 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--border-subtle);
   margin-top: 3rem;
 }
+
+/* ---- YEAR ACCORDION ---- */
+.year-section { border-top: 1px solid rgba(255,255,255,0.06); }
+.year-section:first-of-type { border-top: none; }
+
+.year-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+}
+.year-header:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.year-header .y {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-white);
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+.year-header .chev {
+  color: var(--accent);
+  transition: transform 0.3s;
+}
+.year-section[data-open="false"] .year-header .y { color: rgba(255,255,255,0.35); }
+.year-section[data-open="false"]:hover .year-header .y { color: rgba(255,255,255,0.75); }
+
+.year-counter {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--font-sans);
+}
+.year-section[data-open="false"] .year-counter { opacity: 0.5; }
+
+/* Tier 1: 2024–2026 */
+.tier-1 .year-header { padding: 4rem 2rem 1rem; }
+.tier-1 .year-header .y { font-size: 5.5rem; }
+.tier-1 .year-header .chev { font-size: 1rem; transform: translateY(-0.5rem); }
+.tier-1[data-open="true"] .year-header .chev { transform: translateY(-0.5rem) rotate(45deg); }
+.tier-1 .year-counter { font-size: 0.72rem; padding-bottom: 2.5rem; }
+
+/* Tier 2: 2020–2023 */
+.tier-2 .year-header { padding: 2.5rem 2rem 0.5rem; }
+.tier-2 .year-header .y { font-size: 3rem; }
+.tier-2 .year-header .chev { font-size: 0.8rem; transform: translateY(-0.3rem); }
+.tier-2[data-open="true"] .year-header .chev { transform: translateY(-0.3rem) rotate(45deg); }
+.tier-2 .year-counter { font-size: 0.68rem; padding-bottom: 1.5rem; }
+
+/* Tier 3: 2007–2019 */
+.tier-3 .year-header { padding: 1.3rem 2rem 0.3rem; }
+.tier-3 .year-header .y { font-size: 1.8rem; }
+.tier-3 .year-header .chev { font-size: 0.7rem; transform: translateY(-0.1rem); }
+.tier-3[data-open="true"] .year-header .chev { transform: translateY(-0.1rem) rotate(45deg); }
+.tier-3 .year-counter { font-size: 0.65rem; padding-bottom: 0.8rem; }
+
+.year-body { display: none; }
+.year-section[data-open="true"] .year-body { display: block; }
+
+/* Mobile Anpassungen */
+@media (max-width: 640px) {
+  .tier-1 .year-header .y { font-size: 3.5rem; }
+  .tier-1 .year-header { padding: 3rem 1.25rem 0.8rem; }
+  .tier-2 .year-header .y { font-size: 2.2rem; }
+  .tier-2 .year-header { padding: 2rem 1.25rem 0.5rem; }
+  .tier-3 .year-header { padding: 1rem 1.25rem 0.3rem; }
+}
 </style>
 </head>
 <body>
