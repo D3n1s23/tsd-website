@@ -453,6 +453,23 @@ img { display: block; max-width: 100%; }
       button.textContent = 'Öffnen';
     }
   });
+
+  // ---- YEAR ACCORDION TOGGLE ----
+  document.querySelectorAll('.year-header').forEach(header => {
+    const toggle = () => {
+      const section = header.closest('.year-section');
+      const isOpen = section.dataset.open === 'true';
+      section.dataset.open = isOpen ? 'false' : 'true';
+      header.setAttribute('aria-expanded', String(!isOpen));
+    };
+    header.addEventListener('click', toggle);
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
 })();
 </script>
 
