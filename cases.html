@@ -194,6 +194,46 @@ img { display: block; max-width: 100%; }
   .tier-2 .year-header { padding: 2rem 1.25rem 0.5rem; }
   .tier-3 .year-header { padding: 1rem 1.25rem 0.3rem; }
 }
+
+/* ---- CASE BLOCK ---- */
+.case {
+  max-width: 1000px;
+  margin: 0 auto 4.5rem;
+  padding: 0 2rem;
+  text-align: center;
+}
+.case-logo {
+  height: 44px;
+  width: auto;
+  margin: 0 auto 1.4rem;
+  opacity: 0.9;
+}
+.case-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+.case-discipline {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+.case-description {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--text-light);
+  max-width: 55ch;
+  margin: 0 auto 2.2rem;
+}
+
+@media (max-width: 640px) {
+  .case { padding: 0 1.25rem; }
+}
 </style>
 </head>
 <body>
@@ -228,8 +268,22 @@ img { display: block; max-width: 100%; }
         <span class="y">2026</span>
         <span class="chev" aria-hidden="true">+</span>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2026"></div>
+      <div class="year-counter">1 Projekt</div>
+      <div class="year-body" id="year-body-2026">
+
+  <article class="case" data-client="platzhalter-muster">
+    <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Kunde Musterbeispiel">
+    <div class="case-meta">2025 / 2026 · Kunde Musterbeispiel</div>
+    <div class="case-discipline">Creative Direction</div>
+    <p class="case-description">
+      Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.
+    </p>
+    <div class="case-images">
+      <!-- Bilder kommen in Task 10 -->
+    </div>
+  </article>
+
+</div>
     </section>
 
     <section class="year-section tier-1" data-year="2025" data-open="true">
