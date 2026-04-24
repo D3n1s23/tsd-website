@@ -234,6 +234,24 @@ img { display: block; max-width: 100%; }
 @media (max-width: 640px) {
   .case { padding: 0 1.25rem; }
 }
+
+/* ---- CASE IMAGES GRID ---- */
+.case-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.case-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+@media (max-width: 1000px) {
+  .case-images {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -279,7 +297,9 @@ img { display: block; max-width: 100%; }
       Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.
     </p>
     <div class="case-images">
-      <!-- Bilder kommen in Task 10 -->
+      <img src="cases/_placeholder/01.png" alt="">
+      <img src="cases/_placeholder/01.png" alt="">
+      <img src="cases/_placeholder/01.png" alt="">
     </div>
   </article>
 
