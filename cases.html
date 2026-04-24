@@ -104,6 +104,21 @@ img { display: block; max-width: 100%; }
 /* Cases root (versteckt bis Login ok) */
 #cases-root { display: none; }
 #cases-root.revealed { display: block; }
+
+/* ---- CASES MAIN ---- */
+.cases-main {
+  min-height: 100vh;
+}
+.cases-footer {
+  padding: 5rem 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 3rem;
+}
 </style>
 </head>
 <body>
@@ -131,7 +146,12 @@ img { display: block; max-width: 100%; }
 </div>
 
 <!-- ============= CASES ROOT (after auth) ============= -->
-<div id="cases-root"></div>
+<div id="cases-root">
+  <main class="cases-main">
+    <!-- Jahres-Sektionen kommen in Task 6 -->
+  </main>
+  <footer class="cases-footer">— Ende —</footer>
+</div>
 
 <script>
 (function() {
