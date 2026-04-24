@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Kundengalerie — TSD Design GmbH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* Styles kommen in Task 3 */
+</style>
+</head>
+<body>
+
+<!-- ============= LOGIN OVERLAY ============= -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="login-logo">
+    <div class="login-overline">TSD Design GmbH</div>
+    <h1>Kundengalerie</h1>
+    <p>Bitte geben Sie das Passwort ein, das Sie von uns erhalten haben.</p>
+    <form class="login-form" id="loginForm" autocomplete="off">
+      <input
+        type="password"
+        id="passwordInput"
+        placeholder="Passwort"
+        required
+        autofocus
+      >
+      <button type="submit" id="loginButton">Öffnen</button>
+    </form>
+    <div class="login-error" id="loginError" role="alert" aria-live="polite"></div>
+    <div class="login-footer">Vertraulich</div>
+  </div>
+</div>
+
+<!-- ============= CASES ROOT (after auth) ============= -->
+<div id="cases-root"></div>
+
+<script>
+// JS kommt in Task 4
+</script>
+
+</body>
+</html>
