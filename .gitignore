@@ -1,3 +1,6 @@
 .DS_Store
 tools/offer-content-*.html
 .superpowers/
+
+# Internal specs/plans (may contain secrets)
+docs/
