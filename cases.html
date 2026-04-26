@@ -229,14 +229,14 @@ nav a:hover { color: var(--text-white); }
   font-weight: 300; max-width: 620px;
 }
 
-/* ---- CASES MAIN: 3x3 YEAR GRID ---- */
+/* ---- CASES MAIN: 2-col YEAR GRID ---- */
 .cases-main {
   padding: 0 2rem 3rem;
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 1.5rem;
 }
 /* ---- SITE FOOTER ---- */
 footer {
@@ -256,28 +256,41 @@ footer .container {
 }
 .footer-links a:hover { color: var(--text-white); }
 
-/* ---- YEAR TILE (in 3x3 grid) ---- */
+/* ---- YEAR TILE: Card mit farbigem Top-Stripe (Modular-Package-Pattern) ---- */
 .year-section {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background: var(--bg-section);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.35s ease, transform 0.35s ease;
 }
+.year-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.year-section:hover { border-color: var(--border-light); }
+/* Disziplin-Farben rotieren über die Jahre */
+.year-section:nth-child(4n+1)::before { background: #7a9e7e; }
+.year-section:nth-child(4n+2)::before { background: #6a8fb5; }
+.year-section:nth-child(4n+3)::before { background: #9b7ab8; }
+.year-section:nth-child(4n)::before   { background: var(--accent); }
+.year-section:nth-child(4n+1) .case-discipline { background: rgba(122,158,126,0.12); color: #7a9e7e; }
+.year-section:nth-child(4n+2) .case-discipline { background: rgba(106,143,181,0.12); color: #6a8fb5; }
+.year-section:nth-child(4n+3) .case-discipline { background: rgba(155,122,184,0.12); color: #9b7ab8; }
+.year-section:nth-child(4n)   .case-discipline { background: rgba(197,164,109,0.12); color: var(--accent); }
+
 .year-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.75rem 0 0.2rem;
+  padding: 0.5rem 0 0.2rem;
   user-select: none;
   position: relative;
-}
-.year-header::before {
-  content: '';
-  width: 24px; height: 2px;
-  background: linear-gradient(90deg, #7a9e7e, #6a8fb5, #9b7ab8, var(--accent));
-  border-radius: 1px;
-  margin-bottom: 0.35rem;
-  opacity: 0.55;
 }
 .year-header .y {
   font-family: var(--font-serif);
@@ -397,17 +410,15 @@ header::after {
 ::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.5); }
 
-/* Responsive: 3→2→1 cols */
-@media (max-width: 900px) {
-  .cases-main { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
+/* Responsive: 2 → 1 cols */
+@media (max-width: 700px) {
   .cases-intro { padding: calc(72px + 2rem) 1.5rem 1.5rem; }
   .cases-main {
     grid-template-columns: 1fr;
     padding: 0 1.5rem 2rem;
     gap: 1rem;
   }
+  .year-section { padding: 1.25rem 1.25rem 1.5rem; }
   .year-header .y { font-size: 2rem; }
   .case-images { grid-template-columns: 1fr 1fr; }
 }
@@ -466,7 +477,7 @@ header::after {
 <div id="cases-root">
   <section class="cases-intro fade-in">
     <span class="overline">Kundengalerie</span>
-    <h1>Eine Auswahl aus zwei Jahrzehnten Arbeit.</h1>
+    <h1>Eine Auswahl an Arbeiten.</h1>
     <p>Strategie, Software, Design — entstanden in enger Zusammenarbeit mit Marken, die etwas zu sagen haben. Ein Querschnitt durch ausgewählte Projekte, chronologisch geordnet.</p>
   </section>
   <main class="cases-main">
