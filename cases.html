@@ -38,6 +38,84 @@ body {
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+/* ---- NAV ---- */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(17,17,17,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.logo img { height: 40px; width: 40px; }
+nav { display: flex; align-items: center; gap: 1rem; }
+nav ul {
+  display: flex; align-items: center; gap: 2rem;
+  list-style: none;
+}
+nav a {
+  font-size: 0.88rem; font-weight: 400;
+  color: var(--text-muted); transition: color 0.3s;
+  letter-spacing: 0.01em;
+}
+nav a:hover { color: var(--text-white); }
+.nav-cta {
+  background: var(--text-white); color: var(--bg-dark) !important;
+  padding: 0.55rem 1.35rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.85rem; transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--bg-dark) !important; }
+.theme-toggle {
+  background: transparent; border: 1px solid var(--border-subtle);
+  color: var(--text-muted); width: 36px; height: 36px;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s; padding: 0; flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--text-white); border-color: var(--border-light); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .sun-icon { display: block; }
+.theme-toggle .moon-icon { display: none; }
+.menu-toggle {
+  display: none; background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px; padding: 8px;
+}
+.menu-toggle span {
+  width: 22px; height: 1.5px;
+  background: var(--text-white);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transform-origin: center;
+}
+.menu-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  nav ul {
+    position: fixed; top: 72px; left: 0; right: 0;
+    height: calc(100vh - 72px);
+    flex-direction: column; justify-content: flex-start;
+    padding: 3rem 2rem;
+    background: rgba(8, 8, 8, 0.95);
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 50;
+    overflow-y: auto;
+  }
+  nav ul.open { transform: translateX(0); }
+  nav a { font-size: 1.1rem; color: #e0ddd7; }
+  nav ul li:has(.nav-cta) { margin-top: 10px; }
+}
+
 /* ---- LOGIN OVERLAY ---- */
 .login-overlay {
   position: fixed; inset: 0; z-index: 1000;
@@ -53,7 +131,7 @@ img { display: block; max-width: 100%; }
   padding: 3rem 2.5rem;
   text-align: center;
 }
-.login-logo { width: 56px; height: 56px; margin: 0 auto 1.5rem; }
+.login-logo { width: 95px; height: 95px; margin: 0 auto 1.5rem; }
 .login-overline {
   font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--accent);
@@ -105,38 +183,47 @@ img { display: block; max-width: 100%; }
 #cases-root { display: none; }
 #cases-root.revealed { display: block; }
 
-/* ---- CASES MAIN ---- */
+/* ---- CASES MAIN: 3x3 YEAR GRID ---- */
 .cases-main {
   min-height: 100vh;
+  padding: calc(72px + 3rem) 2rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem 1.5rem;
 }
-.cases-footer {
-  padding: 5rem 2rem;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border-top: 1px solid var(--border-subtle);
+/* ---- SITE FOOTER ---- */
+footer {
+  padding: 2.5rem 0; border-top: 1px solid var(--border-subtle);
   margin-top: 3rem;
 }
+footer .container {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-left { display: flex; align-items: center; gap: 1rem; }
+.footer-logo { height: 24px; width: auto; opacity: 0.6; }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a {
+  font-size: 0.78rem; color: var(--text-muted); font-weight: 400; transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--text-white); }
 
-/* ---- YEAR ACCORDION ---- */
-.year-section { border-top: 1px solid rgba(255,255,255,0.06); }
-.year-section:first-child { border-top: none; }
-
+/* ---- YEAR TILE (in 3x3 grid) ---- */
+.year-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 .year-header {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 1rem;
-  cursor: pointer;
+  gap: 0.75rem;
+  padding: 1.5rem 0 0.3rem;
   user-select: none;
-  transition: color 0.3s;
-}
-.year-header:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 4px;
 }
 .year-header .y {
   font-family: var(--font-serif);
@@ -144,117 +231,111 @@ img { display: block; max-width: 100%; }
   line-height: 1;
   color: var(--text-white);
   letter-spacing: -0.01em;
-  transition: color 0.3s;
+  font-size: 3rem;
 }
-.year-header .chev {
-  color: var(--accent);
-  transition: transform 0.3s;
-}
-.year-section[data-open="false"] .year-header .y { color: rgba(255,255,255,0.35); }
-.year-section[data-open="false"]:hover .year-header .y { color: rgba(255,255,255,0.75); }
-
+.year-header .chev { display: none; }
 .year-counter {
+  font-size: 0.66rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: center;
   font-family: var(--font-sans);
+  padding-bottom: 2rem;
 }
-.year-section[data-open="false"] .year-counter { opacity: 0.5; }
-
-/* Tier 1: 2024–2026 */
-.tier-1 .year-header { padding: 4rem 2rem 1rem; }
-.tier-1 .year-header .y { font-size: 5.5rem; }
-.tier-1 .year-header .chev { font-size: 1rem; transform: translateY(-0.5rem); }
-.tier-1[data-open="true"] .year-header .chev { transform: translateY(-0.5rem) rotate(45deg); }
-.tier-1 .year-counter { font-size: 0.72rem; padding-bottom: 2.5rem; }
-
-/* Tier 2: 2020–2023 */
-.tier-2 .year-header { padding: 2.5rem 2rem 0.5rem; }
-.tier-2 .year-header .y { font-size: 3rem; }
-.tier-2 .year-header .chev { font-size: 0.8rem; transform: translateY(-0.3rem); }
-.tier-2[data-open="true"] .year-header .chev { transform: translateY(-0.3rem) rotate(45deg); }
-.tier-2 .year-counter { font-size: 0.68rem; padding-bottom: 1.5rem; }
-
-/* Tier 3: 2007–2019 */
-.tier-3 .year-header { padding: 1.3rem 2rem 0.3rem; }
-.tier-3 .year-header .y { font-size: 1.8rem; }
-.tier-3 .year-header .chev { font-size: 0.7rem; transform: translateY(-0.1rem); }
-.tier-3[data-open="true"] .year-header .chev { transform: translateY(-0.1rem) rotate(45deg); }
-.tier-3 .year-counter { font-size: 0.65rem; padding-bottom: 0.8rem; }
-
-.year-body { display: none; }
-.year-section[data-open="true"] .year-body { display: block; }
-
-/* Mobile Anpassungen */
-@media (max-width: 640px) {
-  .tier-1 .year-header .y { font-size: 3.5rem; }
-  .tier-1 .year-header { padding: 3rem 1.25rem 0.8rem; }
-  .tier-2 .year-header .y { font-size: 2.2rem; }
-  .tier-2 .year-header { padding: 2rem 1.25rem 0.5rem; }
-  .tier-3 .year-header { padding: 1rem 1.25rem 0.3rem; }
+.year-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
-/* ---- CASE BLOCK ---- */
+/* ---- CASE BLOCK (inside a tile) ---- */
 .case {
-  max-width: 1000px;
-  margin: 0 auto 4.5rem;
-  padding: 0 2rem;
   text-align: center;
 }
 .case-logo {
-  height: 44px;
+  height: 36px;
   width: auto;
-  margin: 0 auto 1.4rem;
+  margin: 0 auto 0.9rem;
   opacity: 0.9;
 }
 .case-meta {
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 .case-discipline {
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.9rem;
 }
 .case-description {
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 0.82rem;
+  line-height: 1.55;
   font-weight: 300;
   color: var(--text-light);
-  max-width: 55ch;
-  margin: 0 auto 2.2rem;
+  margin: 0 auto 1.3rem;
 }
 
-@media (max-width: 640px) {
-  .case { padding: 0 1.25rem; }
-}
-
-/* ---- CASE IMAGES GRID ---- */
+/* Images stack single-column inside narrow tile */
 .case-images {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
 }
 .case-images img {
   width: 100%;
   height: auto;
   display: block;
   border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.04);
 }
-@media (max-width: 1000px) {
-  .case-images {
+
+/* Responsive: 3→2→1 cols */
+@media (max-width: 900px) {
+  .cases-main { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .cases-main {
     grid-template-columns: 1fr;
+    padding: calc(72px + 2rem) 1.25rem 2rem;
+    gap: 1rem;
   }
+  .year-header .y { font-size: 2.4rem; }
 }
 </style>
 </head>
 <body>
+
+<!-- ============= MAIN HEADER ============= -->
+<header>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design GmbH">
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="index.html#system">KI-Kreativsystem</a></li>
+        <li><a href="index.html#pakete">Leistungspakete</a></li>
+        <li><a href="index.html#unternehmen">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">TSD</a></li>
+        <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
 
 <!-- ============= LOGIN OVERLAY ============= -->
 <div class="login-overlay" id="loginOverlay">
@@ -281,204 +362,324 @@ img { display: block; max-width: 100%; }
 <!-- ============= CASES ROOT (after auth) ============= -->
 <div id="cases-root">
   <main class="cases-main">
-    <section class="year-section tier-1" data-year="2026" data-open="true">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="true" aria-controls="year-body-2026">
-        <span class="y">2026</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2026 -->
+    <section class="year-section" data-year="2026">
+      <div class="year-header"><span class="y">2026</span></div>
+      <div class="year-counter">3 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="fibe-messe-berlin">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="FIBE, Messe Berlin">
+          <div class="case-meta">2025 / 2026 · FIBE, Messe Berlin</div>
+          <div class="case-discipline">Creative Direction</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2026-fibe-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2026-fibe-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2026-fibe-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="continental">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Continental">
+          <div class="case-meta">2026 · Continental</div>
+          <div class="case-discipline">Branding, Editorial</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2026-conti-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2026-conti-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="lufthansa">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Lufthansa">
+          <div class="case-meta">2026 · Lufthansa Innovation Hub</div>
+          <div class="case-discipline">Art Direction, Kampagne</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2026-lh-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2026-lh-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2026-lh-3/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">1 Projekt</div>
-      <div class="year-body" id="year-body-2026">
-
-  <article class="case" data-client="platzhalter-muster">
-    <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Kunde Musterbeispiel">
-    <div class="case-meta">2025 / 2026 · Kunde Musterbeispiel</div>
-    <div class="case-discipline">Creative Direction</div>
-    <p class="case-description">
-      Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.
-    </p>
-    <div class="case-images">
-      <img src="cases/_placeholder/01.png" alt="">
-      <img src="cases/_placeholder/01.png" alt="">
-      <img src="cases/_placeholder/01.png" alt="">
-    </div>
-  </article>
-
-</div>
     </section>
 
-    <section class="year-section tier-1" data-year="2025" data-open="true">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="true" aria-controls="year-body-2025">
-        <span class="y">2025</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2025 -->
+    <section class="year-section" data-year="2025">
+      <div class="year-header"><span class="y">2025</span></div>
+      <div class="year-counter">2 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="decathlon">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Decathlon">
+          <div class="case-meta">2025 · Decathlon DACH</div>
+          <div class="case-discipline">Creative Direction, In-Store</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2025-dec-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2025-dec-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2025-dec-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="bosch-rexroth">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Bosch Rexroth">
+          <div class="case-meta">2025 · Bosch Rexroth</div>
+          <div class="case-discipline">Corporate Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2025-br-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2025-br-2/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2025"></div>
     </section>
 
-    <section class="year-section tier-1" data-year="2024" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2024">
-        <span class="y">2024</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2024 -->
+    <section class="year-section" data-year="2024">
+      <div class="year-header"><span class="y">2024</span></div>
+      <div class="year-counter">3 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="allianz">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Allianz">
+          <div class="case-meta">2024 · Allianz Digital</div>
+          <div class="case-discipline">UX, Brand Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2024-alz-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2024-alz-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="deutsche-bank">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Bank">
+          <div class="case-meta">2024 · Deutsche Bank AG</div>
+          <div class="case-discipline">Editorial, Kampagne</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2024-db-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2024-db-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2024-db-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="signal-iduna">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Signal Iduna">
+          <div class="case-meta">2024 · Signal Iduna</div>
+          <div class="case-discipline">Branding</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2024-si-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2024-si-2/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2024"></div>
     </section>
 
-    <section class="year-section tier-2" data-year="2023" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2023">
-        <span class="y">2023</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2023 -->
+    <section class="year-section" data-year="2023">
+      <div class="year-header"><span class="y">2023</span></div>
+      <div class="year-counter">2 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="prosiebensat1">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="ProSiebenSat.1">
+          <div class="case-meta">2023 · ProSiebenSat.1</div>
+          <div class="case-discipline">Creative Direction, Kampagne</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2023-p7s1-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2023-p7s1-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2023-p7s1-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="trumpf">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Trumpf">
+          <div class="case-meta">2023 · Trumpf GmbH</div>
+          <div class="case-discipline">Corporate Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2023-tf-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2023-tf-2/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2023"></div>
     </section>
 
-    <section class="year-section tier-2" data-year="2022" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2022">
-        <span class="y">2022</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2022 -->
+    <section class="year-section" data-year="2022">
+      <div class="year-header"><span class="y">2022</span></div>
+      <div class="year-counter">3 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="bmw-i">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="BMW i">
+          <div class="case-meta">2022 · BMW i Division</div>
+          <div class="case-discipline">Art Direction</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2022-bmw-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2022-bmw-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="adidas-original">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Adidas Originals">
+          <div class="case-meta">2022 · Adidas Originals</div>
+          <div class="case-discipline">Creative Direction, Event</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2022-adi-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2022-adi-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2022-adi-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="nivea">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Nivea">
+          <div class="case-meta">2022 · Nivea Brand Hub</div>
+          <div class="case-discipline">Packaging Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2022-niv-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2022-niv-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2022-niv-3/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2022"></div>
     </section>
 
-    <section class="year-section tier-2" data-year="2021" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2021">
-        <span class="y">2021</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2021 -->
+    <section class="year-section" data-year="2021">
+      <div class="year-header"><span class="y">2021</span></div>
+      <div class="year-counter">2 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="porsche-digital">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Porsche Digital">
+          <div class="case-meta">2021 · Porsche Digital</div>
+          <div class="case-discipline">UX/UI Direction</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2021-por-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2021-por-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2021-por-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="otto">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Otto Group">
+          <div class="case-meta">2021 · Otto Group</div>
+          <div class="case-discipline">Digital Brand Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2021-otto-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2021-otto-2/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2021"></div>
     </section>
 
-    <section class="year-section tier-2" data-year="2020" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2020">
-        <span class="y">2020</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2020 -->
+    <section class="year-section" data-year="2020">
+      <div class="year-header"><span class="y">2020</span></div>
+      <div class="year-counter">3 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="hugo-boss">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Hugo Boss">
+          <div class="case-meta">2020 · Hugo Boss</div>
+          <div class="case-discipline">Editorial</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2020-hb-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2020-hb-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="dt-telekom">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Telekom">
+          <div class="case-meta">2020 · Deutsche Telekom</div>
+          <div class="case-discipline">Branding</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2020-tkom-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2020-tkom-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="sap">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="SAP">
+          <div class="case-meta">2020 · SAP Emerging Tech</div>
+          <div class="case-discipline">Creative Direction</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2020-sap-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2020-sap-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2020-sap-3/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2020"></div>
     </section>
 
-    <section class="year-section tier-3" data-year="2019" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2019">
-        <span class="y">2019</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2019 -->
+    <section class="year-section" data-year="2019">
+      <div class="year-header"><span class="y">2019</span></div>
+      <div class="year-counter">2 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="mercedes-eq">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Mercedes EQ">
+          <div class="case-meta">2019 · Mercedes EQ</div>
+          <div class="case-discipline">Art Direction</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2019-eq-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2019-eq-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2019-eq-3/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="loreal">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="L'Oréal Paris">
+          <div class="case-meta">2019 · L'Oréal Paris DACH</div>
+          <div class="case-discipline">Kampagne</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2019-lor-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2019-lor-2/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2019"></div>
     </section>
 
-    <section class="year-section tier-3" data-year="2018" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2018">
-        <span class="y">2018</span>
-        <span class="chev" aria-hidden="true">+</span>
+    <!-- 2018 -->
+    <section class="year-section" data-year="2018">
+      <div class="year-header"><span class="y">2018</span></div>
+      <div class="year-counter">2 Projekte</div>
+      <div class="year-body">
+        <article class="case" data-client="zalando">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Zalando">
+          <div class="case-meta">2018 · Zalando</div>
+          <div class="case-discipline">Digital Brand</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2018-zal-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2018-zal-2/800/600" alt="">
+          </div>
+        </article>
+        <article class="case" data-client="henkel">
+          <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Henkel">
+          <div class="case-meta">2018 · Henkel Beauty</div>
+          <div class="case-discipline">Packaging Design</div>
+          <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
+          <div class="case-images">
+            <img src="https://picsum.photos/seed/tsd-2018-hkl-1/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2018-hkl-2/800/600" alt="">
+            <img src="https://picsum.photos/seed/tsd-2018-hkl-3/800/600" alt="">
+          </div>
+        </article>
       </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2018"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2017" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2017">
-        <span class="y">2017</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2017"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2016" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2016">
-        <span class="y">2016</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2016"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2015" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2015">
-        <span class="y">2015</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2015"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2014" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2014">
-        <span class="y">2014</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2014"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2013" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2013">
-        <span class="y">2013</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2013"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2012" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2012">
-        <span class="y">2012</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2012"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2011" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2011">
-        <span class="y">2011</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2011"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2010" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2010">
-        <span class="y">2010</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2010"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2009" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2009">
-        <span class="y">2009</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2009"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2008" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2008">
-        <span class="y">2008</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2008"></div>
-    </section>
-
-    <section class="year-section tier-3" data-year="2007" data-open="false">
-      <div class="year-header" role="button" tabindex="0" aria-expanded="false" aria-controls="year-body-2007">
-        <span class="y">2007</span>
-        <span class="chev" aria-hidden="true">+</span>
-      </div>
-      <div class="year-counter">0 Projekte</div>
-      <div class="year-body" id="year-body-2007"></div>
     </section>
   </main>
-  <footer class="cases-footer">— Ende —</footer>
 </div>
+
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="footer-logo">
+      <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
 (function() {
@@ -528,22 +729,15 @@ img { display: block; max-width: 100%; }
     }
   });
 
-  // ---- YEAR ACCORDION TOGGLE ----
-  document.querySelectorAll('.year-header').forEach(header => {
-    const toggle = () => {
-      const section = header.closest('.year-section');
-      const isOpen = section.dataset.open === 'true';
-      section.dataset.open = isOpen ? 'false' : 'true';
-      header.setAttribute('aria-expanded', String(!isOpen));
-    };
-    header.addEventListener('click', toggle);
-    header.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
+  // ---- MOBILE MENU TOGGLE ----
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      menuToggle.classList.toggle('active');
     });
-  });
+  }
 })();
 </script>
 

@@ -296,6 +296,107 @@ html[data-theme="light"] .cover-logo { filter: brightness(0.55) saturate(1.3); }
 }
 .radius-item .label { font-size: 0.72rem; font-weight: 600; }
 .radius-item .value { font-size: 0.68rem; color: var(--text-muted); font-family: monospace; }
+
+/* ICON DEMOS */
+.icon-demo-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;
+}
+.icon-demo {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 24px; text-align: center;
+}
+.icon-demo svg { width: 28px; height: 28px; margin: 0 auto 12px; display: block; }
+.icon-demo.gold svg { color: var(--accent); }
+.icon-demo.purple svg { color: #A178BC; }
+.icon-demo .icon-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.icon-demo .icon-meta { font-size: 0.68rem; color: var(--text-muted); font-family: monospace; }
+.icon-demo-anim rect {
+  transform-box: fill-box; transform-origin: center;
+  animation: frag-float 3.5s ease-in-out infinite;
+}
+.icon-demo-anim rect:nth-child(2) { animation-delay: 0.6s; animation-duration: 4s; }
+.icon-demo-anim rect:nth-child(3) { animation-delay: 1.2s; animation-duration: 3s; }
+@keyframes frag-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* PACKAGE CARD DEMO */
+.pkg-demo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.pkg-demo {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 1.5rem 1.25rem;
+  position: relative; overflow: hidden;
+}
+.pkg-demo::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.pkg-demo.p1::before { background: #7a9e7e; }
+.pkg-demo.p2::before { background: #6a8fb5; }
+.pkg-demo.p3::before { background: #9b7ab8; }
+.pkg-demo.p4::before { background: var(--accent); }
+.pkg-demo.p4 { border-color: var(--accent); }
+.pkg-demo .pkg-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.pkg-demo.p1 .pkg-label { color: #7a9e7e; }
+.pkg-demo.p2 .pkg-label { color: #6a8fb5; }
+.pkg-demo.p3 .pkg-label { color: #9b7ab8; }
+.pkg-demo.p4 .pkg-label { color: var(--accent); }
+.pkg-demo h4 { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 400; line-height: 1.3; margin-bottom: 0.5rem; }
+.pkg-demo p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; font-weight: 300; }
+
+/* MOBILE NAV DEMO */
+.mnav-wrap { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+.mnav-frame {
+  width: 280px; height: 460px; border-radius: 24px;
+  background: var(--bg-dark); border: 2px solid var(--border-light);
+  overflow: hidden; position: relative;
+}
+.mnav-header {
+  height: 56px; background: rgba(17,17,17,0.92); border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+  position: relative; z-index: 2;
+}
+.mnav-logo-box { font-size: 0.55rem; letter-spacing: 0.14em; color: var(--text-light); font-family: monospace; border: 1px solid var(--border-subtle); padding: 4px 6px; border-radius: 3px; }
+.mnav-panel {
+  position: absolute; top: 56px; left: 0; right: 0; bottom: 0;
+  background: rgba(8,8,8,0.95);
+  padding: 2.5rem 1.75rem; display: flex; flex-direction: column;
+  gap: 1.25rem; align-items: center;
+}
+.mnav-panel .mn-link { font-size: 1rem; color: #e0ddd7; }
+.mnav-panel .mn-cta {
+  background: #fff; color: #111; padding: 0.5rem 1.1rem; border-radius: 6px;
+  font-weight: 600; font-size: 0.78rem; margin-top: 10px; display: inline-block;
+}
+.hamburger-demo {
+  width: 36px; height: 36px; display: inline-flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  background: transparent; border: 1px solid var(--border-subtle); border-radius: 6px;
+  padding: 8px; box-sizing: border-box;
+}
+.hamburger-demo span {
+  width: 22px; height: 1.5px; background: var(--text-white);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+.hamburger-demo.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger-demo.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger-demo.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* BREAKPOINT TABLE */
+.bp-table {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; overflow: hidden; margin-top: 16px; max-width: 640px;
+}
+.bp-table table { width: 100%; border-collapse: collapse; }
+.bp-table th, .bp-table td {
+  padding: 12px 20px; text-align: left; font-size: 0.82rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.bp-table th {
+  font-weight: 600; font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.bp-table tbody tr:last-child td { border-bottom: none; }
+.bp-table td.val { font-family: monospace; color: var(--accent); }
 </style>
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
@@ -318,7 +419,7 @@ document.getElementById('themeToggle').addEventListener('click', function() {
 <section class="cover">
   <img src="images/logo/tsd_logo_animated.svg" alt="TSD Design" class="cover-logo">
   <h1>Brand <em>Guidelines</em></h1>
-  <p>Design System und visuelle Identitat der TSD Design GmbH — Technik, Software & Design.</p>
+  <p>Design System und visuelle Identitat der TSD Design GmbH.</p>
   <div class="brand-colors-strip" style="width: 300px;"></div>
   <span class="version">Version 1.0 — April 2026</span>
 </section>
@@ -736,6 +837,25 @@ document.getElementById('themeToggle').addEventListener('click', function() {
       </div>
     </div>
   </div>
+
+  <div style="margin-top: 48px;">
+    <div class="color-group-title">Container Padding je Viewport</div>
+    <p class="desc" style="margin-top: 8px; margin-bottom: 0;">Die <code>clamp()</code>-Formel liefert je nach Viewport-Breite einen anderen Wert. Minimum ist 24px (1.5rem), sodass auch auf schmalen Phones ausreichend Rand bleibt.</p>
+    <div class="bp-table">
+      <table>
+        <thead>
+          <tr><th>Gerät</th><th>Viewport</th><th>Padding</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>iPhone SE</td><td>375 px</td><td class="val">24 px</td></tr>
+          <tr><td>iPhone 14 / Pro</td><td>390–430 px</td><td class="val">24 px</td></tr>
+          <tr><td>Kleine Tablets</td><td>600 px</td><td class="val">~24 px</td></tr>
+          <tr><td>iPad Portrait</td><td>768 px</td><td class="val">~31 px</td></tr>
+          <tr><td>Desktop</td><td>≥ 1200 px</td><td class="val">48 px</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
 <!-- ==================== COMPONENTS ==================== -->
@@ -804,6 +924,90 @@ document.getElementById('themeToggle').addEventListener('click', function() {
     </div>
   </div>
 
+  <!-- Modular Package Cards -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 8px;">Modular Package Cards</div>
+    <p class="desc" style="margin-bottom: 20px;">Nummerierte Module (01–04) werden farblich den Disziplinen zugeordnet: <strong>3px Top-Stripe</strong>, eingefärbte Modul-Overline und Check-Icons. Wird auf der Startseite für die Leistungspakete verwendet.</p>
+    <div class="pkg-demo-grid">
+      <div class="pkg-demo p1">
+        <div class="pkg-label">Modul 01</div>
+        <h4>Strategie-Fundament</h4>
+        <p>Grün · #7a9e7e — Technik-Layer</p>
+      </div>
+      <div class="pkg-demo p2">
+        <div class="pkg-label">Modul 02</div>
+        <h4>KI-Content-Engine</h4>
+        <p>Blau · #6a8fb5 — Software-Layer</p>
+      </div>
+      <div class="pkg-demo p3">
+        <div class="pkg-label">Modul 03</div>
+        <h4>Design & Markensystem</h4>
+        <p>Lila · #9b7ab8 — Design-Layer</p>
+      </div>
+      <div class="pkg-demo p4">
+        <div class="pkg-label">Alle 4 Elemente</div>
+        <h4>Gesamtsystem</h4>
+        <p>Gold · var(--accent) — featured</p>
+      </div>
+    </div>
+    <div class="effect-value" style="font-size: 0.72rem; font-family: monospace; color: var(--accent); margin-top: 16px;">
+      .pkg::before { height: 3px; top: 0 } · .pkg:nth-child(n) ::before und .pkg-overline in Disziplin-Farbe
+    </div>
+  </div>
+
+  <!-- Icon System -->
+  <div style="margin-bottom: 56px;">
+    <div class="color-group-title" style="margin-bottom: 8px;">Icon-System</div>
+    <p class="desc" style="margin-bottom: 20px;">Inline-SVGs mit <code>viewBox="0 0 24 24"</code>, <strong>1.5px Stroke</strong>, <strong>28×28px</strong> gerendert. Füllung via <code>currentColor</code> — Parent setzt die Farbe (<code>var(--accent)</code> Gold oder <code>#A178BC</code> Lila). Bei komplexeren Icons wie "Fragmentierte Marke" wird per <code>transform-box: fill-box</code> eine dezente Float-Animation auf einzelne Shapes angewendet.</p>
+    <div class="icon-demo-grid">
+      <div class="icon-demo gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7.5V12l3 2"/>
+        </svg>
+        <div class="icon-name">Uhr</div>
+        <div class="icon-meta">gold · 1.5px</div>
+      </div>
+      <div class="icon-demo gold icon-demo-anim">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="11" y="8" width="9" height="9" rx="1.8"/>
+          <rect x="4" y="15" width="5" height="5" rx="1.2"/>
+        </svg>
+        <div class="icon-name">Fragmente</div>
+        <div class="icon-meta">animiert · floating</div>
+      </div>
+      <div class="icon-demo gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10.5" cy="10.5" r="6.5"/>
+          <path d="M20 20l-4.9-4.9"/>
+        </svg>
+        <div class="icon-name">Lupe</div>
+        <div class="icon-meta">gold · 1.5px</div>
+      </div>
+      <div class="icon-demo purple">
+        <svg viewBox="0 0 24 24" width="24" height="24" style="font-size: 20px;"><text x="12" y="17" text-anchor="middle" fill="currentColor" font-size="18">◆</text></svg>
+        <div class="icon-name">Klarheit</div>
+        <div class="icon-meta">purple · unicode</div>
+      </div>
+      <div class="icon-demo purple">
+        <svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" fill="currentColor" font-size="18">⚙</text></svg>
+        <div class="icon-name">Systematik</div>
+        <div class="icon-meta">purple · unicode</div>
+      </div>
+      <div class="icon-demo purple">
+        <svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" fill="currentColor" font-size="18">✦</text></svg>
+        <div class="icon-name">Qualität</div>
+        <div class="icon-meta">purple · unicode</div>
+      </div>
+      <div class="icon-demo purple">
+        <svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" fill="currentColor" font-size="18">❤</text></svg>
+        <div class="icon-name">Wirkung</div>
+        <div class="icon-meta">purple · unicode</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Inputs -->
   <div style="margin-bottom: 56px;">
     <div class="color-group-title" style="margin-bottom: 20px;">Form Inputs</div>
@@ -836,6 +1040,68 @@ document.getElementById('themeToggle').addEventListener('click', function() {
     </div>
     <div style="height: 2px; background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C); border-radius: 1px; margin-top: 0;"></div>
     <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; font-weight: 300;">Fixed Header: 72px Hohe, Frosted Glass (rgba(17,17,17,0.92) + blur(24px)), animierter Gradient-Stripe darunter.</p>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div style="margin-top: 56px;">
+    <div class="color-group-title" style="margin-bottom: 8px;">Mobile Navigation</div>
+    <p class="desc" style="margin-bottom: 24px;">Breakpoint bei 768px. Der Hamburger-Button verwandelt sich beim Öffnen in ein X. Das Menü slidet von rechts ein, überlagert den kompletten Viewport unter dem Header mit deckendem Hintergrund.</p>
+    <div class="mnav-wrap">
+      <div>
+        <div class="component-label" style="margin-bottom: 12px;">Closed</div>
+        <div class="mnav-frame">
+          <div class="mnav-header">
+            <div class="mnav-logo-box">TSD<br>DES<br>IGN</div>
+            <button class="hamburger-demo" type="button" aria-label="Menü">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="component-label" style="margin-bottom: 12px;">Open</div>
+        <div class="mnav-frame">
+          <div class="mnav-header">
+            <div class="mnav-logo-box">TSD<br>DES<br>IGN</div>
+            <button class="hamburger-demo active" type="button" aria-label="Schliessen">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+          <div class="mnav-panel">
+            <span class="mn-link">KI-Kreativsystem</span>
+            <span class="mn-link">Leistungspakete</span>
+            <span class="mn-link">Ablauf</span>
+            <span class="mn-link">Über Uns</span>
+            <span class="mn-cta">Kontakt</span>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 280px;">
+        <div class="color-group-title" style="font-size: 0.72rem; margin-bottom: 12px;">Spezifikation</div>
+        <div class="effect-value" style="font-size: 0.72rem; font-family: monospace; color: var(--accent); line-height: 1.9;">
+          background: rgba(8, 8, 8, 0.95)<br>
+          position: fixed; top: 72px; left: 0; right: 0<br>
+          height: calc(100vh - 72px)<br>
+          transform: translateX(100%) → translateX(0)<br>
+          transition: 0.5s cubic-bezier(0.32, 0.72, 0, 1)<br>
+          z-index: 50; overflow-y: auto<br>
+          Text: #e0ddd7 (hell, theme-unabhängig)
+        </div>
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 16px; font-weight: 300; line-height: 1.6;">
+          <strong style="color: var(--text-light); font-weight: 600;">Hinweis:</strong> Wegen <code>backdrop-filter</code> auf dem Header entsteht ein neuer Containing Block — daher explizite <code>height</code> statt <code>bottom: 0</code>.
+        </p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 32px; align-items: center; margin-top: 32px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div class="hamburger-demo"><span></span><span></span><span></span></div>
+        <span style="font-size: 0.82rem; color: var(--text-muted);">Hamburger (geschlossen)</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div class="hamburger-demo active"><span></span><span></span><span></span></div>
+        <span style="font-size: 0.82rem; color: var(--text-muted);">X (geöffnet, <code>.active</code>)</span>
+      </div>
+    </div>
   </div>
 </section>
 

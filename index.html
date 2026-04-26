@@ -200,7 +200,7 @@ nav a:hover { color: var(--text-white); }
 .btn-outline:hover { border-color: var(--text-white); color: var(--text-white); }
 .btn svg { width: 15px; height: 15px; }
 
-.hero-visual { display: flex; flex-direction: column; gap: 0.75rem; }
+.hero-visual { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 a.hero-layer { text-decoration: none; color: inherit; }
 .hero-layer {
   background: color-mix(in srgb, var(--bg-card) 70%, transparent);
@@ -234,6 +234,9 @@ a.hero-layer { text-decoration: none; color: inherit; }
 @media (max-width: 900px) {
   .hero .container { grid-template-columns: 1fr; }
   .hero-visual { margin-top: 2.5rem; }
+}
+@media (max-width: 560px) {
+  .hero-visual { grid-template-columns: 1fr; }
 }
 
 /* ---- DIVIDER ---- */
@@ -728,9 +731,8 @@ header::after {
       <ul id="navMenu">
         <li><a href="#system">KI-Kreativsystem</a></li>
         <li><a href="#pakete">Leistungspakete</a></li>
-        <li><a href="#prozess">Ablauf</a></li>
-        <li><a href="#unternehmen">Für Ihr Unternehmen</a></li>
-        <li><a href="ueber-uns.html">Über Uns</a></li>
+        <li><a href="#unternehmen">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">TSD</a></li>
         <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
       </ul>
       <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
@@ -1489,7 +1491,7 @@ header::after {
           <li><span class="check">✓</span>Custom Prompt-Systeme</li>
           <li><span class="check">✓</span>Redaktionsplan-Template</li>
           <li><span class="check">✓</span>Qualitäts-Checklisten</li>
-          <li><span class="check">✓</span>Team-Schulung (½ Tag)</li>
+          <li><span class="check">✓</span>Team-Schulung (1 Tag)</li>
         </ul>
         <a href="kontakt.html" class="pkg-cta">Modul anfragen</a>
       </div>
@@ -1499,12 +1501,12 @@ header::after {
         <h3>Design & Markensystem</h3>
         <p class="pkg-desc">Ein visuelles System, das Ihre Marke unverwechselbar macht – und skalierbar bleibt.</p>
         <ul class="pkg-list">
-          <li><span class="check">✓</span>Corporate Design / Refresh</li>
-          <li><span class="check">✓</span>Modulares Designsystem</li>
-          <li><span class="check">✓</span>Social-Media-Templates</li>
-          <li><span class="check">✓</span>Präsentations-Kit</li>
-          <li><span class="check">✓</span>Bildsprache & Fotoshooting</li>
           <li><span class="check">✓</span>Brand Styleguide</li>
+          <li><span class="check">✓</span>Modulares Designsystem</li>
+          <li><span class="check">✓</span>Bildsprache</li>
+          <li><span class="check">✓</span>Social-Media-Templates</li>
+          <li><span class="check">✓</span>Landing Pages</li>
+          <li><span class="check">✓</span>Präsentations-Kit</li>
         </ul>
         <a href="kontakt.html" class="pkg-cta">Modul anfragen</a>
       </div>

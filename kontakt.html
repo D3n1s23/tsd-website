@@ -200,6 +200,25 @@ nav a:hover { color: var(--text-white); }
   cursor: pointer; transition: all 0.3s;
 }
 .btn-submit:hover { background: var(--accent); }
+.btn-submit:disabled { opacity: 0.55; cursor: wait; }
+
+.form-status {
+  margin-top: 1rem; padding: 0.85rem 1rem;
+  border-radius: 6px; font-size: 0.85rem; line-height: 1.5;
+  font-weight: 400; display: none;
+}
+.form-status.is-success {
+  display: block;
+  background: rgba(122, 158, 126, 0.12);
+  border: 1px solid rgba(122, 158, 126, 0.4);
+  color: #a8c9ab;
+}
+.form-status.is-error {
+  display: block;
+  background: rgba(200, 90, 90, 0.1);
+  border: 1px solid rgba(200, 90, 90, 0.35);
+  color: #e0a8a8;
+}
 
 @media (max-width: 768px) {
   .contact-grid { grid-template-columns: 1fr; }
@@ -293,9 +312,8 @@ header::after {
       <ul id="navMenu">
         <li><a href="index.html#system">KI-Kreativsystem</a></li>
         <li><a href="index.html#pakete">Leistungspakete</a></li>
-        <li><a href="index.html#prozess">Ablauf</a></li>
-        <li><a href="index.html#unternehmen">Für Ihr Unternehmen</a></li>
-        <li><a href="ueber-uns.html">Über Uns</a></li>
+        <li><a href="index.html#unternehmen">Für Unternehmen</a></li>
+        <li><a href="ueber-uns.html">TSD</a></li>
         <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
       </ul>
       <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
@@ -336,33 +354,36 @@ header::after {
         </div>
       </div>
 
-      <div class="contact-form">
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/xqewnaoa" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Kontaktanfrage tsd-design.de">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
         <div class="form-group">
-          <label>Name <span class="req">*</span></label>
-          <input type="text" placeholder="Ihr vollständiger Name" required>
+          <label for="cf-name">Name <span class="req">*</span></label>
+          <input type="text" id="cf-name" name="name" placeholder="Ihr vollständiger Name" required>
         </div>
         <div class="form-group">
-          <label>Firma <span class="req">*</span></label>
-          <input type="text" placeholder="Ihr Unternehmen" required>
+          <label for="cf-firma">Firma <span class="req">*</span></label>
+          <input type="text" id="cf-firma" name="firma" placeholder="Ihr Unternehmen" required>
         </div>
         <div class="form-group">
-          <label>Position <span class="req">*</span></label>
-          <input type="text" placeholder="Ihre Position" required>
+          <label for="cf-position">Position <span class="req">*</span></label>
+          <input type="text" id="cf-position" name="position" placeholder="Ihre Position" required>
         </div>
         <div class="form-group">
-          <label>E-Mail <span class="req">*</span></label>
-          <input type="email" placeholder="ihre@email.de" required>
+          <label for="cf-email">E-Mail <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="email" placeholder="ihre@email.de" required>
         </div>
         <div class="form-group">
-          <label>Nachricht</label>
-          <textarea placeholder="Wie können wir Ihnen helfen?"></textarea>
+          <label for="cf-nachricht">Nachricht</label>
+          <textarea id="cf-nachricht" name="nachricht" placeholder="Wie können wir Ihnen helfen?"></textarea>
         </div>
         <div class="form-consent">
           <input type="checkbox" id="consent" required>
           <label for="consent">Ich bin damit einverstanden, dass diese Daten zum Zweck der Kontaktaufnahme gespeichert und verarbeitet werden. Mir ist bekannt, dass ich meine Einwilligung jederzeit widerrufen kann. <a href="datenschutz.html">Datenschutzerklärung</a></label>
         </div>
-        <button type="submit" class="btn-submit">Nachricht senden</button>
-      </div>
+        <button type="submit" class="btn-submit" id="cf-submit">Nachricht senden</button>
+        <div class="form-status" id="cf-status" role="status" aria-live="polite"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -391,6 +412,46 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   var next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
+});
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  if (!form.reportValidity()) return;
+
+  const button = document.getElementById('cf-submit');
+  const status = document.getElementById('cf-status');
+  const originalLabel = button.textContent;
+
+  status.className = 'form-status';
+  status.textContent = '';
+  button.disabled = true;
+  button.textContent = 'Wird gesendet…';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      form.reset();
+      status.className = 'form-status is-success';
+      status.textContent = 'Vielen Dank – Ihre Nachricht wurde gesendet. Wir melden uns zeitnah bei Ihnen.';
+    } else {
+      const data = await response.json().catch(() => ({}));
+      const msg = (data.errors && data.errors.map(err => err.message).join(', ')) || 'Das Senden ist fehlgeschlagen.';
+      status.className = 'form-status is-error';
+      status.textContent = `${msg} Bitte versuchen Sie es später erneut oder schreiben Sie direkt an mail@tsd-design.de.`;
+    }
+  } catch (err) {
+    status.className = 'form-status is-error';
+    status.textContent = 'Verbindungsfehler. Bitte versuchen Sie es später erneut oder schreiben Sie direkt an mail@tsd-design.de.';
+  } finally {
+    button.disabled = false;
+    button.textContent = originalLabel;
+  }
 });
 </script>
 </body>
