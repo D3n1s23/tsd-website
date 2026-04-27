@@ -257,126 +257,132 @@ footer .container {
 .footer-links a:hover { color: var(--text-white); }
 
 /* ---- YEAR TILE: Card mit farbigem Top-Stripe (Modular-Package-Pattern) ---- */
-.year-section {
+/* Year-Wrapper sind nur strukturell — Cases sind direkte Grid-Items */
+.year-section,
+.year-body { display: contents; }
+.year-header,
+.year-counter { display: none; }
+
+/* Layer-Farbe rotiert pro Jahr, alle Cases im Jahr teilen sie */
+.year-section:nth-child(4n+1) .case { --layer-color: #7a9e7e; }
+.year-section:nth-child(4n+2) .case { --layer-color: #6a8fb5; }
+.year-section:nth-child(4n+3) .case { --layer-color: #9b7ab8; }
+.year-section:nth-child(4n)   .case { --layer-color: var(--accent); }
+
+/* ---- CASE CARD (Journal Style) ---- */
+.case {
+  position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  text-align: left;
   background: var(--bg-section);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem 1.5rem 1.75rem;
-  position: relative;
+  border-radius: 10px;
+  padding: 1.5rem 1.25rem 1.4rem;
   overflow: hidden;
-  transition: border-color 0.35s ease, transform 0.35s ease;
+  transition: transform 0.35s ease, border-color 0.3s, background 0.3s;
 }
-.year-section::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+.case::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--layer-color, var(--accent));
 }
-.year-section:hover { border-color: var(--border-light); }
-/* Disziplin-Farben rotieren über die Jahre */
-.year-section:nth-child(4n+1)::before { background: #7a9e7e; }
-.year-section:nth-child(4n+2)::before { background: #6a8fb5; }
-.year-section:nth-child(4n+3)::before { background: #9b7ab8; }
-.year-section:nth-child(4n)::before   { background: var(--accent); }
-.year-section:nth-child(4n+1) .case-discipline { background: rgba(122,158,126,0.12); color: #7a9e7e; }
-.year-section:nth-child(4n+2) .case-discipline { background: rgba(106,143,181,0.12); color: #6a8fb5; }
-.year-section:nth-child(4n+3) .case-discipline { background: rgba(155,122,184,0.12); color: #9b7ab8; }
-.year-section:nth-child(4n)   .case-discipline { background: rgba(197,164,109,0.12); color: var(--accent); }
-
-.year-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.5rem 0 0.2rem;
-  user-select: none;
-  position: relative;
+.case:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-light);
 }
-.year-header .y {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-white);
-  letter-spacing: -0.01em;
-  font-size: 2.4rem;
-}
-.year-header .chev { display: none; }
-.year-counter {
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  text-align: center;
-  font-family: var(--font-sans);
-  padding-bottom: 1rem;
-}
-.year-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* ---- CASE BLOCK (inside a tile) ---- */
-.case {
-  text-align: center;
-  transition: transform 0.35s ease;
-}
-.case:hover { transform: translateY(-3px); }
 .case-logo {
-  height: 28px;
+  height: 32px;
   width: auto;
-  margin: 0 auto 0.55rem;
+  margin: 0 auto 1rem;
+  display: block;
   opacity: 0.9;
   transition: opacity 0.3s;
 }
 .case:hover .case-logo { opacity: 1; }
+.case-hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  cursor: zoom-in;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--bg-card);
+  transition: transform 0.4s ease, opacity 0.3s, box-shadow 0.4s ease;
+}
+.case-hero:hover {
+  opacity: 0.96;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.case-headline {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-white);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
 .case-meta {
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.7rem;
 }
 .case-discipline {
-  display: inline-block;
-  font-size: 0.58rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.22rem 0.55rem;
+  align-self: flex-start;
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.32rem 0.7rem;
   border-radius: 4px;
-  background: rgba(197,164,109,0.12);
-  color: var(--accent);
-  margin-bottom: 0.55rem;
+  background: var(--layer-color, var(--accent));
+  color: var(--bg-dark);
+  margin-bottom: 0.85rem;
 }
 .case-description {
   font-size: 0.78rem;
-  line-height: 1.5;
+  line-height: 1.55;
   font-weight: 300;
   color: var(--text-light);
-  margin: 0 auto 0.75rem;
+  margin: 0;
 }
 
-/* Images: 2-col compact grid inside tile */
-.case-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.35rem;
+/* ---- LIGHTBOX ---- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(8,8,8,0.96);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 3rem;
+  cursor: zoom-out;
 }
-.case-images img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  border-radius: 6px;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-card);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  cursor: default;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border-radius: 4px;
 }
-.case-images img:only-child,
-.case-images img:nth-child(3):last-child { grid-column: span 2; }
-.case:hover .case-images img {
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+.lightbox-close {
+  position: fixed; top: 1.5rem; right: 1.5rem;
+  width: 44px; height: 44px;
+  background: transparent; border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 1.5rem; line-height: 1;
+  cursor: pointer; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  z-index: 2001;
 }
+.lightbox-close:hover { background: rgba(255,255,255,0.1); border-color: white; transform: scale(1.05); }
 
 /* ---- FADE-IN ---- */
 .fade-in {
@@ -410,7 +416,7 @@ header::after {
 ::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.5); }
 
-/* Responsive: 2 → 1 cols */
+/* Responsive: 1 col on small screens */
 @media (max-width: 700px) {
   .cases-intro { padding: calc(72px + 2rem) 1.5rem 1.5rem; }
   .cases-main {
@@ -418,9 +424,7 @@ header::after {
     padding: 0 1.5rem 2rem;
     gap: 1rem;
   }
-  .year-section { padding: 1.25rem 1.25rem 1.5rem; }
-  .year-header .y { font-size: 2rem; }
-  .case-images { grid-template-columns: 1fr 1fr; }
+  .case-headline { font-size: 1.3rem; }
 }
 </style>
 </head>
@@ -488,35 +492,27 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="fibe-messe-berlin">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="FIBE, Messe Berlin">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="FIBE" data-lightbox>
+          <h3 class="case-headline">FIBE</h3>
           <div class="case-meta">2025 / 2026 · FIBE, Messe Berlin</div>
           <div class="case-discipline">Creative Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/fibe.png" alt="">
-            <img src="cases/_figma/mazda-2015.png" alt="">
-            <img src="cases/_figma/cms-messe-berlin.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="continental">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Continental">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Continental" data-lightbox>
+          <h3 class="case-headline">Continental</h3>
           <div class="case-meta">2026 · Continental</div>
           <div class="case-discipline">Branding, Editorial</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/porsche-lemans-2015.png" alt="">
-            <img src="cases/_figma/magdalena-becker.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="lufthansa">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Lufthansa">
+          <img class="case-hero" src="cases/_figma/cadillac-1.png" alt="Lufthansa" data-lightbox>
+          <h3 class="case-headline">Lufthansa</h3>
           <div class="case-meta">2026 · Lufthansa Innovation Hub</div>
           <div class="case-discipline">Art Direction, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/cadillac-1.png" alt="">
-            <img src="cases/_figma/memorai.png" alt="">
-            <img src="cases/_figma/cadillac-2.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -528,24 +524,19 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="decathlon">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Decathlon">
+          <img class="case-hero" src="cases/_figma/oneos.png" alt="Decathlon" data-lightbox>
+          <h3 class="case-headline">Decathlon</h3>
           <div class="case-meta">2025 · Decathlon DACH</div>
           <div class="case-discipline">Creative Direction, In-Store</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/oneos.png" alt="">
-            <img src="cases/_figma/coolonia.png" alt="">
-            <img src="cases/_figma/tsd-design.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="bosch-rexroth">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Bosch Rexroth">
+          <img class="case-hero" src="cases/_figma/lumeedom.png" alt="Bosch Rexroth" data-lightbox>
+          <h3 class="case-headline">Bosch Rexroth</h3>
           <div class="case-meta">2025 · Bosch Rexroth</div>
           <div class="case-discipline">Corporate Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/lumeedom.png" alt="">
-            <img src="cases/_figma/fibe.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -557,34 +548,27 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="allianz">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Allianz">
+          <img class="case-hero" src="cases/_figma/mazda-2015.png" alt="Allianz" data-lightbox>
+          <h3 class="case-headline">Allianz</h3>
           <div class="case-meta">2024 · Allianz Digital</div>
           <div class="case-discipline">UX, Brand Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/mazda-2015.png" alt="">
-            <img src="cases/_figma/cms-messe-berlin.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="deutsche-bank">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Bank">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Deutsche Bank" data-lightbox>
+          <h3 class="case-headline">Deutsche Bank</h3>
           <div class="case-meta">2024 · Deutsche Bank AG</div>
           <div class="case-discipline">Editorial, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/porsche-lemans-2015.png" alt="">
-            <img src="cases/_figma/magdalena-becker.png" alt="">
-            <img src="cases/_figma/cadillac-1.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="signal-iduna">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Signal Iduna">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="Signal Iduna" data-lightbox>
+          <h3 class="case-headline">Signal Iduna</h3>
           <div class="case-meta">2024 · Signal Iduna</div>
           <div class="case-discipline">Branding</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/memorai.png" alt="">
-            <img src="cases/_figma/cadillac-2.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -596,24 +580,19 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="prosiebensat1">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="ProSiebenSat.1">
+          <img class="case-hero" src="cases/_figma/oneos.png" alt="ProSiebenSat.1" data-lightbox>
+          <h3 class="case-headline">ProSiebenSat.1</h3>
           <div class="case-meta">2023 · ProSiebenSat.1</div>
           <div class="case-discipline">Creative Direction, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/oneos.png" alt="">
-            <img src="cases/_figma/coolonia.png" alt="">
-            <img src="cases/_figma/tsd-design.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="trumpf">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Trumpf">
+          <img class="case-hero" src="cases/_figma/lumeedom.png" alt="Trumpf" data-lightbox>
+          <h3 class="case-headline">Trumpf</h3>
           <div class="case-meta">2023 · Trumpf GmbH</div>
           <div class="case-discipline">Corporate Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/lumeedom.png" alt="">
-            <img src="cases/_figma/fibe.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -625,35 +604,27 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="bmw-i">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="BMW i">
+          <img class="case-hero" src="cases/_figma/mazda-2015.png" alt="BMW i" data-lightbox>
+          <h3 class="case-headline">BMW i</h3>
           <div class="case-meta">2022 · BMW i Division</div>
           <div class="case-discipline">Art Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/mazda-2015.png" alt="">
-            <img src="cases/_figma/cms-messe-berlin.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="adidas-original">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Adidas Originals">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Adidas" data-lightbox>
+          <h3 class="case-headline">Adidas</h3>
           <div class="case-meta">2022 · Adidas Originals</div>
           <div class="case-discipline">Creative Direction, Event</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/porsche-lemans-2015.png" alt="">
-            <img src="cases/_figma/magdalena-becker.png" alt="">
-            <img src="cases/_figma/cadillac-1.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="nivea">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Nivea">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="Nivea" data-lightbox>
+          <h3 class="case-headline">Nivea</h3>
           <div class="case-meta">2022 · Nivea Brand Hub</div>
           <div class="case-discipline">Packaging Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/memorai.png" alt="">
-            <img src="cases/_figma/cadillac-2.png" alt="">
-            <img src="cases/_figma/oneos.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -665,24 +636,19 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="porsche-digital">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Porsche Digital">
+          <img class="case-hero" src="cases/_figma/coolonia.png" alt="Porsche" data-lightbox>
+          <h3 class="case-headline">Porsche</h3>
           <div class="case-meta">2021 · Porsche Digital</div>
           <div class="case-discipline">UX/UI Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/coolonia.png" alt="">
-            <img src="cases/_figma/tsd-design.png" alt="">
-            <img src="cases/_figma/lumeedom.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="otto">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Otto Group">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="Otto" data-lightbox>
+          <h3 class="case-headline">Otto</h3>
           <div class="case-meta">2021 · Otto Group</div>
           <div class="case-discipline">Digital Brand Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/fibe.png" alt="">
-            <img src="cases/_figma/mazda-2015.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -694,34 +660,27 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="hugo-boss">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Hugo Boss">
+          <img class="case-hero" src="cases/_figma/cms-messe-berlin.png" alt="Hugo Boss" data-lightbox>
+          <h3 class="case-headline">Hugo Boss</h3>
           <div class="case-meta">2020 · Hugo Boss</div>
           <div class="case-discipline">Editorial</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/cms-messe-berlin.png" alt="">
-            <img src="cases/_figma/porsche-lemans-2015.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="dt-telekom">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Telekom">
+          <img class="case-hero" src="cases/_figma/magdalena-becker.png" alt="Telekom" data-lightbox>
+          <h3 class="case-headline">Telekom</h3>
           <div class="case-meta">2020 · Deutsche Telekom</div>
           <div class="case-discipline">Branding</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/magdalena-becker.png" alt="">
-            <img src="cases/_figma/cadillac-1.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="sap">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="SAP">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="SAP" data-lightbox>
+          <h3 class="case-headline">SAP</h3>
           <div class="case-meta">2020 · SAP Emerging Tech</div>
           <div class="case-discipline">Creative Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/memorai.png" alt="">
-            <img src="cases/_figma/cadillac-2.png" alt="">
-            <img src="cases/_figma/oneos.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -733,24 +692,19 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="mercedes-eq">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Mercedes EQ">
+          <img class="case-hero" src="cases/_figma/coolonia.png" alt="Mercedes EQ" data-lightbox>
+          <h3 class="case-headline">Mercedes EQ</h3>
           <div class="case-meta">2019 · Mercedes EQ</div>
           <div class="case-discipline">Art Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/coolonia.png" alt="">
-            <img src="cases/_figma/tsd-design.png" alt="">
-            <img src="cases/_figma/lumeedom.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="loreal">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="L'Oréal Paris">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="L'Oréal" data-lightbox>
+          <h3 class="case-headline">L'Oréal</h3>
           <div class="case-meta">2019 · L'Oréal Paris DACH</div>
           <div class="case-discipline">Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/fibe.png" alt="">
-            <img src="cases/_figma/mazda-2015.png" alt="">
-          </div>
         </article>
       </div>
     </section>
@@ -762,28 +716,29 @@ header::after {
       <div class="year-body">
         <article class="case" data-client="zalando">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Zalando">
+          <img class="case-hero" src="cases/_figma/cms-messe-berlin.png" alt="Zalando" data-lightbox>
+          <h3 class="case-headline">Zalando</h3>
           <div class="case-meta">2018 · Zalando</div>
           <div class="case-discipline">Digital Brand</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/cms-messe-berlin.png" alt="">
-            <img src="cases/_figma/porsche-lemans-2015.png" alt="">
-          </div>
         </article>
         <article class="case" data-client="henkel">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Henkel">
+          <img class="case-hero" src="cases/_figma/magdalena-becker.png" alt="Henkel" data-lightbox>
+          <h3 class="case-headline">Henkel</h3>
           <div class="case-meta">2018 · Henkel Beauty</div>
           <div class="case-discipline">Packaging Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="cases/_figma/magdalena-becker.png" alt="">
-            <img src="cases/_figma/cadillac-1.png" alt="">
-            <img src="cases/_figma/memorai.png" alt="">
-          </div>
         </article>
       </div>
     </section>
   </main>
+</div>
+
+<!-- ============= LIGHTBOX ============= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Bildansicht" aria-hidden="true">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Schließen">×</button>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <footer>
@@ -793,6 +748,8 @@ header::after {
       <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
     </div>
     <ul class="footer-links">
+      <li><a href="cases.html">Cases</a></li>
+      <li><a href="brand-guidelines.html">Brand Guidelines</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
       <li><a href="impressum.html">Impressum</a></li>
       <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -876,6 +833,32 @@ header::after {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ---- LIGHTBOX ----
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('img[data-lightbox]').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+  });
 })();
 </script>
 
