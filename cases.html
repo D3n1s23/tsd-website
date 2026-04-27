@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 <title>Kundengalerie — TSD Design GmbH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
@@ -24,6 +25,27 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
+html[data-theme="light"] {
+  --bg-dark: #fafaf7;
+  --bg-darker: #f0ede7;
+  --bg-section: #ffffff;
+  --bg-card: #ffffff;
+  --text-white: #1a1a1a;
+  --text-light: #2d2d2d;
+  --text-muted: #6b6b6b;
+  --border-subtle: rgba(0,0,0,0.08);
+  --border-light: rgba(0,0,0,0.15);
+}
+html[data-theme="light"] header {
+  background: rgba(250,250,247,0.88);
+}
+html[data-theme="light"] .logo img {
+  filter: brightness(0.55) saturate(1.3);
+}
+html[data-theme="light"] .theme-toggle .sun-icon { display: none; }
+html[data-theme="light"] .theme-toggle .moon-icon { display: block; }
+html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.5); }
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.7); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -114,6 +136,8 @@ nav a:hover { color: var(--text-white); }
   nav ul.open { transform: translateX(0); }
   nav a { font-size: 1.1rem; color: #e0ddd7; }
   nav ul li:has(.nav-cta) { margin-top: 10px; }
+  html[data-theme="light"] nav ul { background: rgba(8, 8, 8, 0.95); }
+  html[data-theme="light"] nav a { color: #e0ddd7; }
 }
 
 /* ---- LOGIN OVERLAY ---- */
@@ -183,15 +207,36 @@ nav a:hover { color: var(--text-white); }
 #cases-root { display: none; }
 #cases-root.revealed { display: block; }
 
-/* ---- CASES MAIN: 3x3 YEAR GRID ---- */
+/* ---- CASES INTRO (Brand-Styleguide Section-Head pattern) ---- */
+.cases-intro {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(72px + 2.5rem) 2rem 1.75rem;
+}
+.cases-intro .overline {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1rem; display: block;
+}
+.cases-intro h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400; line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.cases-intro p {
+  font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);
+  font-weight: 300; max-width: 620px;
+}
+
+/* ---- CASES MAIN: 2-col YEAR GRID ---- */
 .cases-main {
-  min-height: 100vh;
-  padding: calc(72px + 3rem) 2rem 3rem;
+  padding: 0 2rem 3rem;
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 1.5rem;
 }
 /* ---- SITE FOOTER ---- */
 footer {
@@ -211,102 +256,175 @@ footer .container {
 }
 .footer-links a:hover { color: var(--text-white); }
 
-/* ---- YEAR TILE (in 3x3 grid) ---- */
-.year-section {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-.year-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1.5rem 0 0.3rem;
-  user-select: none;
-}
-.year-header .y {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-white);
-  letter-spacing: -0.01em;
-  font-size: 3rem;
-}
-.year-header .chev { display: none; }
-.year-counter {
-  font-size: 0.66rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  text-align: center;
-  font-family: var(--font-sans);
-  padding-bottom: 2rem;
-}
-.year-body {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
+/* ---- YEAR TILE: Card mit farbigem Top-Stripe (Modular-Package-Pattern) ---- */
+/* Year-Wrapper sind nur strukturell — Cases sind direkte Grid-Items */
+.year-section,
+.year-body { display: contents; }
+.year-header,
+.year-counter { display: none; }
 
-/* ---- CASE BLOCK (inside a tile) ---- */
+/* Layer-Farbe rotiert pro Jahr, alle Cases im Jahr teilen sie */
+.year-section:nth-child(4n+1) .case { --layer-color: #7a9e7e; }
+.year-section:nth-child(4n+2) .case { --layer-color: #6a8fb5; }
+.year-section:nth-child(4n+3) .case { --layer-color: #9b7ab8; }
+.year-section:nth-child(4n)   .case { --layer-color: var(--accent); }
+
+/* ---- CASE CARD (Journal Style) ---- */
 .case {
-  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: var(--bg-section);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.5rem 1.25rem 1.4rem;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.3s, background 0.3s;
+}
+.case::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--layer-color, var(--accent));
+}
+.case:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-light);
 }
 .case-logo {
-  height: 36px;
+  height: 32px;
   width: auto;
-  margin: 0 auto 0.9rem;
+  margin: 0 auto 1rem;
+  display: block;
   opacity: 0.9;
+  transition: opacity 0.3s;
+}
+.case:hover .case-logo { opacity: 1; }
+.case-hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  cursor: zoom-in;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--bg-card);
+  transition: transform 0.4s ease, opacity 0.3s, box-shadow 0.4s ease;
+}
+.case-hero:hover {
+  opacity: 0.96;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.case-headline {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-white);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
 }
 .case-meta {
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.7rem;
 }
 .case-discipline {
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
+  align-self: flex-start;
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.32rem 0.7rem;
+  border-radius: 4px;
+  background: var(--layer-color, var(--accent));
+  color: var(--bg-dark);
+  margin-bottom: 0.85rem;
 }
 .case-description {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   line-height: 1.55;
   font-weight: 300;
   color: var(--text-light);
-  margin: 0 auto 1.3rem;
+  margin: 0;
 }
 
-/* Images stack single-column inside narrow tile */
-.case-images {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem;
+/* ---- LIGHTBOX ---- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(8,8,8,0.96);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 3rem;
+  cursor: zoom-out;
 }
-.case-images img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.04);
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  cursor: default;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border-radius: 4px;
 }
+.lightbox-close {
+  position: fixed; top: 1.5rem; right: 1.5rem;
+  width: 44px; height: 44px;
+  background: transparent; border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 1.5rem; line-height: 1;
+  cursor: pointer; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  z-index: 2001;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.1); border-color: white; transform: scale(1.05); }
 
-/* Responsive: 3→2→1 cols */
-@media (max-width: 900px) {
-  .cases-main { grid-template-columns: repeat(2, 1fr); }
+/* ---- FADE-IN ---- */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
 }
-@media (max-width: 600px) {
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- CHARACTER ENHANCEMENTS (parity with rest of site) ---- */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
+}
+::selection { background: rgba(197,164,109,0.3); color: var(--text-white); }
+::-moz-selection { background: rgba(197,164,109,0.3); color: var(--text-white); }
+header::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, #E5CA9C, #66F4C4, #C6E5EC, #A178BC, #E5CA9C, #66F4C4, #C6E5EC, #A178BC);
+  background-size: 400% 100%;
+  animation: header-color-flow 12s linear infinite;
+  opacity: 0.6;
+}
+@keyframes header-color-flow {
+  0% { background-position: 0% 0; }
+  100% { background-position: 400% 0; }
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-darker); }
+::-webkit-scrollbar-thumb { background: rgba(197,164,109,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(197,164,109,0.5); }
+
+/* Responsive: 1 col on small screens */
+@media (max-width: 700px) {
+  .cases-intro { padding: calc(72px + 2rem) 1.5rem 1.5rem; }
   .cases-main {
     grid-template-columns: 1fr;
-    padding: calc(72px + 2rem) 1.25rem 2rem;
+    padding: 0 1.5rem 2rem;
     gap: 1rem;
   }
-  .year-header .y { font-size: 2.4rem; }
+  .case-headline { font-size: 1.3rem; }
 }
 </style>
 </head>
@@ -361,310 +479,266 @@ footer .container {
 
 <!-- ============= CASES ROOT (after auth) ============= -->
 <div id="cases-root">
+  <section class="cases-intro fade-in">
+    <span class="overline">Kundengalerie</span>
+    <h1>Eine Auswahl an Arbeiten.</h1>
+    <p>Strategie, Software, Design — entstanden in enger Zusammenarbeit mit Marken, die etwas zu sagen haben. Ein Querschnitt durch ausgewählte Projekte, chronologisch geordnet.</p>
+  </section>
   <main class="cases-main">
     <!-- 2026 -->
-    <section class="year-section" data-year="2026">
+    <section class="year-section fade-in" data-year="2026">
       <div class="year-header"><span class="y">2026</span></div>
       <div class="year-counter">3 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="fibe-messe-berlin">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="FIBE, Messe Berlin">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="FIBE" data-lightbox>
+          <h3 class="case-headline">FIBE</h3>
           <div class="case-meta">2025 / 2026 · FIBE, Messe Berlin</div>
           <div class="case-discipline">Creative Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2026-fibe-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2026-fibe-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2026-fibe-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="continental">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Continental">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Continental" data-lightbox>
+          <h3 class="case-headline">Continental</h3>
           <div class="case-meta">2026 · Continental</div>
           <div class="case-discipline">Branding, Editorial</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2026-conti-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2026-conti-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="lufthansa">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Lufthansa">
+          <img class="case-hero" src="cases/_figma/cadillac-1.png" alt="Lufthansa" data-lightbox>
+          <h3 class="case-headline">Lufthansa</h3>
           <div class="case-meta">2026 · Lufthansa Innovation Hub</div>
           <div class="case-discipline">Art Direction, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2026-lh-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2026-lh-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2026-lh-3/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2025 -->
-    <section class="year-section" data-year="2025">
+    <section class="year-section fade-in" data-year="2025">
       <div class="year-header"><span class="y">2025</span></div>
       <div class="year-counter">2 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="decathlon">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Decathlon">
+          <img class="case-hero" src="cases/_figma/oneos.png" alt="Decathlon" data-lightbox>
+          <h3 class="case-headline">Decathlon</h3>
           <div class="case-meta">2025 · Decathlon DACH</div>
           <div class="case-discipline">Creative Direction, In-Store</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2025-dec-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2025-dec-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2025-dec-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="bosch-rexroth">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Bosch Rexroth">
+          <img class="case-hero" src="cases/_figma/lumeedom.png" alt="Bosch Rexroth" data-lightbox>
+          <h3 class="case-headline">Bosch Rexroth</h3>
           <div class="case-meta">2025 · Bosch Rexroth</div>
           <div class="case-discipline">Corporate Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2025-br-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2025-br-2/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2024 -->
-    <section class="year-section" data-year="2024">
+    <section class="year-section fade-in" data-year="2024">
       <div class="year-header"><span class="y">2024</span></div>
       <div class="year-counter">3 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="allianz">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Allianz">
+          <img class="case-hero" src="cases/_figma/mazda-2015.png" alt="Allianz" data-lightbox>
+          <h3 class="case-headline">Allianz</h3>
           <div class="case-meta">2024 · Allianz Digital</div>
           <div class="case-discipline">UX, Brand Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2024-alz-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2024-alz-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="deutsche-bank">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Bank">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Deutsche Bank" data-lightbox>
+          <h3 class="case-headline">Deutsche Bank</h3>
           <div class="case-meta">2024 · Deutsche Bank AG</div>
           <div class="case-discipline">Editorial, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2024-db-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2024-db-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2024-db-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="signal-iduna">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Signal Iduna">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="Signal Iduna" data-lightbox>
+          <h3 class="case-headline">Signal Iduna</h3>
           <div class="case-meta">2024 · Signal Iduna</div>
           <div class="case-discipline">Branding</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2024-si-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2024-si-2/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2023 -->
-    <section class="year-section" data-year="2023">
+    <section class="year-section fade-in" data-year="2023">
       <div class="year-header"><span class="y">2023</span></div>
       <div class="year-counter">2 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="prosiebensat1">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="ProSiebenSat.1">
+          <img class="case-hero" src="cases/_figma/oneos.png" alt="ProSiebenSat.1" data-lightbox>
+          <h3 class="case-headline">ProSiebenSat.1</h3>
           <div class="case-meta">2023 · ProSiebenSat.1</div>
           <div class="case-discipline">Creative Direction, Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2023-p7s1-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2023-p7s1-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2023-p7s1-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="trumpf">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Trumpf">
+          <img class="case-hero" src="cases/_figma/lumeedom.png" alt="Trumpf" data-lightbox>
+          <h3 class="case-headline">Trumpf</h3>
           <div class="case-meta">2023 · Trumpf GmbH</div>
           <div class="case-discipline">Corporate Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2023-tf-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2023-tf-2/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2022 -->
-    <section class="year-section" data-year="2022">
+    <section class="year-section fade-in" data-year="2022">
       <div class="year-header"><span class="y">2022</span></div>
       <div class="year-counter">3 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="bmw-i">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="BMW i">
+          <img class="case-hero" src="cases/_figma/mazda-2015.png" alt="BMW i" data-lightbox>
+          <h3 class="case-headline">BMW i</h3>
           <div class="case-meta">2022 · BMW i Division</div>
           <div class="case-discipline">Art Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2022-bmw-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2022-bmw-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="adidas-original">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Adidas Originals">
+          <img class="case-hero" src="cases/_figma/porsche-lemans-2015.png" alt="Adidas" data-lightbox>
+          <h3 class="case-headline">Adidas</h3>
           <div class="case-meta">2022 · Adidas Originals</div>
           <div class="case-discipline">Creative Direction, Event</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2022-adi-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2022-adi-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2022-adi-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="nivea">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Nivea">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="Nivea" data-lightbox>
+          <h3 class="case-headline">Nivea</h3>
           <div class="case-meta">2022 · Nivea Brand Hub</div>
           <div class="case-discipline">Packaging Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2022-niv-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2022-niv-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2022-niv-3/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2021 -->
-    <section class="year-section" data-year="2021">
+    <section class="year-section fade-in" data-year="2021">
       <div class="year-header"><span class="y">2021</span></div>
       <div class="year-counter">2 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="porsche-digital">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Porsche Digital">
+          <img class="case-hero" src="cases/_figma/coolonia.png" alt="Porsche" data-lightbox>
+          <h3 class="case-headline">Porsche</h3>
           <div class="case-meta">2021 · Porsche Digital</div>
           <div class="case-discipline">UX/UI Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2021-por-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2021-por-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2021-por-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="otto">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Otto Group">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="Otto" data-lightbox>
+          <h3 class="case-headline">Otto</h3>
           <div class="case-meta">2021 · Otto Group</div>
           <div class="case-discipline">Digital Brand Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2021-otto-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2021-otto-2/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2020 -->
-    <section class="year-section" data-year="2020">
+    <section class="year-section fade-in" data-year="2020">
       <div class="year-header"><span class="y">2020</span></div>
       <div class="year-counter">3 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="hugo-boss">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Hugo Boss">
+          <img class="case-hero" src="cases/_figma/cms-messe-berlin.png" alt="Hugo Boss" data-lightbox>
+          <h3 class="case-headline">Hugo Boss</h3>
           <div class="case-meta">2020 · Hugo Boss</div>
           <div class="case-discipline">Editorial</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2020-hb-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2020-hb-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="dt-telekom">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Deutsche Telekom">
+          <img class="case-hero" src="cases/_figma/magdalena-becker.png" alt="Telekom" data-lightbox>
+          <h3 class="case-headline">Telekom</h3>
           <div class="case-meta">2020 · Deutsche Telekom</div>
           <div class="case-discipline">Branding</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2020-tkom-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2020-tkom-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="sap">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="SAP">
+          <img class="case-hero" src="cases/_figma/memorai.png" alt="SAP" data-lightbox>
+          <h3 class="case-headline">SAP</h3>
           <div class="case-meta">2020 · SAP Emerging Tech</div>
           <div class="case-discipline">Creative Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2020-sap-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2020-sap-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2020-sap-3/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2019 -->
-    <section class="year-section" data-year="2019">
+    <section class="year-section fade-in" data-year="2019">
       <div class="year-header"><span class="y">2019</span></div>
       <div class="year-counter">2 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="mercedes-eq">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Mercedes EQ">
+          <img class="case-hero" src="cases/_figma/coolonia.png" alt="Mercedes EQ" data-lightbox>
+          <h3 class="case-headline">Mercedes EQ</h3>
           <div class="case-meta">2019 · Mercedes EQ</div>
           <div class="case-discipline">Art Direction</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2019-eq-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2019-eq-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2019-eq-3/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="loreal">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="L'Oréal Paris">
+          <img class="case-hero" src="cases/_figma/fibe.png" alt="L'Oréal" data-lightbox>
+          <h3 class="case-headline">L'Oréal</h3>
           <div class="case-meta">2019 · L'Oréal Paris DACH</div>
           <div class="case-discipline">Kampagne</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2019-lor-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2019-lor-2/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
 
     <!-- 2018 -->
-    <section class="year-section" data-year="2018">
+    <section class="year-section fade-in" data-year="2018">
       <div class="year-header"><span class="y">2018</span></div>
       <div class="year-counter">2 Projekte</div>
       <div class="year-body">
         <article class="case" data-client="zalando">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Zalando">
+          <img class="case-hero" src="cases/_figma/cms-messe-berlin.png" alt="Zalando" data-lightbox>
+          <h3 class="case-headline">Zalando</h3>
           <div class="case-meta">2018 · Zalando</div>
           <div class="case-discipline">Digital Brand</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2018-zal-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2018-zal-2/800/600" alt="">
-          </div>
         </article>
         <article class="case" data-client="henkel">
           <img src="cases/_placeholder/logo.svg" class="case-logo" alt="Henkel">
+          <img class="case-hero" src="cases/_figma/magdalena-becker.png" alt="Henkel" data-lightbox>
+          <h3 class="case-headline">Henkel</h3>
           <div class="case-meta">2018 · Henkel Beauty</div>
           <div class="case-discipline">Packaging Design</div>
           <p class="case-description">Ganzheitliche Konzeption und Umsetzung von Marketingmaßnahmen, darunter integrierte Kampagnen, Landingpages, Printanzeigen, Illustrationen sowie In-Store-Konzepte, Roadshows und Eventformate.</p>
-          <div class="case-images">
-            <img src="https://picsum.photos/seed/tsd-2018-hkl-1/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2018-hkl-2/800/600" alt="">
-            <img src="https://picsum.photos/seed/tsd-2018-hkl-3/800/600" alt="">
-          </div>
         </article>
       </div>
     </section>
   </main>
+</div>
+
+<!-- ============= LIGHTBOX ============= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Bildansicht" aria-hidden="true">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Schließen">×</button>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <footer>
@@ -674,6 +748,8 @@ footer .container {
       <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
     </div>
     <ul class="footer-links">
+      <li><a href="cases.html">Cases</a></li>
+      <li><a href="brand-guidelines.html">Brand Guidelines</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
       <li><a href="impressum.html">Impressum</a></li>
       <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -738,6 +814,51 @@ footer .container {
       menuToggle.classList.toggle('active');
     });
   }
+
+  // ---- THEME TOGGLE ----
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  }
+
+  // ---- FADE-IN ON SCROLL ----
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ---- LIGHTBOX ----
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('img[data-lightbox]').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+  });
 })();
 </script>
 

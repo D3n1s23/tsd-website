@@ -200,7 +200,7 @@ nav a:hover { color: var(--text-white); }
 .btn-outline:hover { border-color: var(--text-white); color: var(--text-white); }
 .btn svg { width: 15px; height: 15px; }
 
-.hero-visual { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+.hero-visual { display: flex; flex-direction: column; gap: 0.75rem; }
 a.hero-layer { text-decoration: none; color: inherit; }
 .hero-layer {
   background: color-mix(in srgb, var(--bg-card) 70%, transparent);
@@ -234,9 +234,6 @@ a.hero-layer { text-decoration: none; color: inherit; }
 @media (max-width: 900px) {
   .hero .container { grid-template-columns: 1fr; }
   .hero-visual { margin-top: 2.5rem; }
-}
-@media (max-width: 560px) {
-  .hero-visual { grid-template-columns: 1fr; }
 }
 
 /* ---- DIVIDER ---- */
@@ -1655,6 +1652,8 @@ header::after {
       <span class="footer-copy">© 2026 TSD Design GmbH – Alle Rechte vorbehalten.</span>
     </div>
     <ul class="footer-links">
+      <li><a href="cases.html">Cases</a></li>
+      <li><a href="brand-guidelines.html">Brand Guidelines</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
       <li><a href="impressum.html">Impressum</a></li>
       <li><a href="datenschutz.html">Datenschutz</a></li>
