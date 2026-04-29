@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variant A2: Punkt-Weltkarte — TSD Globe Tests</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo/tsd_logo_animated.svg" alt="TSD Design GmbH">
+    </a>
+    <span class="test-tag">Variante A2 · Punkt-Weltkarte</span>
+    <a href="index.html" class="back-link">← zurück zur Übersicht</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="globe-wrap" aria-hidden="true">
+    <svg id="globeSvg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-overline">KI-Kreativsystem für Ihr Unternehmen</div>
+      <h1>Kreativprozesse<br><em>systematisch</em> neu denken.</h1>
+      <p class="hero-sub">
+        Wir verbinden strategische Klarheit, KI-gestützte Prozesse und handwerkliches Design zu einem System, das Ihren Markenauftritt messbar stärkt – effizient, skalierbar und auf Ihre Unternehmensbedürfnisse zugeschnitten.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-light">
+          Erstgespräch vereinbaren
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="btn btn-outline">System kennenlernen</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-layer"><span class="layer-num">01</span><div class="layer-content"><h4>Strategie & Substanz</h4><p>Positionierung, Zielgruppe, Markenkern</p></div></div>
+      <div class="hero-layer"><span class="layer-num">02</span><div class="layer-content"><h4>KI-Content-Engine</h4><p>Workflows, Prompt-Systeme, Redaktionspläne</p></div></div>
+      <div class="hero-layer"><span class="layer-num">03</span><div class="layer-content"><h4>Design & Markenbild</h4><p>CI, Designsystem, Templates, Bildsprache</p></div></div>
+      <div class="hero-layer"><span class="layer-num">04</span><div class="layer-content"><h4>Distribution & Wirkung</h4><p>Kanäle, Kampagnen, Messung</p></div></div>
+    </div>
+  </div>
+</section>
+
+<script src="globe.js"></script>
+<script>
+  new DotGlobe(document.getElementById('globeSvg'), {
+    dots: 1100,
+    radius: 346,
+    cx: 400, cy: 400,
+    worldMap: true,
+    morph: true,
+  });
+</script>
+</body>
+</html>

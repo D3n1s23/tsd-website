@@ -239,9 +239,9 @@ nav a:hover { color: var(--text-white); }
 
 /* ---- CASES INTRO (Brand-Styleguide Section-Head pattern) ---- */
 .cases-intro {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: calc(72px + 2.5rem) 2rem 1.75rem;
+  padding: calc(72px + 2.5rem) clamp(1.5rem, 4vw, 3rem) 1.75rem;
 }
 .cases-intro .overline {
   font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
@@ -259,14 +259,14 @@ nav a:hover { color: var(--text-white); }
   font-weight: 300; max-width: 620px;
 }
 
-/* ---- CASES MAIN: 2-col YEAR GRID ---- */
+/* ---- CASES MAIN: single column, container-width (left edge aligned with header logo) ---- */
 .cases-main {
-  padding: 0 2rem 3rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3rem) 3rem;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 /* ---- SITE FOOTER ---- */
 footer {
@@ -372,6 +372,7 @@ footer .container {
   font-weight: 300;
   color: var(--text-light);
   margin: 0;
+  max-width: 75%;
 }
 
 /* ---- LIGHTBOX ---- */
@@ -503,7 +504,7 @@ header::after {
   <section class="cases-intro fade-in">
     <span class="overline">Kundengalerie</span>
     <h1>Eine Auswahl an Arbeiten.</h1>
-    <p>Strategie, Software, Design — entstanden in enger Zusammenarbeit mit Marken, die etwas zu sagen haben. Ein Querschnitt durch ausgewählte Projekte, chronologisch geordnet.</p>
+    <p>Ein Querschnitt durch ausgewählte Projekte ab 2006 bis heute.</p>
   </section>
   <main class="cases-main">
     <!-- 2026 -->
@@ -532,13 +533,6 @@ header::after {
           <div class="case-meta">2025 · FIBE Festival, Berlin</div>
           <div class="case-discipline">Headline-Animation, Kampagne</div>
           <p class="case-description">Headline-Animation-Kampagne für das FIBE Festival in Berlin: ein Auftritt, der Finance vom Podium holt – mit Leitsätzen wie „NOT YOUR TYPICAL FINANCE TALK" und „REWRITING THE RULES OF FINANCE". Maskottchen-Welt aus Unicorn & Popcorn, Plakat- und Social-Motive, animierte Out-of-Home-Reels – als Einladung an Gründer:innen, Investor:innen und neugierige Besucher.</p>
-        </article>
-        <article class="case" data-client="cms-berlin">
-          <img class="case-hero" src="cases/_figma/cms-messe-berlin.png" alt="CMS Berlin – Internationale Leitmesse für Reinigung und Hygiene" data-lightbox>
-          <h3 class="case-headline">CMS Berlin</h3>
-          <div class="case-meta">2025 · Messe Berlin GmbH</div>
-          <div class="case-discipline">Brand-Strategy, Art Direction</div>
-          <p class="case-description">Strategische Neupositionierung der internationalen Leitmesse für Reinigung und Hygiene: vom Branchen-Termin zur unverwechselbaren Marke. Visuelles System rund um den Claim „CLEAN AS CLEAN CAN BE" – Key Visuals, Social-Tiles, Web- und Out-of-Home-Anwendungen. Ergebnis: gesteigerte Sichtbarkeit, klarere Tonalität und ein konsistenter Auftritt über alle Kanäle.</p>
         </article>
         <article class="case" data-client="decathlon-marathon">
           <img class="case-hero" src="cases/_figma/decathlon-2025.png" alt="Decathlon × Haspa Marathon Hamburg" data-lightbox>

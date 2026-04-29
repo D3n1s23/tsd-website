@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globe Hero – Varianten-Vergleich</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+  body { padding: 7rem 0 5rem; }
+  .grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 1.75rem; transition: all 0.3s;
+  }
+  .card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+  .card .tag {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500;
+  }
+  .card h3 {
+    font-family: var(--font-serif); font-size: 1.5rem;
+    font-weight: 400; margin: 0.5rem 0 0.75rem;
+  }
+  .card p {
+    font-size: 0.9rem; color: var(--text-muted);
+    font-weight: 300; line-height: 1.7; margin-bottom: 1.25rem;
+  }
+  .card .btn { padding: 0.7rem 1.4rem; font-size: 0.85rem; }
+  .card.chosen { border-color: var(--accent); background: color-mix(in srgb, var(--bg-card) 85%, var(--accent) 15%); }
+  .card.chosen .tag::after {
+    content: '· AKTIV FÜR INDEX'; margin-left: 0.5rem;
+    color: var(--text-white); font-weight: 600;
+  }
+  h1 {
+    font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 400; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .lead {
+    font-size: 1rem; color: var(--text-muted); max-width: 640px;
+    line-height: 1.7; font-weight: 300;
+  }
+  ul.notes {
+    margin-top: 2.5rem; font-size: 0.85rem; color: var(--text-muted);
+    line-height: 1.7; max-width: 640px; padding-left: 1.2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <span class="test-tag">Hero-Background · Prototypen</span>
+  <h1 style="margin-top:1rem">Globe Hero – Varianten</h1>
+  <p class="lead">
+    A-Reihe: Globus mit synchronem Farbcycle (alle Punkte gleichzeitig). C-Reihe: Globus mit räumlichem Farbverlauf (Farben wandern versetzt durch die Punkte). Alle Varianten haben subtilen Pulse, dezente Tiefen-Gradient und die organische Morph-Animation, die regelmäßig zur perfekten Kugel zurückkehrt.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">A1 · Punkt-Globus, sync</span>
+      <h3>Punkt-Globus, synchroner Farbcycle</h3>
+      <p>Punkte gleichmäßig über die Sphäre verteilt (Fibonacci). Alle Punkte wechseln synchron durch die Logo-Farben.</p>
+      <a class="btn btn-light" href="variant-A1.html">Ansehen →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">A2 · Weltkarte, sync</span>
+      <h3>Punkt-Weltkarte, synchroner Farbcycle</h3>
+      <p>Punkte folgen Kontinent-Konturen. Alle Punkte wechseln synchron durch die Logo-Farben.</p>
+      <a class="btn btn-light" href="variant-A2.html">Ansehen →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">C1 · Punkt-Globus, räumlich</span>
+      <h3>Punkt-Globus, räumlicher Farbverlauf</h3>
+      <p>Wie A1, aber Farbwechsel rotiert räumlich durch die Sphäre — Farben wandern als sanfte Welle entlang der Längengrade.</p>
+      <a class="btn btn-light" href="variant-C1.html">Ansehen →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">C2 · Weltkarte, räumlich</span>
+      <h3>Punkt-Weltkarte, räumlicher Farbverlauf</h3>
+      <p>Wie A2, aber Farbwechsel als wandernde Welle entlang der Längengrade. Stärkster „lebendiger" Eindruck.</p>
+      <a class="btn btn-light" href="variant-C2.html">Ansehen →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">C1 · Hover A+B</span>
+      <h3>C1 + Wake-up + Parallax-Tilt</h3>
+      <p>C1 mit BG, 75 % Opacity, Theme-Toggle. Beim Hover: Opacity → 100 %, leichtes Hochskalieren, Globus neigt sich zum Cursor wie eine echte Kugel.</p>
+      <a class="btn btn-light" href="variant-C1-hover-AB.html">Ansehen →</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">C1 · Hover C (Lupe)</span>
+      <h3>C1 + Lokale Lupe</h3>
+      <p>C1 mit BG, 50 % Opacity, Theme-Toggle. Punkte unter dem Cursor werden größer und heller — Magnifier-Effekt.</p>
+      <a class="btn btn-light" href="variant-C1-hover-C.html">Ansehen →</a>
+    </div>
+
+    <div class="card chosen">
+      <span class="tag">C1 · Hover A+B+C</span>
+      <h3>C1 + Wake-up + Parallax + Lupe</h3>
+      <p>Alle drei Hover-Effekte zusammen: Opacity 50 → 100 %, Scale ×1.02, Globus neigt sich zum Cursor, und die Punkte unter dem Cursor werden zur Lupe.</p>
+      <a class="btn btn-light" href="variant-C1-hover-ABC.html">Ansehen →</a>
+    </div>
+  </div>
+
+  <ul class="notes">
+    <li>Rotation: ~80 s pro Y-Umdrehung, 5° Neigung links via CSS.</li>
+    <li>Tiefen-Effekt: Rückseiten-Punkte sind kleiner und gedimmt — keine echte Filter-Blur, performant.</li>
+    <li>Morph: kombinierte niederfrequente Sinuswellen pro Achse, gegated durch eine globale 21-s-Sphäre→Kugel-Welle. Maximale ±6 % Radiusvariation.</li>
+    <li>Pulse: ±15 % Opacity, jede Dot mit eigener zufälliger Phase.</li>
+    <li>Kontinent-Daten in A2/C2: handgepflegte Blob-Approximation. Falls eine Map-Variante gewinnt, später durch Bitmap-Maske ersetzen.</li>
+    <li><code>prefers-reduced-motion</code>: Animationen aus, statisches Bild.</li>
+  </ul>
+</div>
+
+</body>
+</html>
