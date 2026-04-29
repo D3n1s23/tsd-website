@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variant C1 + Hover A+B+C (Wake-up + Parallax + Lupe)</title>
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Basis: 50 % Opacity (übernommen aus C-Lupe). Hover A: → 100 %, leichter Scale */
+  .globe-wrap {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .hero:hover .globe-wrap {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-5deg) scale(1.02);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo/tsd_logo_animated.svg" alt="TSD Design GmbH">
+    </a>
+    <span class="test-tag">Variante C1 · Hover A+B+C</span>
+    <span style="display:flex;align-items:center;gap:0.5rem">
+      <a href="index.html" class="back-link">← Übersicht</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </span>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="hero-bg-extra" aria-hidden="true">
+    <object type="image/svg+xml" data="_extra-bg.svg" style="width:100%;height:100%;pointer-events:none"></object>
+  </div>
+  <div class="globe-wrap" aria-hidden="true">
+    <svg id="globeSvg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-overline">KI-Kreativsystem für Ihr Unternehmen</div>
+      <h1>Kreativprozesse<br><em>systematisch</em> neu denken.</h1>
+      <p class="hero-sub">
+        Wir verbinden strategische Klarheit, KI-gestützte Prozesse und handwerkliches Design zu einem System, das Ihren Markenauftritt messbar stärkt – effizient, skalierbar und auf Ihre Unternehmensbedürfnisse zugeschnitten.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-light">
+          Erstgespräch vereinbaren
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="btn btn-outline">System kennenlernen</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-layer"><span class="layer-num">01</span><div class="layer-content"><h4>Strategie & Substanz</h4><p>Positionierung, Zielgruppe, Markenkern</p></div></div>
+      <div class="hero-layer"><span class="layer-num">02</span><div class="layer-content"><h4>KI-Content-Engine</h4><p>Workflows, Prompt-Systeme, Redaktionspläne</p></div></div>
+      <div class="hero-layer"><span class="layer-num">03</span><div class="layer-content"><h4>Design & Markenbild</h4><p>CI, Designsystem, Templates, Bildsprache</p></div></div>
+      <div class="hero-layer"><span class="layer-num">04</span><div class="layer-content"><h4>Distribution & Wirkung</h4><p>Kanäle, Kampagnen, Messung</p></div></div>
+    </div>
+  </div>
+</section>
+
+<script src="globe.js"></script>
+<script>
+  const globe = new DotGlobe(document.getElementById('globeSvg'), {
+    dots: 1500, radius: 346, cx: 400, cy: 400,
+    worldMap: false, morph: true,
+    colorMode: 'spatial', cycleDuration: 32,
+  });
+  // Hover B + C: ein einziger mousemove-Listener füttert beide APIs
+  const hero = document.getElementById('hero');
+  const svg  = document.getElementById('globeSvg');
+  hero.addEventListener('mousemove', (e) => {
+    // B: Parallax-Tilt anhand normalisierter Position über dem gesamten Hero
+    const r = hero.getBoundingClientRect();
+    const nx = ((e.clientX - r.left) / r.width)  * 2 - 1;
+    const ny = ((e.clientY - r.top)  / r.height) * 2 - 1;
+    globe.setMouseTilt(nx, ny, 0.18);
+    // C: Cursor-Position in viewBox-Koordinaten für den Lupen-Effekt
+    const sr = svg.getBoundingClientRect();
+    const vx = ((e.clientX - sr.left) / sr.width)  * 800;
+    const vy = ((e.clientY - sr.top)  / sr.height) * 800;
+    globe.setCursor(vx, vy, 110);
+  });
+  hero.addEventListener('mouseleave', () => {
+    globe.clearMouseTilt();
+    globe.clearCursor();
+  });
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+</body>
+</html>

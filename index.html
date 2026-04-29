@@ -708,6 +708,26 @@ header::after {
   mix-blend-mode: screen;
 }
 .hero-bg-svg svg { width: 100%; height: 100%; }
+.hero { overflow: hidden; }
+.globe-wrap {
+  position: absolute; top: 50%; left: 50%;
+  width: min(90vh, 800px); height: min(90vh, 800px);
+  transform: translate3d(-50%, -50%, 0) rotate(-5deg);
+  z-index: 1; pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, opacity;
+  contain: layout paint;
+}
+.globe-wrap svg { width: 100%; height: 100%; display: block; }
+.hero:hover .globe-wrap {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) rotate(-5deg) scale(1.02);
+}
+html[data-theme="light"] .globe-wrap { filter: brightness(0.6) saturate(1.5) contrast(1.05); }
+@media (max-width: 900px) {
+  .globe-wrap { width: min(80vw, 500px); height: min(80vw, 500px); }
+}
 .hero .container { position: relative; z-index: 2; }
 
 /* Proof section quote decorative marks */
@@ -907,6 +927,9 @@ header::after {
         <animate attributeName="opacity" values="0.4;0" dur="14s" begin="4s" repeatCount="indefinite"/>
       </circle>
     </svg>
+  </div>
+  <div class="globe-wrap" aria-hidden="true">
+    <svg id="globeSvg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
   </div>
   <div class="container">
     <div class="hero-text">
@@ -1624,7 +1647,7 @@ header::after {
     <div class="ms-grid">
       <div class="ms-text fade-in">
         <span class="overline">Für Ihr Unternehmen gebaut</span>
-        <h2>Kein Agentur-Overhead. Systeme, die Ihr Team befähigen.</h2>
+        <h2>Systeme, die Ihre Teams befähigen.</h2>
         <p>Wir kennen die Realität wachsender Unternehmen: kleine Marketing-Teams, große Ambitionen, begrenztes Zeitbudget. Unser KI-Kreativsystem multipliziert die Kraft Ihres vorhandenen Teams.</p>
         <ul class="ms-checks">
           <li><span class="mark">→</span>Für Teams von 1–15 Personen im Marketing optimiert</li>
@@ -1738,6 +1761,41 @@ document.querySelectorAll('.hero-layer').forEach((card, i) => {
     card.style.transform = 'translateY(0)';
   }, 600 + i * 120);
 });
+</script>
+
+<script src="js/globe.js"></script>
+<script>
+  (function() {
+    var svgEl = document.getElementById('globeSvg');
+    if (!svgEl || typeof DotGlobe !== 'function') return;
+    var globe = new DotGlobe(svgEl, {
+      dots: 1500, radius: 346, cx: 400, cy: 400,
+      worldMap: false, morph: true,
+      colorMode: 'spatial', cycleDuration: 32,
+      rotationSpeed: 0.001225,
+    });
+    var hero = document.querySelector('.hero');
+    hero.addEventListener('mousemove', function(e) {
+      var hr = hero.getBoundingClientRect();
+      var nx = ((e.clientX - hr.left) / hr.width)  * 2 - 1;
+      var ny = ((e.clientY - hr.top)  / hr.height) * 2 - 1;
+      globe.setMouseTilt(nx, ny, 0.18);
+      var sr = svgEl.getBoundingClientRect();
+      var vx = ((e.clientX - sr.left) / sr.width)  * 800;
+      var vy = ((e.clientY - sr.top)  / sr.height) * 800;
+      globe.setCursor(vx, vy, 110);
+    });
+    hero.addEventListener('mouseleave', function() {
+      globe.clearMouseTilt();
+      globe.clearCursor();
+    });
+    // Pause render loop when hero is off-screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { globe.paused = !e.isIntersecting; });
+      }, { threshold: 0 }).observe(hero);
+    }
+  })();
 </script>
 </body>
 </html>
